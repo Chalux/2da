@@ -1,13 +1,8 @@
 ﻿using da.Objects;
 using Godot;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static Godot.TextServer;
 
-namespace da.Scripts.Objects
+namespace da.Scripts.Objects.PlayerScript
 {
     internal class FallState : BaseState
     {
@@ -25,9 +20,12 @@ namespace da.Scripts.Objects
 
         public override void PhysicsProcess(double delta, Player owner)
         {
-            Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+            PlayerStaticFunc.Move(owner, delta, owner.gravity);
+        }
 
-            PlayerStaticFunc.Move(owner, delta, ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle());
+        public override void AfterMove(double delta, Player owner)
+        {
+            Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
             if (owner.IsOnFloor())
             {
                 if (direction.Y > 0.5)

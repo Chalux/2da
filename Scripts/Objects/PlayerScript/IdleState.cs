@@ -1,7 +1,7 @@
 ﻿using da.Objects;
 using Godot;
 
-namespace da.Scripts.Objects
+namespace da.Scripts.Objects.PlayerScript
 {
     public class IdleState : BaseState
     {
@@ -16,6 +16,7 @@ namespace da.Scripts.Objects
             owner.ResetDashCount();
             owner.ResetJumpCount();
             owner.IsQuickDowned = false;
+            owner.HasWallJumped = false;
             owner.CoyoteTimer.Stop();
         }
 
@@ -41,7 +42,7 @@ namespace da.Scripts.Objects
             }
             else if (Input.IsActionPressed("attack"))
             {
-                owner.StateMachine.ChangeState(PlayerState.Attack);
+                owner.StateMachine.ChangeState(PlayerState.Attack1);
             }
             else if (owner.CheckCanDash && Input.IsActionPressed("dash"))
             {

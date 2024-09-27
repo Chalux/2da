@@ -1,16 +1,12 @@
 ﻿using da.Objects;
 using Godot;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace da.Scripts.Objects
+namespace da.Scripts.Objects.PlayerScript
 {
     public class BaseState
     {
         public PlayerState State;
+        public int CancelLevel = 0;
         public virtual void UnhandledInput(InputEvent @event, Player owner)
         {
 

@@ -1,38 +1,37 @@
 ﻿using da.Objects;
 using Godot;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Godot.TextServer;
 
-namespace da.Scripts.Objects
+namespace da.Scripts.Objects.PlayerScript
 {
-    internal class JumpState : BaseState
+    internal class WallJumpState : BaseState
     {
-        public JumpState()
-        {
-            State = PlayerState.Jump;
-        }
         private Player _owner;
+        private SceneTreeTimer timer;
+        public WallJumpState()
+        {
+            State = PlayerState.WallJump;
+        }
 
         public override void Enter(Player owner)
         {
             _owner = owner;
             owner.CharactorAnimPlayer.Play("jump");
-            owner.JumpCount -= 1;
-            owner.Velocity = new Vector2(owner.Velocity.X, Player.JumpVelocity);
+            owner.Direction = (int)owner.GetWallNormal().X;
+            owner.Velocity = new(owner.WallJumpVelocity.X * owner.GetWallNormal().X, owner.WallJumpVelocity.Y);
             owner.MoveAndSlide();
             owner.CharactorAnimPlayer.AnimationFinished += ChangeToFall;
             owner.JumpTimer.Start();
             owner.JumpRequestTimer.Stop();
             owner.HasReleasedCrouchKey = !Input.IsActionPressed("ui_down");
+            owner.HasReleasedJumpKey = !Input.IsActionPressed("ui_accept");
+            owner.HasWallJumped = true;
+            timer = owner.GetTree().CreateTimer(0.1f);
+            //Engine.TimeScale = 0.2f;
         }
 
         public override void PhysicsProcess(double delta, Player owner)
         {
-            PlayerStaticFunc.Move(owner, delta, ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle());
+            if (timer == null || timer.TimeLeft == 0) PlayerStaticFunc.Move(owner, delta, owner.gravity);
         }
 
         public override void AfterMove(double delta, Player owner)
@@ -63,12 +62,11 @@ namespace da.Scripts.Objects
                 {
                     owner.StateMachine.ChangeState(PlayerState.QuickDown);
                 }
-                else if (Input.IsActionPressed("ui_accept"))
+                else if (Input.IsActionPressed("ui_accept") && owner.HasReleasedJumpKey)
                 {
-                    if (owner.CheckCanJump && owner.HasReleasedJumpKey)
+                    if (owner.CheckCanJump)
                     {
-                        owner.CharactorAnimPlayer.AnimationFinished -= ChangeToFall;
-                        Enter(owner);
+                        owner.StateMachine.ChangeState(PlayerState.Jump);
                     }
                 }
             }
@@ -82,6 +80,9 @@ namespace da.Scripts.Objects
         public override void Exit(Player owner)
         {
             _owner.CharactorAnimPlayer.AnimationFinished -= ChangeToFall;
+            timer?.Dispose();
+            timer = null;
+            //Engine.TimeScale = 1.0f;
         }
     }
 }

@@ -27,6 +27,10 @@ window/stretch/mode="canvas_items"
 
 project/assembly_name="2da"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/com.timothyqiu.animation-resetter/plugin.cfg")
+
 [input]
 
 ui_left={
@@ -75,9 +79,11 @@ attack={
 
 [layer_names]
 
-2d_physics/layer_1="Player"
-2d_physics/layer_2="Enemy"
-2d_physics/layer_3="Object"
+2d_physics/layer_1="Environment"
+2d_physics/layer_2="Player"
+2d_physics/layer_3="Enemy"
+2d_physics/layer_4="PlayerHurtBox"
+2d_physics/layer_5="EnemyHurtBox"
 
 [rendering]
 

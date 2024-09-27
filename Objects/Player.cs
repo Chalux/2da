@@ -1,7 +1,7 @@
+using da.Scripts;
 using da.Scripts.Objects;
+using da.Scripts.Objects.PlayerScript;
 using Godot;
-using System;
-using static Godot.TextServer;
 
 namespace da.Objects
 {
@@ -20,33 +20,43 @@ namespace da.Objects
         [Export] public Timer CoyoteTimer;
         [Export] public Timer JumpTimer;
         [Export] public Timer JumpRequestTimer;
+        [Export] public Timer AttackRequestTimer;
+        [Export] public Timer WhosYourDaddy;
         [Export] public GpuParticles2D DashParticles;
         [Export] public AnimationTree AnimTree;
         [Export] public RayCast2D HandRay;
         [Export] public RayCast2D FootRay;
+        [Export] public HitBox HitBox;
+        [Export] public HurtBox HurtBox;
         [Export] public const float Speed = 160;
         [Export] public const float JumpVelocity = -400;
-        public const float FloorAcceleration = Speed / 0.1f;
-        public const float AirAcceleration = Speed / 0.05f;
+        [Export] public const float FloorAcceleration = Speed / 0.2f;
+        [Export] public const float AirAcceleration = Speed / 0.1f;
+        [Export] public Vector2 WallJumpVelocity = new(240, JumpVelocity);
+        [Export] public bool CanCancelAttack = false;
+        [Export] public bool CanHurtMove = false;
         public int CanDashCount = 2;
         public int DashCount = 0;
         public int CanJumpCount = 2;
         public int JumpCount = 0;
         public float DashSpeed = 500f;
         private int _direction = 1;
+        public bool HasWallJumped = false;
+        [Export] public Status status;
         public int Direction
         {
             get => _direction; set
             {
                 _direction = value;
                 Graphics.Scale = new(value < 0 ? -1 : 1, 1);
-                AttackCollision.Scale = new Vector2(value > 0 ? 1 : -1, 1);
+                //AttackCollision.Scale = new Vector2(value > 0 ? 1 : -1, 1);
             }
         }
         public bool IsQuickDowned = false;
         public bool HasReleasedJumpKey = true;
         public bool HasReleasedCrouchKey = true;
         [Export] public PlayerStateMachine StateMachine;
+        public BaseState NextAttackState;
 
         // Get the gravity from the project settings to be synced with RigidBody nodes.
         public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
@@ -82,13 +92,30 @@ namespace da.Objects
             StateMachine.ChangeState(PlayerState.Idle);
             GhostTimer.Timeout += AddGhost;
             DashTimer.Timeout += EndDash;
-            DashCoolDownTimer.Timeout += () =>
-            {
-                GD.Print("Dash is already cooldown");
-            };
+            //DashCoolDownTimer.Timeout += () =>
+            //{
+            //    GD.Print("Dash is already cooldown");
+            //};
             CoyoteTimer.Timeout += () =>
             {
                 if (!IsOnFloor()) StateMachine.ChangeState(PlayerState.Fall);
+            };
+            HurtBox.onHurt += (Damage damage) =>
+            {
+                status.Health -= damage.value;
+                if (status.Health > 0)
+                {
+                    StateMachine.ChangeState(PlayerState.Hurt);
+                }
+                else
+                {
+                    StateMachine.ChangeState(PlayerState.Death);
+                }
+                Direction = (damage.source.Owner as Enemy).Position.X >= Position.X ? 1 : -1;
+            };
+            WhosYourDaddy.Timeout += () =>
+            {
+                HurtBox.Visible = true;
             };
         }
 
@@ -99,12 +126,12 @@ namespace da.Objects
             {
                 return false;
             }
-            if (StateMachine.currState.State == PlayerState.Attack)
+            if (StateMachine.currState.State == PlayerState.Attack1)
             {
                 StateMachine.ChangeState(PlayerState.Idle);
             }
             DashCount--;
-            GD.Print("DashTimer run");
+            //GD.Print("DashTimer run");
             DashTimer.Start();
             GhostTimer.Start();
             DashParticles.Emitting = true;
@@ -116,6 +143,7 @@ namespace da.Objects
         {
             if (!CheckCanJump)
             {
+                //GD.Print("Can't jump");
                 return;
             }
             StateMachine.ChangeState(PlayerState.Jump);
@@ -125,7 +153,7 @@ namespace da.Objects
         {
             GhostTimer.Stop();
             DashTimer.Stop();
-            GD.Print("DashTimer stop");
+            //GD.Print("DashTimer stop");
             if (DashCount > 0) DashCoolDownTimer.WaitTime = 0.2f;
             else DashCoolDownTimer.WaitTime = 1f;
             DashCoolDownTimer.Start();
@@ -152,6 +180,10 @@ namespace da.Objects
             {
                 JumpRequestTimer.Start();
                 if (IsOnFloor()) HasReleasedJumpKey = false;
+            }
+            if (@event.IsActionPressed("attack"))
+            {
+                AttackRequestTimer.Start();
             }
             if (@event.IsActionReleased("ui_accept"))
             {

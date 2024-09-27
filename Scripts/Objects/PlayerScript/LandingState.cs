@@ -1,12 +1,7 @@
 ﻿using da.Objects;
 using Godot;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace da.Scripts.Objects
+namespace da.Scripts.Objects.PlayerScript
 {
     internal class LandingState : BaseState
     {
@@ -24,6 +19,7 @@ namespace da.Scripts.Objects
             owner.ResetDashCount();
             owner.ResetJumpCount();
             owner.IsQuickDowned = false;
+            owner.HasWallJumped = false;
             owner.CoyoteTimer.Stop();
         }
 

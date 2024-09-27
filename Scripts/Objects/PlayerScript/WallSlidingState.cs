@@ -1,12 +1,7 @@
 ﻿using da.Objects;
 using Godot;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace da.Scripts.Objects
+namespace da.Scripts.Objects.PlayerScript
 {
     internal class WallSlidingState : BaseState
     {
@@ -23,8 +18,7 @@ namespace da.Scripts.Objects
 
         public override void PhysicsProcess(double delta, Player owner)
         {
-            var gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
-            PlayerStaticFunc.Move(owner, delta, gravity / 3);
+            PlayerStaticFunc.Move(owner, delta, owner.gravity / 3);
             if (owner.IsOnFloor())
             {
                 owner.StateMachine.ChangeState(PlayerState.Idle);
@@ -35,7 +29,7 @@ namespace da.Scripts.Objects
             }
             else if (!owner.JumpRequestTimer.IsStopped())
             {
-                owner.TryJump();
+                owner.StateMachine.ChangeState(PlayerState.WallJump);
             }
         }
     }

@@ -1,13 +1,8 @@
 ﻿using da.Objects;
 using Godot;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Godot.TextServer;
 
-namespace da.Scripts.Objects
+namespace da.Scripts.Objects.PlayerScript
 {
     internal class WalkState : BaseState
     {
@@ -21,6 +16,7 @@ namespace da.Scripts.Objects
             owner.ResetDashCount();
             owner.ResetJumpCount();
             owner.IsQuickDowned = false;
+            owner.HasWallJumped = false;
             owner.CoyoteTimer.Stop();
         }
 
@@ -36,7 +32,14 @@ namespace da.Scripts.Objects
             {
                 if (direction.Y > 0.5)
                 {
-                    owner.StateMachine.ChangeState(PlayerState.Crouch);
+                    if (Player.Speed / 2 > Math.Abs(owner.Velocity.X))
+                    {
+                        owner.StateMachine.ChangeState(PlayerState.Crouch);
+                    }
+                    else
+                    {
+                        owner.StateMachine.ChangeState(PlayerState.Slide);
+                    }
                 }
                 else if (!owner.JumpRequestTimer.IsStopped())
                 {
@@ -48,7 +51,7 @@ namespace da.Scripts.Objects
                 }
                 else if (Input.IsActionJustPressed("attack"))
                 {
-                    owner.StateMachine.ChangeState(PlayerState.Attack);
+                    owner.StateMachine.ChangeState(PlayerState.Attack1);
                 }
             }
             else

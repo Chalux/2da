@@ -1,5 +1,5 @@
+using da.Objects;
 using Godot;
-using System;
 
 namespace da.Scenes
 {
@@ -7,16 +7,17 @@ namespace da.Scenes
     {
         [Export] Camera2D camera;
         [Export] TileMap map;
+        [Export] public Player player;
 
         public override void _Ready()
         {
-            var UsedRect = map.GetUsedRect().Grow(-1);
-            var TileSize = map.TileSet.TileSize;
+            //var UsedRect = map.GetUsedRect().Grow(-1);
+            //var TileSize = map.TileSet.TileSize;
 
-            camera.LimitTop = UsedRect.Position.Y * TileSize.Y;
-            camera.LimitBottom = UsedRect.End.Y * TileSize.Y;
-            camera.LimitLeft = UsedRect.Position.X * TileSize.X;
-            camera.LimitRight = UsedRect.End.X * TileSize.X;
+            //camera.LimitTop = UsedRect.Position.Y * TileSize.Y;
+            //camera.LimitBottom = UsedRect.End.Y * TileSize.Y;
+            //camera.LimitLeft = UsedRect.Position.X * TileSize.X;
+            //camera.LimitRight = UsedRect.End.X * TileSize.X;
             camera.ResetSmoothing();
         }
     }

@@ -2,7 +2,7 @@ using da.Objects;
 using Godot;
 using System.Collections.Generic;
 
-namespace da.Scripts.Objects
+namespace da.Scripts.Objects.PlayerScript
 {
     public enum PlayerState : int
     {
@@ -12,11 +12,17 @@ namespace da.Scripts.Objects
         Crouch,
         Walk,
         Fall,
-        Attack,
+        Attack1,
+        Attack2,
+        Attack3,
+        Hurt,
         Death,
         QuickDown,
         WallSliding,
         Landing,
+        WallJump,
+        Slide,
+        Sliding,
     }
     public partial class PlayerStateMachine : Node
     {
@@ -31,11 +37,17 @@ namespace da.Scripts.Objects
             { PlayerState.Crouch, new CrouchState() },
             { PlayerState.Walk, new WalkState() },
             { PlayerState.Fall, new FallState() },
-            { PlayerState.Attack, new AttackState() },
+            { PlayerState.Attack1, new Attack1State() },
+            { PlayerState.Attack2, new Attack2State() },
+            { PlayerState.Attack3, new Attack3State() },
             { PlayerState.Death, new DeathState() },
             { PlayerState.QuickDown, new QuickDownState() },
             { PlayerState.WallSliding, new WallSlidingState() },
             { PlayerState.Landing, new LandingState() },
+            { PlayerState.WallJump, new WallJumpState() },
+            { PlayerState.Hurt, new HurtState() },
+            { PlayerState.Slide, new SlideState() },
+            { PlayerState.Sliding, new SlidingState() },
         };
 
         public void ChangeState(PlayerState newState)

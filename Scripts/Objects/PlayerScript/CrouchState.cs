@@ -1,12 +1,7 @@
 ﻿using da.Objects;
 using Godot;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace da.Scripts.Objects
+namespace da.Scripts.Objects.PlayerScript
 {
     internal class CrouchState : BaseState
     {
@@ -23,13 +18,18 @@ namespace da.Scripts.Objects
             player.ResetDashCount();
             player.ResetJumpCount();
             player.IsQuickDowned = false;
+            player.HasWallJumped = false;
             player.CoyoteTimer.Stop();
         }
 
         public override void PhysicsProcess(double delta, Player owner)
         {
+            if (!owner.IsOnFloor())
+            {
+                owner.StateMachine.ChangeState(PlayerState.Fall);
+            }
             owner.Velocity = new(0, 0);
-            if (!owner.JumpRequestTimer.IsStopped() && owner.IsOnFloor())
+            if (!owner.JumpRequestTimer.IsStopped())
             {
                 owner.StateMachine.ChangeState(PlayerState.Jump);
             }
@@ -38,9 +38,9 @@ namespace da.Scripts.Objects
             {
                 owner.StateMachine.ChangeState(PlayerState.Idle);
             }
-            else if (!owner.IsOnFloor())
+            else if (!owner.AttackRequestTimer.IsStopped())
             {
-                owner.StateMachine.ChangeState(PlayerState.Fall);
+                owner.StateMachine.ChangeState(PlayerState.Attack1);
             }
         }
 

@@ -5,29 +5,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Godot.TextServer;
 
-namespace da.Scripts.Objects
+namespace da.Scripts.Objects.PlayerScript
 {
-    internal class AttackState : BaseState
+    internal class Attack3State : BaseState
     {
-        public AttackState()
+        public Attack3State()
         {
-            State = PlayerState.Attack;
+            State = PlayerState.Attack3;
+            CancelLevel = 3;
         }
         private Player _onwer;
 
         public override void Enter(Player player)
         {
             _onwer = player;
-            player.CharactorAnimPlayer.Play("attack");
+            player.CharactorAnimPlayer.Play("attack_3");
             player.Velocity = Vector2.Zero;
             player.CharactorAnimPlayer.AnimationFinished += ChangeToIdle;
+            Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+            if (direction.X != 0)
+            {
+                player.Direction = direction.X > 0 ? 1 : -1;
+            }
         }
 
         public override void PhysicsProcess(double delta, Player owner)
         {
-            Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
             if (!owner.IsOnFloor())
             {
                 owner.StateMachine.ChangeState(PlayerState.Fall);
@@ -44,6 +48,7 @@ namespace da.Scripts.Objects
             _onwer.CharactorAnimPlayer.AnimationFinished -= ChangeToIdle;
             owner.CharactorAnimPlayer.Stop();
             owner.AttackCollision.Polygon = Array.Empty<Vector2>();
+            owner.NextAttackState = null;
         }
     }
 }
