@@ -12,6 +12,10 @@ public partial class Enemy : CharacterBody2D
     [Export] public HitBox HitBox;
     [Export] public Status status;
     [Export] public Sprite2D sprite;
+    [Export] public TextureProgressBar healBar;
+    [Export] public Timer HealthBarTimer;
+    public bool ShowHealthBar = true;
+    private Tween tween;
 
     public int mirror = 1;
     private int _direction = 1;
@@ -45,5 +49,41 @@ public partial class Enemy : CharacterBody2D
     public override void _UnhandledInput(InputEvent @event)
     {
         StateMachine.UnhandledInput(@event);
+    }
+
+    public override void _Ready()
+    {
+        HealthBarTimer.Timeout += OnHealBarTimerout;
+        healBar.MinValue = 0;
+        healBar.MaxValue = status.MaxHealth;
+        healBar.Value = status.Health;
+        status.OnHealthChanged += EnemyHealthChanged;
+        status.OnMaxHealthChanged += EnemyMaxHealthChanged;
+        AddToGroup("enemies");
+    }
+
+    private void OnHealBarTimerout()
+    {
+        tween = CreateTween();
+        tween.TweenProperty(healBar, "modulate", new Color(healBar.Modulate, 0), 1f);
+    }
+
+    private void EnemyHealthChanged(double newhealth, double oldhealth)
+    {
+        if (ShowHealthBar)
+        {
+            healBar.Value = newhealth;
+            if (tween != null && tween.IsRunning())
+            {
+                tween.Stop();
+            }
+            healBar.Modulate = new(healBar.Modulate, 1);
+            HealthBarTimer.Start();
+        }
+    }
+
+    private void EnemyMaxHealthChanged(double maxhealth)
+    {
+        healBar.MaxValue = maxhealth;
     }
 }

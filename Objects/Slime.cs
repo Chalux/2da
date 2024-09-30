@@ -2,7 +2,6 @@
 using da.Scripts.Objects;
 using da.Scripts.Objects.EnemyScript.SlimeScript;
 using Godot;
-using System;
 
 namespace da.Objects
 {
@@ -19,6 +18,7 @@ namespace da.Objects
 
         public override void _Ready()
         {
+            base._Ready();
             StateMachine.AddState("idle", new SlimeIdleState());
             StateMachine.AddState("move", new SlimeMoveState());
             StateMachine.AddState("attack", new SlimeAttackState());
@@ -27,7 +27,7 @@ namespace da.Objects
             StateMachine.AddState("hurt", new SlimeHurtState());
             StateMachine.AddState("death", new SlimeDeathState());
             StateMachine.ChangeState("idle");
-            
+
             mirror = -1;
             Direction = -1;
             HurtBox.onHurt += SlimeHurt;

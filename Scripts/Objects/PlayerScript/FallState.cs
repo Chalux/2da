@@ -1,6 +1,5 @@
 ﻿using da.Objects;
 using Godot;
-using static Godot.TextServer;
 
 namespace da.Scripts.Objects.PlayerScript
 {

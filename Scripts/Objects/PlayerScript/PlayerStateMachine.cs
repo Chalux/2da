@@ -27,6 +27,7 @@ namespace da.Scripts.Objects.PlayerScript
     public partial class PlayerStateMachine : Node
     {
         public BaseState currState;
+        public PlayerState oldStateEnum;
         [Signal]
         public delegate void OnStateChangeEventHandler(PlayerState oldState, PlayerState newState);
 
@@ -54,12 +55,16 @@ namespace da.Scripts.Objects.PlayerScript
         {
             if (stateDict.ContainsKey(newState) == false) return;
             if (currState != null && currState.State == newState) return;
-            var oldState = currState?.State ?? PlayerState.Idle;
+            oldStateEnum = currState?.State ?? PlayerState.Idle;
+            if ((oldStateEnum != PlayerState.Jump || oldStateEnum != PlayerState.WallJump) && newState == PlayerState.Fall)
+            {
+                (Owner as Player).JumpCount -= 1;
+            }
             currState?.Exit(Owner as Player);
             currState = stateDict[newState];
             currState?.Enter(Owner as Player);
-            GD.Print($"Change State from {oldState} to {newState}");
-            EmitSignal(SignalName.OnStateChange, Variant.From((int)oldState), Variant.From((int)newState));
+            GD.Print($"Change State from {oldStateEnum} to {newState}");
+            EmitSignal(SignalName.OnStateChange, Variant.From((int)oldStateEnum), Variant.From((int)newState));
         }
 
         public void UnhandledInput(InputEvent @event)

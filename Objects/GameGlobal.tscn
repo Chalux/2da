@@ -1,0 +1,87 @@
+[gd_scene load_steps=11 format=3 uid="uid://37b57r4s1d6l"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/GameGlobal.cs" id="1_7170a"]
+[ext_resource type="Script" path="res://Scenes/UIControl.cs" id="2_tkeyv"]
+[ext_resource type="Texture2D" uid="uid://ds1ag1dyvrytk" path="res://Resources/Assets/Charactor_blue/char_blue_1.png" id="3_7yswp"]
+[ext_resource type="Texture2D" uid="uid://ctuqduaondlps" path="res://Resources/Assets/Pixel UI pack 3/02.png" id="4_hwlfq"]
+[ext_resource type="Texture2D" uid="uid://dgpxclmviwt4o" path="res://Resources/Assets/Pixel UI pack 3/06.png" id="5_g867i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_404n3"]
+atlas = ExtResource("3_7yswp")
+region = Rect2(22, 24, 11, 11)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bwcjm"]
+atlas = ExtResource("4_hwlfq")
+region = Rect2(32, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ysh0d"]
+atlas = ExtResource("5_g867i")
+region = Rect2(195, 21, 42, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wtxv4"]
+atlas = SubResource("AtlasTexture_ysh0d")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iidp6"]
+atlas = ExtResource("5_g867i")
+region = Rect2(3, 21, 42, 7)
+
+[node name="GameGlobal" type="Node" node_paths=PackedStringArray("UIControl", "healthBar", "BlackMask")]
+script = ExtResource("1_7170a")
+UIControl = NodePath("UIControl")
+healthBar = NodePath("UIControl/HealthBar")
+BlackMask = NodePath("UIControl/ColorRect")
+
+[node name="UIControl" type="CanvasLayer" parent="." node_paths=PackedStringArray("HeadControl", "HealthBar", "MsgContainer")]
+layer = 99
+script = ExtResource("2_tkeyv")
+HeadControl = NodePath("HeadControl")
+HealthBar = NodePath("HealthBar")
+MsgContainer = NodePath("MsgContainer")
+
+[node name="HeadControl" type="Control" parent="UIControl"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 32.0
+offset_bottom = 32.0
+
+[node name="TextureRect" type="TextureRect" parent="UIControl/HeadControl"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 24.0
+offset_bottom = 24.0
+texture = SubResource("AtlasTexture_404n3")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UIControl/HeadControl"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 24.0
+offset_bottom = 25.0
+texture = SubResource("AtlasTexture_bwcjm")
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+
+[node name="HealthBar" type="TextureProgressBar" parent="UIControl"]
+offset_left = 32.0
+offset_top = 13.0
+offset_right = 74.0
+offset_bottom = 20.0
+texture_under = SubResource("AtlasTexture_wtxv4")
+texture_progress = SubResource("AtlasTexture_iidp6")
+
+[node name="MsgContainer" type="VBoxContainer" parent="UIControl"]
+offset_left = 8.0
+offset_top = 32.0
+offset_right = 112.0
+offset_bottom = 72.0
+
+[node name="ColorRect" type="ColorRect" parent="UIControl"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)

@@ -12,19 +12,27 @@ namespace da.Scripts.Objects.PlayerScript
         }
         public override void Enter(Player owner)
         {
-            if (!owner.TryDash() && !owner.DashTimer.IsStopped())
+            if (!owner.DashTimer.IsStopped() || !owner.TryDash())
             {
                 owner.EndDash();
             }
             else
             {
-                if (Input.IsActionPressed("ui_left"))
+                if (owner.StateMachine.oldStateEnum == PlayerState.WallSliding)
                 {
-                    owner.Direction = -1;
+                    owner.CharactorAnimPlayer.Play("fall");
+                    owner.Direction = (int)owner.GetWallNormal().X;
                 }
-                else if (Input.IsActionPressed("ui_right"))
+                else
                 {
-                    owner.Direction = 1;
+                    if (Input.IsActionPressed("ui_left"))
+                    {
+                        owner.Direction = -1;
+                    }
+                    else if (Input.IsActionPressed("ui_right"))
+                    {
+                        owner.Direction = 1;
+                    }
                 }
                 oldVelocityY = owner.Velocity.Y;
                 owner.JumpRequestTimer.Stop();
@@ -38,6 +46,11 @@ namespace da.Scripts.Objects.PlayerScript
             {
                 owner.StateMachine.ChangeState(PlayerState.QuickDown);
             }
+        }
+
+        public override void Exit(Player owner)
+        {
+            owner.Velocity = new(owner.Velocity.X, oldVelocityY);
         }
     }
 }

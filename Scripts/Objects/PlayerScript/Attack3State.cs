@@ -1,10 +1,6 @@
 ﻿using da.Objects;
 using Godot;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace da.Scripts.Objects.PlayerScript
 {
@@ -46,7 +42,7 @@ namespace da.Scripts.Objects.PlayerScript
         public override void Exit(Player owner)
         {
             _onwer.CharactorAnimPlayer.AnimationFinished -= ChangeToIdle;
-            owner.CharactorAnimPlayer.Stop();
+            owner.CharactorAnimPlayer.CallDeferred("stop");
             owner.AttackCollision.Polygon = Array.Empty<Vector2>();
             owner.NextAttackState = null;
         }

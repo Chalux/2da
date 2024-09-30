@@ -54,7 +54,7 @@ namespace da.Scripts.Objects.PlayerScript
         public override void Exit(Player owner)
         {
             _onwer.CharactorAnimPlayer.AnimationFinished -= ChangeToIdle;
-            owner.CharactorAnimPlayer.Stop();
+            //owner.CharactorAnimPlayer.Stop();
             owner.AttackCollision.Polygon = Array.Empty<Vector2>();
         }
     }

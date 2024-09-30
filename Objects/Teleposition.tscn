@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://ckynmnjvmk41r"]
+
+[node name="Teleposition" type="Marker2D" groups=["Telepositions"]]
+gizmo_extents = 100.0

@@ -1,12 +1,16 @@
 using da.Scripts;
+using da.Scripts.Interfaces;
 using da.Scripts.Objects;
 using da.Scripts.Objects.PlayerScript;
 using Godot;
+using System.Collections.Generic;
 
 namespace da.Objects
 {
-    public partial class Player : CharacterBody2D
+    public partial class Player : CharacterBody2D, IEvent
     {
+        public const int RIGHTPOSITION = 1;
+        public const int LEFTPOSITION = -1;
         //[Export] public Sprite2D CharactorSprite;
         [Export] public Node2D Graphics;
         private Sprite2D CharactorSprite;
@@ -35,7 +39,7 @@ namespace da.Objects
         [Export] public Vector2 WallJumpVelocity = new(240, JumpVelocity);
         [Export] public bool CanCancelAttack = false;
         [Export] public bool CanHurtMove = false;
-        public int CanDashCount = 2;
+        public int CanDashCount = 1;
         public int DashCount = 0;
         public int CanJumpCount = 2;
         public int JumpCount = 0;
@@ -57,6 +61,8 @@ namespace da.Objects
         public bool HasReleasedCrouchKey = true;
         [Export] public PlayerStateMachine StateMachine;
         public BaseState NextAttackState;
+        public List<IInteractale> NowInteraction = new();
+        [Export] public AnimatedSprite2D InteractableAnim;
 
         // Get the gravity from the project settings to be synced with RigidBody nodes.
         public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
@@ -115,11 +121,14 @@ namespace da.Objects
             };
             WhosYourDaddy.Timeout += () =>
             {
-                HurtBox.Visible = true;
+                //HurtBox.Visible = true;
+                HurtBox.SetDeferred("monitorable", true);
             };
+            EventMgr.RegisterEvent(this);
+            EventMgr.DispatchEvent("PlayerReady", this);
         }
 
-        public bool CheckCanDash => DashCount > 0 && DashTimer.IsStopped() && DashCoolDownTimer.IsStopped();
+        public bool CheckCanDash => (DashCount > 0 || StateMachine.currState.State == PlayerState.WallSliding) && DashTimer.IsStopped() && DashCoolDownTimer.IsStopped();
         public bool TryDash()
         {
             if (!CheckCanDash)
@@ -130,12 +139,16 @@ namespace da.Objects
             {
                 StateMachine.ChangeState(PlayerState.Idle);
             }
-            DashCount--;
-            //GD.Print("DashTimer run");
+            if (StateMachine.oldStateEnum != PlayerState.WallSliding) DashCount--;
+            Dash();
+            return true;
+        }
+
+        public void Dash()
+        {
             DashTimer.Start();
             GhostTimer.Start();
             DashParticles.Emitting = true;
-            return true;
         }
 
         public bool CheckCanJump => JumpCount > 0 && JumpTimer.IsStopped();
@@ -167,6 +180,11 @@ namespace da.Objects
             {
                 if (direction.Y > 0.5) StateMachine.ChangeState(PlayerState.Crouch);
                 else StateMachine.ChangeState(PlayerState.Idle);
+            }
+            else if (IsOnWall())
+            {
+                StateMachine.ChangeState(PlayerState.WallSliding);
+                Velocity = new(0, Velocity.Y);
             }
             else
             {
@@ -201,7 +219,18 @@ namespace da.Objects
             {
                 StateMachine.ChangeState(PlayerState.Dash);
             }
+            if (Input.IsActionJustPressed("interact"))
+            {
+                if (NowInteraction.Count > 0) NowInteraction[0]?.Interact();
+            }
             StateMachine.UnhandledInput(@event);
+            if (OS.IsDebugBuild())
+            {
+                if (Input.IsKeyPressed(Key.P) && Input.IsKeyPressed(Key.Alt))
+                {
+                    StateMachine.ChangeState(PlayerState.Death);
+                }
+            }
         }
 
         public void ResetDashCount(int times = 0)
@@ -212,6 +241,39 @@ namespace da.Objects
         public void ResetJumpCount(int times = 0)
         {
             JumpCount = times > 0 ? times : CanJumpCount;
+        }
+
+        public void ReceiveEvent(string eventName, params object[] datas)
+        {
+        }
+
+        public void Respawn()
+        {
+            status.Health = status.MaxHealth;
+            StateMachine.ChangeState(PlayerState.Idle);
+            WhosYourDaddy.Start();
+            CollisionLayer = 0;
+            SetCollisionLayerValue(2, true);
+            HitBox.SetDeferred("monitoring", true);
+            HurtBox.SetDeferred("monitorable", true);
+        }
+
+        public Godot.Collections.Dictionary<string, Variant> ToDict()
+        {
+            return new Godot.Collections.Dictionary<string, Variant>()
+            {
+                { "direction", Direction },
+                { "status", status.ToDict() },
+                { "positionX", GlobalPosition.X },
+                { "positionY", GlobalPosition.Y }
+            };
+        }
+
+        public void FromDict(Godot.Collections.Dictionary<string, Variant> dict)
+        {
+            Direction = (int)dict["direction"];
+            status.FromDict(dict["status"].AsGodotDictionary<string, Variant>());
+            GlobalPosition = new Vector2((float)dict["positionX"], (float)dict["positionY"]);
         }
     }
 }

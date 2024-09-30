@@ -46,8 +46,8 @@ namespace da.Scripts.Objects.PlayerScript
 
         public override void Exit(Player owner)
         {
-            owner.Collision.Shape = new RectangleShape2D() { Size = new(20, 27) };
-            owner.Collision.Position = new Vector2(0, -13.5f);
+            owner.Collision.SetDeferred("shape", new RectangleShape2D() { Size = new(20, 27) });
+            owner.Collision.SetDeferred("position", new Vector2(0, -13.5f));
         }
     }
 }

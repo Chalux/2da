@@ -1,28 +1,58 @@
 ﻿using Godot;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace da.Scripts
 {
     public partial class Status : Node
     {
-        [Export] public int maxHealth = 3;
-        public int _health;
-        public int Health
+        [Signal]
+        public delegate void OnHealthChangedEventHandler(double newhealth, double oldhealth);
+        public double _maxHealth;
+        [Signal]
+        public delegate void OnMaxHealthChangedEventHandler(double maxhealth);
+        public double MaxHealth
+        {
+            get => _maxHealth;
+            set
+            {
+                _maxHealth = value;
+                EmitSignal(SignalName.OnMaxHealthChanged, value);
+            }
+        }
+        public double _health;
+        public double Health
         {
             get => _health;
             set
             {
-                _health = Math.Clamp(value, 0, maxHealth);
+                var oldvalue = _health;
+                _health = Math.Clamp(value, 0, MaxHealth);
+                if (oldvalue != _health)
+                {
+                    EmitSignal(SignalName.OnHealthChanged, value, oldvalue);
+                }
             }
         }
 
         public override void _Ready()
         {
-            Health = maxHealth;
+            MaxHealth = 5;
+            Health = MaxHealth;
+        }
+
+        public Godot.Collections.Dictionary<string, Variant> ToDict()
+        {
+            return new Godot.Collections.Dictionary<string, Variant>()
+            {
+                { "maxhealth", MaxHealth },
+                { "health", Health }
+            };
+        }
+
+        public void FromDict(Godot.Collections.Dictionary<string, Variant> dict)
+        {
+            MaxHealth = dict["maxhealth"].AsDouble();
+            Health = dict["health"].AsDouble();
         }
     }
 }

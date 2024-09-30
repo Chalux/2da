@@ -44,10 +44,6 @@ namespace da.Scripts.Objects.PlayerScript
             {
                 owner.StateMachine.ChangeState(PlayerState.Attack1);
             }
-            else if (owner.CheckCanDash && Input.IsActionPressed("dash"))
-            {
-                owner.StateMachine.ChangeState(PlayerState.Dash);
-            }
             else if (direction.Y > 0.5)
             {
                 owner.StateMachine.ChangeState(PlayerState.Crouch);

@@ -3,7 +3,7 @@ using Godot;
 
 namespace da.Scripts.Objects.PlayerScript
 {
-    internal class PlayerStaticFunc
+    internal static class PlayerStaticFunc
     {
         public static void Move(Player player, double delta, float gravity)
         {
@@ -13,6 +13,7 @@ namespace da.Scripts.Objects.PlayerScript
             {
                 //var gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
                 velocity.Y += gravity * (float)delta;
+                velocity.Y = Mathf.Clamp(velocity.Y, float.NegativeInfinity, GameGlobal.MAX_FALL_SPEED);
             }
             float acceleration = player.IsOnFloor() ? Player.FloorAcceleration : Player.AirAcceleration;
             if (!Mathf.IsZeroApprox(direction.X))

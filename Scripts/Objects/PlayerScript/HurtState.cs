@@ -1,10 +1,5 @@
 ﻿using da.Objects;
 using Godot;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace da.Scripts.Objects.PlayerScript
 {
@@ -21,6 +16,7 @@ namespace da.Scripts.Objects.PlayerScript
             owner.CharactorAnimPlayer.Play("hurt");
             owner.CharactorAnimPlayer.AnimationFinished += ChangeToIdle;
             owner.HurtBox.SetDeferred("monitorable", false);
+            owner.WhosYourDaddy.Start();
             owner.Velocity = new(100, -200);
             owner.MoveAndSlide();
         }
@@ -28,7 +24,7 @@ namespace da.Scripts.Objects.PlayerScript
         public override void Exit(Player owner)
         {
             owner.CharactorAnimPlayer.AnimationFinished -= ChangeToIdle;
-            owner.HurtBox.SetDeferred("monitorable", true);
+            //owner.HurtBox.SetDeferred("monitorable", true);
         }
 
         private void ChangeToIdle(StringName animName)

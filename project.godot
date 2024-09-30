@@ -15,6 +15,10 @@ run/main_scene="res://Scenes/RootScene.tscn"
 config/features=PackedStringArray("4.2", "C#", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameGlobal="*res://Objects/GameGlobal.tscn"
+
 [display]
 
 window/size/viewport_width=384
@@ -30,6 +34,16 @@ project/assembly_name="2da"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/com.timothyqiu.animation-resetter/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://Properties/": "gray",
+"res://Resources/": "red",
+"res://Scenes/": "yellow",
+"res://Scripts/": "green",
+"res://addons/": "purple"
+}
 
 [input]
 
@@ -76,6 +90,11 @@ attack={
 , Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(262, 16),"global_position":Vector2(266, 57),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
 ]
 }
+interact={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":69,"key_label":0,"unicode":101,"echo":false,"script":null)
+]
+}
 
 [layer_names]
 
@@ -84,6 +103,10 @@ attack={
 2d_physics/layer_3="Enemy"
 2d_physics/layer_4="PlayerHurtBox"
 2d_physics/layer_5="EnemyHurtBox"
+
+[physics]
+
+2d/run_on_separate_thread=true
 
 [rendering]
 
