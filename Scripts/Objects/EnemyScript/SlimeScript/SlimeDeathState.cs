@@ -14,7 +14,8 @@ namespace da.Scripts.Objects.EnemyScript.SlimeScript
         {
             _owner = owner;
             owner.AnimPlayer.Play("die");
-            owner.HitBox.Monitoring = false;
+            owner.HitBox.SetDeferred("monitoring", false);
+            owner.HurtBox.SetDeferred("monitorable", false);
             owner.Velocity = Vector2.Zero;
             owner.AnimPlayer.AnimationFinished += SlimeDead;
         }

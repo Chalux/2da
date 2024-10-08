@@ -42,7 +42,7 @@ namespace da.Scripts.Objects.PlayerScript
         public override void PhysicsProcess(double delta, Player owner)
         {
             owner.Velocity = new(owner.DashSpeed * owner.Direction, 0);
-            if (Input.IsActionPressed("ui_down") && !owner.IsQuickDowned)
+            if (Input.IsActionPressed("ui_down") && !owner.IsQuickDowned && !owner.IsOnFloor())
             {
                 owner.StateMachine.ChangeState(PlayerState.QuickDown);
             }

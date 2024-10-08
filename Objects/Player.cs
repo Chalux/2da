@@ -32,11 +32,11 @@ namespace da.Objects
         [Export] public RayCast2D FootRay;
         [Export] public HitBox HitBox;
         [Export] public HurtBox HurtBox;
-        [Export] public const float Speed = 160;
-        [Export] public const float JumpVelocity = -400;
-        [Export] public const float FloorAcceleration = Speed / 0.2f;
-        [Export] public const float AirAcceleration = Speed / 0.1f;
-        [Export] public Vector2 WallJumpVelocity = new(240, JumpVelocity);
+        public const float Speed = 160;
+        public const float JumpVelocity = -400;
+        public const float FloorAcceleration = Speed / 0.2f;
+        public const float AirAcceleration = Speed / 0.1f;
+        public Vector2 WallJumpVelocity = new(240, JumpVelocity);
         [Export] public bool CanCancelAttack = false;
         [Export] public bool CanHurtMove = false;
         public int CanDashCount = 1;
