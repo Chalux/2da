@@ -37,7 +37,7 @@ public partial class InfHealthPotion : InteractableArea
         if (CanDrink)
         {
             CanDrink = false;
-            Player player = (GetTree().CurrentScene as RootScene).player;
+            Player player = GameGlobal.Instance.player;
             player.status.Health = player.status.MaxHealth;
             timer.Start();
             GameGlobal.Instance.AddMsg($"喝下了神秘的无限药水，生命回满");

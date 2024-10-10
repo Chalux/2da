@@ -21,7 +21,7 @@ namespace da.Scripts.Objects.PlayerScript
                 if (owner.StateMachine.oldStateEnum == PlayerState.WallSliding)
                 {
                     owner.CharactorAnimPlayer.Play("fall");
-                    owner.Direction = (int)owner.GetWallNormal().X;
+                    owner.Direction = owner.GetWallNormal().X > 0 ? 1 : -1;
                 }
                 else
                 {
@@ -36,6 +36,7 @@ namespace da.Scripts.Objects.PlayerScript
                 }
                 oldVelocityY = owner.Velocity.Y;
                 owner.JumpRequestTimer.Stop();
+                SoundManager.Ins.PlaySFX("Dash");
             }
         }
 

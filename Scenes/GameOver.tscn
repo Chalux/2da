@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsvr8l0vks1gh"]
+
+[ext_resource type="Script" path="res://Scenes/GameOver.cs" id="1_e6xdd"]
+[ext_resource type="Theme" uid="uid://cxlvaqyy7s7ke" path="res://Resources/Theme/MainTheme.tres" id="1_j44vg"]
+
+[node name="GameOver" type="Control" node_paths=PackedStringArray("TitleBtn", "LoadBtn")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_j44vg")
+script = ExtResource("1_e6xdd")
+TitleBtn = NodePath("TitleBtn")
+LoadBtn = NodePath("LoadBtn")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.788235)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_j44vg")
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 38
+text = "死"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TitleBtn" type="Button" parent="."]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 144.0
+offset_right = 168.0
+offset_bottom = 175.0
+text = "回主菜单"
+
+[node name="LoadBtn" type="Button" parent="."]
+layout_mode = 0
+offset_left = 232.0
+offset_top = 144.0
+offset_right = 320.0
+offset_bottom = 175.0
+text = "读最近存档"

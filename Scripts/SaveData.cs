@@ -14,13 +14,19 @@ namespace da.Scripts
 
         public Godot.Collections.Dictionary<string, Variant> PlayerData = new();
 
+        /// <summary>
+        /// key值为存档点的Name值，value为地图的路径，用于跨地图传送
+        /// </summary>
+        public Dictionary<string, string> ActivedSavePoints = new();
+
         public Dictionary<string, Variant> ToList()
         {
             return new Dictionary<string, Variant>()
             {
                 { "MapSaveData", MapSaveData },
                 { "currMapPath", currMapPath },
-                { "PlayerData", PlayerData }
+                { "PlayerData", PlayerData },
+                { "ActivedSavePoints", ActivedSavePoints }
             };
         }
     }

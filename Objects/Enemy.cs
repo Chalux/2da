@@ -2,6 +2,7 @@ using da.Scripts;
 using da.Scripts.Objects;
 using da.Scripts.Objects.EnemyScript;
 using Godot;
+using System;
 
 public partial class Enemy : CharacterBody2D
 {
@@ -60,6 +61,7 @@ public partial class Enemy : CharacterBody2D
         status.OnHealthChanged += EnemyHealthChanged;
         status.OnMaxHealthChanged += EnemyMaxHealthChanged;
         AddToGroup("enemies");
+        HurtBox.onHurt += OnHurt;
     }
 
     private void OnHealBarTimerout()
@@ -85,5 +87,13 @@ public partial class Enemy : CharacterBody2D
     private void EnemyMaxHealthChanged(double maxhealth)
     {
         healBar.MaxValue = maxhealth;
+    }
+
+    private async void OnHurt(Damage damage)
+    {
+        Engine.TimeScale = 0.01;
+        var Timer = GetTree().CreateTimer(0.1f, true, false, true);
+        await Timer.ToSignal(Timer, SceneTreeTimer.SignalName.Timeout);
+        Engine.TimeScale = 1;
     }
 }

@@ -17,8 +17,10 @@ namespace da.Scripts.Objects.PlayerScript
             owner.CharactorAnimPlayer.AnimationFinished += ChangeToIdle;
             owner.HurtBox.SetDeferred("monitorable", false);
             owner.WhosYourDaddy.Start();
-            owner.Velocity = new(100, -200);
+            owner.Velocity = new(100 * -owner.Direction, -200);
             owner.MoveAndSlide();
+            SoundManager.Ins.PlaySFX("Hurt");
+            GameGlobal.Instance.ShakeCamera(4);
         }
 
         public override void Exit(Player owner)

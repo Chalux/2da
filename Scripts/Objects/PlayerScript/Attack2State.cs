@@ -24,6 +24,7 @@ namespace da.Scripts.Objects.PlayerScript
             {
                 player.Direction = direction.X > 0 ? 1 : -1;
             }
+            SoundManager.Ins.PlaySFX("Attack2");
         }
 
         public override void PhysicsProcess(double delta, Player owner)

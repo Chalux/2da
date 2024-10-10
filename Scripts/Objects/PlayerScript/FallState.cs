@@ -29,6 +29,7 @@ namespace da.Scripts.Objects.PlayerScript
             {
                 if (direction.Y > 0.5)
                 {
+                    SoundManager.Ins.PlaySFX("Land");
                     owner.StateMachine.ChangeState(PlayerState.Crouch);
                 }
                 else if (direction.X == 0)
@@ -37,6 +38,7 @@ namespace da.Scripts.Objects.PlayerScript
                 }
                 else
                 {
+                    SoundManager.Ins.PlaySFX("Land");
                     owner.StateMachine.ChangeState(PlayerState.Walk);
                 }
             }
@@ -44,7 +46,7 @@ namespace da.Scripts.Objects.PlayerScript
             {
                 owner.StateMachine.ChangeState(PlayerState.QuickDown);
             }
-            else if (Input.IsActionPressed("ui_accept") && owner.HasReleasedJumpKey)
+            else if (Input.IsActionPressed("jump") && owner.HasReleasedJumpKey)
             {
                 owner.TryJump();
             }

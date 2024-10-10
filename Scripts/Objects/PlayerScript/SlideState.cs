@@ -1,5 +1,6 @@
 ﻿using da.Objects;
 using Godot;
+using System;
 
 namespace da.Scripts.Objects.PlayerScript
 {
@@ -39,6 +40,7 @@ namespace da.Scripts.Objects.PlayerScript
         public override void Exit(Player owner)
         {
             owner.CharactorAnimPlayer.AnimationFinished -= ChangeToSliding;
+            owner.AttackCollision.Polygon = Array.Empty<Vector2>();
         }
     }
 }

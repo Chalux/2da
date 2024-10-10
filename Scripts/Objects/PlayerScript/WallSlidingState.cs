@@ -14,11 +14,13 @@ namespace da.Scripts.Objects.PlayerScript
         {
             owner.CharactorAnimPlayer.Play("wall_sliding");
             owner.Velocity = Vector2.Zero;
+            //owner.Direction = (int)owner.GetWallNormal().X;
         }
 
         public override void PhysicsProcess(double delta, Player owner)
         {
             PlayerStaticFunc.Move(owner, delta, owner.gravity / 3);
+            //owner.Direction = -(int)owner.GetWallNormal().X;
             if (owner.IsOnFloor())
             {
                 owner.StateMachine.ChangeState(PlayerState.Idle);

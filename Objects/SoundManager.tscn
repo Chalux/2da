@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://cp8fh608lmpsd"]
+
+[ext_resource type="Script" path="res://Objects/SoundManager.cs" id="1_nqxfv"]
+[ext_resource type="AudioStream" uid="uid://ckr5dhgntjsfo" path="res://Resources/SFX/07_human_atk_sword_1.wav" id="2_60p66"]
+[ext_resource type="AudioStream" uid="uid://dv5x20wiqubo1" path="res://Resources/SFX/07_human_atk_sword_2.wav" id="3_smnhy"]
+[ext_resource type="AudioStream" uid="uid://jqbdsokw66dd" path="res://Resources/SFX/07_human_atk_sword_3.wav" id="4_6xrgg"]
+[ext_resource type="AudioStream" uid="uid://cp7w7biy2vidw" path="res://Resources/SFX/11_human_damage_3.wav" id="5_vedy6"]
+[ext_resource type="AudioStream" uid="uid://dckeuvuixneee" path="res://Resources/SFX/13_human_jump_land_2.wav" id="6_evrp4"]
+[ext_resource type="AudioStream" uid="uid://d0blbkl8c0dk7" path="res://Resources/SFX/15_human_dash_2.wav" id="7_sxwes"]
+
+[node name="SoundManager" type="Node" node_paths=PackedStringArray("SFX", "BGM")]
+process_mode = 3
+script = ExtResource("1_nqxfv")
+SFX = NodePath("SFX")
+BGM = NodePath("BGM")
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="Attack1" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("2_60p66")
+bus = &"SFX"
+
+[node name="Attack2" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("3_smnhy")
+bus = &"SFX"
+
+[node name="Attack3" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("4_6xrgg")
+bus = &"SFX"
+
+[node name="Hurt" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("5_vedy6")
+bus = &"SFX"
+
+[node name="Land" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("6_evrp4")
+bus = &"SFX"
+
+[node name="Dash" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("7_sxwes")
+bus = &"SFX"
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+bus = &"BGM"

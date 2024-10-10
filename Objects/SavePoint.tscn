@@ -1,0 +1,188 @@
+[gd_scene load_steps=10 format=3 uid="uid://clmuoj0brv3vl"]
+
+[ext_resource type="Texture2D" uid="uid://c5k0aqockd58q" path="res://Resources/Assets/Legacy-Fantasy - High Forest 2.3/Assets/Props-Rocks.png" id="1_nucfp"]
+[ext_resource type="Script" path="res://SavePoint.cs" id="1_qjvo0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k5ai3"]
+size = Vector2(59, 40)
+
+[sub_resource type="Gradient" id="Gradient_2nie1"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cxady"]
+gradient = SubResource("Gradient_2nie1")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Animation" id="Animation_ptjgt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Props-rocks/RuneWord:region_enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PointLight2D:enabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PointLight2D:energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Props-rocks/RuneWord:region_rect")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(96, 256, 16, 16)]
+}
+
+[sub_resource type="Animation" id="Animation_ith7c"]
+resource_name = "actived"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Props-rocks/RuneWord:region_enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PointLight2D:enabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PointLight2D:energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.25]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Props-rocks/RuneWord:region_rect")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(240, 256, 16, 16)]
+}
+
+[sub_resource type="Animation" id="Animation_1l4fm"]
+resource_name = "unactived"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PointLight2D:enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Props-rocks/RuneWord:region_rect")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(96, 256, 16, 16)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p3b86"]
+_data = {
+"RESET": SubResource("Animation_ptjgt"),
+"actived": SubResource("Animation_ith7c"),
+"unactived": SubResource("Animation_1l4fm")
+}
+
+[node name="SavePoint" type="Area2D" node_paths=PackedStringArray("animationPlayer") groups=["savepoints"]]
+position = Vector2(2, 0)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_qjvo0")
+animationPlayer = NodePath("AnimationPlayer")
+
+[node name="Props-rocks" type="Sprite2D" parent="."]
+position = Vector2(0, -40)
+texture = ExtResource("1_nucfp")
+region_enabled = true
+region_rect = Rect2(0, 80, 64, 80)
+
+[node name="RuneWord" type="Sprite2D" parent="Props-rocks"]
+position = Vector2(2, -16)
+texture = ExtResource("1_nucfp")
+region_enabled = true
+region_rect = Rect2(96, 256, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.5, -20)
+shape = SubResource("RectangleShape2D_k5ai3")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(2, -56)
+color = Color(0.309804, 1, 1, 1)
+texture = SubResource("GradientTexture2D_cxady")
+texture_scale = 2.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+callback_mode_process = 0
+libraries = {
+"": SubResource("AnimationLibrary_p3b86")
+}

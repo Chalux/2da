@@ -1,0 +1,97 @@
+[gd_resource type="Theme" load_steps=16 format=3 uid="uid://cxlvaqyy7s7ke"]
+
+[ext_resource type="FontFile" uid="uid://deqlmaurjyiqs" path="res://Resources/Fonts/OPPOSans-Medium.ttf" id="1_5nq6v"]
+[ext_resource type="Texture2D" uid="uid://78hvqpw527e7" path="res://Resources/Assets/Legacy-Fantasy - High Forest 2.3/HUD/Base-01.png" id="1_v8yl5"]
+[ext_resource type="Texture2D" uid="uid://l52nnasoabyo" path="res://Resources/Assets/Pixel UI pack 3/00.png" id="2_4bodk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3g2dt"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l3y5m"]
+texture = ExtResource("1_v8yl5")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+region_rect = Rect2(94, 14, 20, 20)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8fy4y"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y0hxm"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cua0i"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7eot2"]
+atlas = ExtResource("2_4bodk")
+region = Rect2(4, 7, 8, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6qbj"]
+atlas = ExtResource("2_4bodk")
+region = Rect2(68, 7, 8, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yfs7e"]
+atlas = ExtResource("2_4bodk")
+region = Rect2(132, 7, 8, 18)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qadgh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vlqab"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hl8ih"]
+texture = ExtResource("2_4bodk")
+texture_margin_left = 6.0
+texture_margin_top = 9.0
+texture_margin_right = 6.0
+texture_margin_bottom = 7.0
+region_rect = Rect2(0, 32, 48, 16)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o54sy"]
+content_margin_left = 16.0
+content_margin_top = 4.0
+content_margin_right = 16.0
+content_margin_bottom = 4.0
+texture = ExtResource("1_v8yl5")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+region_rect = Rect2(64, 272, 16, 16)
+
+[resource]
+default_font = ExtResource("1_5nq6v")
+default_font_size = 12
+Button/colors/font_outline_color = Color(0, 0, 0, 0.701961)
+Button/colors/font_pressed_color = Color(1, 1, 1, 0.603922)
+Button/constants/outline_size = 4
+Button/styles/disabled = SubResource("StyleBoxEmpty_3g2dt")
+Button/styles/focus = SubResource("StyleBoxTexture_l3y5m")
+Button/styles/hover = SubResource("StyleBoxEmpty_8fy4y")
+Button/styles/normal = SubResource("StyleBoxEmpty_y0hxm")
+Button/styles/pressed = SubResource("StyleBoxEmpty_cua0i")
+HSlider/icons/grabber = SubResource("AtlasTexture_7eot2")
+HSlider/icons/grabber_disabled = SubResource("AtlasTexture_i6qbj")
+HSlider/icons/grabber_highlight = SubResource("AtlasTexture_yfs7e")
+HSlider/styles/grabber_area = SubResource("StyleBoxEmpty_qadgh")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxEmpty_vlqab")
+HSlider/styles/slider = SubResource("StyleBoxTexture_hl8ih")
+Label/colors/font_outline_color = Color(0, 0, 0, 0.701961)
+Label/colors/font_shadow_color = Color(0, 0, 0, 0.788235)
+Label/constants/outline_size = 4
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_o54sy")

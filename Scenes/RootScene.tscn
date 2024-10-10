@@ -1,28 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://dbp0f4vf1hlut"]
+[gd_scene load_steps=3 format=3 uid="uid://dbp0f4vf1hlut"]
 
-[ext_resource type="PackedScene" uid="uid://nfovkta3ihjc" path="res://Objects/Player.tscn" id="1_tuqoe"]
 [ext_resource type="Script" path="res://Scenes/RootScene.cs" id="1_xndt3"]
-[ext_resource type="PackedScene" uid="uid://bwwf45hrjp45w" path="res://Scenes/ForestMap.tscn" id="2_1ewwc"]
+[ext_resource type="PackedScene" uid="uid://cduq43s43kxtr" path="res://Scenes/TitleScene.tscn" id="2_np0r6"]
 
-[node name="RootScene" type="Node2D" node_paths=PackedStringArray("camera", "player", "WorldControl")]
+[node name="RootScene" type="Node2D" node_paths=PackedStringArray("WorldControl")]
 script = ExtResource("1_xndt3")
-camera = NodePath("Player/Camera2D")
-player = NodePath("Player")
 WorldControl = NodePath("MapControl")
 
 [node name="MapControl" type="Control" parent="."]
+custom_minimum_size = Vector2(384, 216)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 384.0
+offset_bottom = 216.0
+mouse_filter = 2
 
-[node name="Map" parent="MapControl" instance=ExtResource("2_1ewwc")]
-
-[node name="Player" parent="." instance=ExtResource("1_tuqoe")]
-position = Vector2(-48, 96)
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-limit_smoothed = true
-position_smoothing_enabled = true
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
+[node name="TitleScene" parent="MapControl" instance=ExtResource("2_np0r6")]
+layout_mode = 1

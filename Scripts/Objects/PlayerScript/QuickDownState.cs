@@ -22,6 +22,7 @@ namespace da.Scripts.Objects.PlayerScript
                 CheckChangeState(owner);
             };
             owner.JumpRequestTimer.Stop();
+            SoundManager.Ins.PlaySFX("Dash");
         }
 
         public override void PhysicsProcess(double delta, Player owner)

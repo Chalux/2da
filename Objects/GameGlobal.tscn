@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://37b57r4s1d6l"]
+[gd_scene load_steps=12 format=3 uid="uid://37b57r4s1d6l"]
 
 [ext_resource type="Script" path="res://Scripts/Objects/GameGlobal.cs" id="1_7170a"]
 [ext_resource type="Script" path="res://Scenes/UIControl.cs" id="2_tkeyv"]
 [ext_resource type="Texture2D" uid="uid://ds1ag1dyvrytk" path="res://Resources/Assets/Charactor_blue/char_blue_1.png" id="3_7yswp"]
 [ext_resource type="Texture2D" uid="uid://ctuqduaondlps" path="res://Resources/Assets/Pixel UI pack 3/02.png" id="4_hwlfq"]
 [ext_resource type="Texture2D" uid="uid://dgpxclmviwt4o" path="res://Resources/Assets/Pixel UI pack 3/06.png" id="5_g867i"]
+[ext_resource type="PackedScene" uid="uid://b30i2d7i853k5" path="res://Objects/VirtualJoypad.tscn" id="6_eyhwx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_404n3"]
 atlas = ExtResource("3_7yswp")
@@ -28,23 +29,30 @@ region = Rect2(3, 21, 42, 7)
 [node name="GameGlobal" type="Node" node_paths=PackedStringArray("UIControl", "healthBar", "BlackMask")]
 script = ExtResource("1_7170a")
 UIControl = NodePath("UIControl")
-healthBar = NodePath("UIControl/HealthBar")
+healthBar = NodePath("UIControl/LeftUpperBox/HealthBar")
 BlackMask = NodePath("UIControl/ColorRect")
 
 [node name="UIControl" type="CanvasLayer" parent="." node_paths=PackedStringArray("HeadControl", "HealthBar", "MsgContainer")]
 layer = 99
 script = ExtResource("2_tkeyv")
-HeadControl = NodePath("HeadControl")
-HealthBar = NodePath("HealthBar")
-MsgContainer = NodePath("MsgContainer")
+HeadControl = NodePath("LeftUpperBox/HeadControl")
+HealthBar = NodePath("LeftUpperBox/HealthBar")
+MsgContainer = NodePath("LeftUpperBox/MsgContainer")
 
-[node name="HeadControl" type="Control" parent="UIControl"]
+[node name="LeftUpperBox" type="Control" parent="UIControl"]
 layout_mode = 3
+anchors_preset = 0
+offset_right = 94.0
+offset_bottom = 89.0
+mouse_filter = 2
+
+[node name="HeadControl" type="Control" parent="UIControl/LeftUpperBox"]
+layout_mode = 1
 anchors_preset = 0
 offset_right = 32.0
 offset_bottom = 32.0
 
-[node name="TextureRect" type="TextureRect" parent="UIControl/HeadControl"]
+[node name="TextureRect" type="TextureRect" parent="UIControl/LeftUpperBox/HeadControl"]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
@@ -52,7 +60,7 @@ offset_right = 24.0
 offset_bottom = 24.0
 texture = SubResource("AtlasTexture_404n3")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="UIControl/HeadControl"]
+[node name="NinePatchRect" type="NinePatchRect" parent="UIControl/LeftUpperBox/HeadControl"]
 layout_mode = 0
 offset_left = 7.0
 offset_top = 7.0
@@ -64,7 +72,8 @@ patch_margin_top = 1
 patch_margin_right = 1
 patch_margin_bottom = 1
 
-[node name="HealthBar" type="TextureProgressBar" parent="UIControl"]
+[node name="HealthBar" type="TextureProgressBar" parent="UIControl/LeftUpperBox"]
+layout_mode = 0
 offset_left = 32.0
 offset_top = 13.0
 offset_right = 74.0
@@ -72,16 +81,19 @@ offset_bottom = 20.0
 texture_under = SubResource("AtlasTexture_wtxv4")
 texture_progress = SubResource("AtlasTexture_iidp6")
 
-[node name="MsgContainer" type="VBoxContainer" parent="UIControl"]
+[node name="MsgContainer" type="VBoxContainer" parent="UIControl/LeftUpperBox"]
+layout_mode = 0
 offset_left = 8.0
 offset_top = 32.0
 offset_right = 112.0
 offset_bottom = 72.0
 
+[node name="VirtualJoypad" parent="UIControl" instance=ExtResource("6_eyhwx")]
+
 [node name="ColorRect" type="ColorRect" parent="UIControl"]
+modulate = Color(0, 0, 0, 1)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)

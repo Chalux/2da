@@ -24,6 +24,7 @@ namespace da.Scripts.Objects.PlayerScript
             {
                 player.Direction = direction.X > 0 ? 1 : -1;
             }
+            SoundManager.Ins.PlaySFX("Attack1");
         }
 
         public override void PhysicsProcess(double delta, Player owner)
@@ -36,6 +37,14 @@ namespace da.Scripts.Objects.PlayerScript
             {
                 owner.NextAttackState = owner.StateMachine.stateDict[PlayerState.Attack2];
             }
+            //else if (owner.AttackRequestTimer.IsStopped())
+            //{
+            //    GD.Print(1);
+            //}
+            //else if (!owner.CanCancelAttack)
+            //{
+            //    GD.Print(2);
+            //}
         }
 
         private void ChangeToIdle(StringName animName)
@@ -54,7 +63,6 @@ namespace da.Scripts.Objects.PlayerScript
         public override void Exit(Player owner)
         {
             _onwer.CharactorAnimPlayer.AnimationFinished -= ChangeToIdle;
-            //owner.CharactorAnimPlayer.Stop();
             owner.AttackCollision.Polygon = Array.Empty<Vector2>();
         }
     }

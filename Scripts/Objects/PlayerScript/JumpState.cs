@@ -36,6 +36,7 @@ namespace da.Scripts.Objects.PlayerScript
             {
                 if (direction.Y > 0.5)
                 {
+                    SoundManager.Ins.PlaySFX("Land");
                     owner.StateMachine.ChangeState(PlayerState.Crouch);
                 }
                 else if (direction.X == 0)
@@ -44,6 +45,7 @@ namespace da.Scripts.Objects.PlayerScript
                 }
                 else
                 {
+                    SoundManager.Ins.PlaySFX("Land");
                     owner.StateMachine.ChangeState(PlayerState.Walk);
                 }
             }

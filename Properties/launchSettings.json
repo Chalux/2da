@@ -1,13 +1,12 @@
 {
   "profiles": {
     "2da": {
-      "commandName": "Project",
-      "commandLineArgs": null
+      "commandName": "Project"
     },
-    "\u914D\u7F6E\u6587\u4EF6 1": {
+    "配置文件 1": {
       "commandName": "Executable",
-      "commandLineArgs": "--path . --verbose",
       "executablePath": "D:\\Godot_v4.3-stable_mono_win64\\Godot_v4.3-stable_mono_win64.exe",
+      "commandLineArgs": "--path . --verbose",
       "workingDirectory": ".",
       "nativeDebugging": true
     }

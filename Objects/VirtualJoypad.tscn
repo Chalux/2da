@@ -1,0 +1,107 @@
+[gd_scene load_steps=9 format=3 uid="uid://b30i2d7i853k5"]
+
+[ext_resource type="Texture2D" uid="uid://78hvqpw527e7" path="res://Resources/Assets/Legacy-Fantasy - High Forest 2.3/HUD/Base-01.png" id="1_nrogx"]
+[ext_resource type="Script" path="res://Objects/TouchScreenButton.cs" id="2_eqc5d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p5gnl"]
+atlas = ExtResource("1_nrogx")
+region = Rect2(189, 61, 22, 22)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y02x3"]
+atlas = ExtResource("1_nrogx")
+region = Rect2(189, 253, 22, 22)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kp0hy"]
+atlas = ExtResource("1_nrogx")
+region = Rect2(189, 109, 22, 22)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4r3t"]
+atlas = ExtResource("1_nrogx")
+region = Rect2(189, 157, 22, 22)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dwycn"]
+atlas = ExtResource("1_nrogx")
+region = Rect2(374, 6, 52, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jq7hb"]
+atlas = ExtResource("1_nrogx")
+region = Rect2(50, 210, 12, 12)
+margin = Rect2(2, 2, 4, 4)
+
+[node name="VirtualJoypad" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Actions" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+offset_right = -40.0
+offset_bottom = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Actions"]
+position = Vector2(-12, 0)
+texture_normal = SubResource("AtlasTexture_p5gnl")
+action = "interact"
+visibility_mode = 1
+
+[node name="TouchScreenButton2" type="TouchScreenButton" parent="Actions"]
+position = Vector2(-33, -21)
+texture_normal = SubResource("AtlasTexture_y02x3")
+action = "attack"
+visibility_mode = 1
+
+[node name="TouchScreenButton3" type="TouchScreenButton" parent="Actions"]
+position = Vector2(-12, -45)
+texture_normal = SubResource("AtlasTexture_kp0hy")
+action = "jump"
+visibility_mode = 1
+
+[node name="TouchScreenButton4" type="TouchScreenButton" parent="Actions"]
+position = Vector2(10, -21)
+texture_normal = SubResource("AtlasTexture_o4r3t")
+action = "dash"
+visibility_mode = 1
+
+[node name="Stick" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 54.0
+offset_top = -46.0
+offset_right = 54.0
+offset_bottom = -46.0
+grow_vertical = 0
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Stick"]
+position = Vector2(-26, -26)
+texture_normal = SubResource("AtlasTexture_dwycn")
+visibility_mode = 1
+script = ExtResource("2_eqc5d")
+
+[node name="Pause" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+
+[node name="TouchScreenButton5" type="TouchScreenButton" parent="Pause"]
+position = Vector2(-53, 8)
+scale = Vector2(2, 2)
+texture_normal = SubResource("AtlasTexture_jq7hb")
+action = "pause"
+visibility_mode = 1

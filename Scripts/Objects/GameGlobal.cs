@@ -2,6 +2,9 @@
 using da.Scenes;
 using Godot;
 using System.Linq;
+using System.Text.Json.Serialization.Metadata;
+using System.Threading.Tasks;
+using static Godot.TextServer;
 
 namespace da.Scripts.Objects
 {
@@ -11,40 +14,38 @@ namespace da.Scripts.Objects
         #region 常量
         public const float MAX_FALL_SPEED = 400;
         public const string SAVE_PATH = "user://saves/save1.sav";
+        public const string CONFIG_PATH = "user://config.ini";
         #endregion
 
         [Export] public UIControl UIControl;
         [Export] public TextureProgressBar healthBar;
         [Export] public ColorRect BlackMask;
+        public Player player;
+        public Camera2D camera;
         public SaveData save = new();
         public RootScene root;
+        public bool isRunning = false;
+        public bool IsChangingScene = false;
+
+        [Signal] public delegate void CameraShakeEventHandler(float strength);
         public static GameGlobal Instance { get; private set; }
         public override void _Ready()
         {
             Instance = this;
             EventMgr.RegisterEvent(this);
-            BlackMask.Modulate = new(BlackMask.Modulate, 0);
+            BlackMask.Modulate = new(0, 0, 0, 0);
             BlackMask.MouseFilter = Control.MouseFilterEnum.Ignore;
-        }
-        public void InSceneTeleport(string positionName, int Direction)
-        {
-            foreach (Marker2D node in GetTree().GetNodesInGroup("Telepositions").Cast<Marker2D>())
-            {
-                if (node.Name == positionName)
-                {
-                    (GetTree().CurrentScene as RootScene).TeleportPlayer(node.GlobalPosition, Direction);
-                    break;
-                }
-            }
+            LoadConfig();
         }
 
         public async void Teleport(string sceneUrl, string positionName = null, int Direction = 1)
         {
+            IsChangingScene = true;
             GetTree().Paused = true;
             BlackMask.MouseFilter = Control.MouseFilterEnum.Stop;
             Tween tween = CreateTween();
             tween.SetPauseMode(Tween.TweenPauseMode.Process);
-            tween.TweenProperty(BlackMask, "modulate", new Color(BlackMask.Modulate, 1), 1f);
+            tween.TweenProperty(BlackMask, "modulate", new Color(0, 0, 0, 1), 1f);
             await ToSignal(tween, Tween.SignalName.Finished);
             if (root.WorldControl.GetChild(0) != null) SaveMapData(root.WorldControl.GetChild(0) as Control);
             if (sceneUrl != root.WorldControl.GetChild(0).SceneFilePath.SimplifyPath())
@@ -66,7 +67,7 @@ namespace da.Scripts.Objects
                         {
                             if (node.Name == positionName)
                             {
-                                (GetTree().CurrentScene as RootScene).TeleportPlayer(node.GlobalPosition, Direction);
+                                RootScene.TeleportPlayer(node.GlobalPosition, Direction);
                                 break;
                             }
                         }
@@ -82,18 +83,22 @@ namespace da.Scripts.Objects
                     {
                         if (node.Name == positionName)
                         {
-                            (GetTree().CurrentScene as RootScene).TeleportPlayer(node.GlobalPosition, Direction);
+                            RootScene.TeleportPlayer(node.GlobalPosition, Direction);
                             break;
                         }
                     }
                 }
             }
+            GetTree().Paused = false;
+            await ToSignal(GetTree().CreateTimer(1f), SceneTreeTimer.SignalName.Timeout);
             var tween2 = CreateTween();
             tween2.SetPauseMode(Tween.TweenPauseMode.Process);
-            tween2.TweenProperty(BlackMask, "modulate", new Color(BlackMask.Modulate, 0), 1f);
-            await ToSignal(tween2, Tween.SignalName.Finished);
-            BlackMask.MouseFilter = Control.MouseFilterEnum.Ignore;
-            GetTree().Paused = false;
+            tween2.TweenProperty(BlackMask, "modulate", new Color(0, 0, 0, 0), 1f);
+            tween2.Finished += () =>
+            {
+                BlackMask.MouseFilter = Control.MouseFilterEnum.Ignore;
+                IsChangingScene = false;
+            };
         }
 
         public void AddMsg(string msg)
@@ -161,13 +166,20 @@ namespace da.Scripts.Objects
                     }
                 }
             }
+            foreach (SavePoint savePoint in GetTree().GetNodesInGroup("savepoints").Cast<SavePoint>())
+            {
+                if (save.ActivedSavePoints.ContainsKey(savePoint.Name))
+                {
+                    savePoint.Active = true;
+                }
+            }
         }
 
         public void SaveGame()
         {
             save.currMapPath = (root.WorldControl.GetChild(0) as Control).SceneFilePath.GetFile().GetBaseDir();
             SaveMapData(root.WorldControl.GetChild(0) as Control);
-            save.PlayerData = root.player.ToDict();
+            save.PlayerData = player.ToDict();
             var json = Json.Stringify(save.ToList());
             if (!DirAccess.DirExistsAbsolute("user://saves"))
             {
@@ -182,8 +194,9 @@ namespace da.Scripts.Objects
             file.StoreString(json);
         }
 
-        public void LoadGame()
+        public async void LoadGame()
         {
+            isRunning = true;
             using var file = FileAccess.Open(SAVE_PATH, FileAccess.ModeFlags.Read);
             if (file == null) return;
             var json = file.GetAsText();
@@ -193,22 +206,81 @@ namespace da.Scripts.Objects
                 currMapPath = data["currMapPath"].AsString(),
                 PlayerData = data["PlayerData"].AsGodotDictionary<string, Variant>(),
                 MapSaveData = data["MapSaveData"].AsGodotDictionary<string, Godot.Collections.Dictionary<string, Variant>>(),
+                ActivedSavePoints = data["ActivedSavePoints"].AsGodotDictionary<string, string>()
             };
-            Teleport(save.currMapPath);
+            await ChangeSceneAsync(save.currMapPath, true);
 
-            root.player.FromDict(save.PlayerData);
+            //player.FromDict(save.PlayerData);
         }
 
-        public override void _UnhandledInput(InputEvent @event)
+        public static bool SaveFileExists()
         {
-            if (@event.IsActionPressed("ui_cancel"))
+            using var file = FileAccess.Open(SAVE_PATH, FileAccess.ModeFlags.Read);
+            return file != null;
+        }
+
+        public async Task ChangeSceneAsync(string path, bool loadPlayerData = false)
+        {
+            IsChangingScene = true;
+            GetTree().Paused = true;
+            BlackMask.MouseFilter = Control.MouseFilterEnum.Stop;
+            Tween tween = CreateTween();
+            tween.SetPauseMode(Tween.TweenPauseMode.Process);
+            tween.TweenProperty(BlackMask, "modulate", new Color(0, 0, 0, 1), 1f);
+            await ToSignal(tween, Tween.SignalName.Finished);
+            if (root.WorldControl.GetChild(0) != null) SaveMapData(root.WorldControl.GetChild(0) as Control);
+            if (path != root.WorldControl.GetChild(0).SceneFilePath.SimplifyPath())
             {
-                SaveGame();
+                foreach (var child in root.WorldControl.GetChildren())
+                {
+                    child.QueueFree();
+                }
+                PackedScene res = ResourceLoader.Load<PackedScene>(path);
+                var mapnode = res.Instantiate<Control>();
+                if (res != null)
+                {
+                    root.WorldControl.AddChild(mapnode);
+                    if (mapnode.Name != "TitleScene") LoadMapData(mapnode);
+                }
             }
-            else if (@event.IsActionPressed("ui_filedialog_up_one_level"))
+            if (loadPlayerData)
             {
-                LoadGame();
+                player.FromDict(save.PlayerData);
             }
+            GetTree().Paused = false;
+            await ToSignal(GetTree().CreateTimer(1f), SceneTreeTimer.SignalName.Timeout);
+            var tween2 = CreateTween();
+            tween2.SetPauseMode(Tween.TweenPauseMode.Process);
+            tween2.TweenProperty(BlackMask, "modulate", new Color(0, 0, 0, 0), 1f);
+            tween2.Finished += () =>
+            {
+                BlackMask.MouseFilter = Control.MouseFilterEnum.Ignore;
+                IsChangingScene = false;
+            };
+        }
+
+        public void SaveConfig()
+        {
+            ConfigFile config = new();
+            config.SetValue("audio", "master", SoundManager.GetVolume((int)SoundManager.AudioBusEnum.Master));
+            config.SetValue("audio", "sfx", SoundManager.GetVolume((int)SoundManager.AudioBusEnum.SFX));
+            config.SetValue("audio", "bgm", SoundManager.GetVolume((int)SoundManager.AudioBusEnum.BGM));
+            config.Save(CONFIG_PATH);
+        }
+
+        public void LoadConfig()
+        {
+            ConfigFile config = new();
+            config.Load(CONFIG_PATH);
+
+            SoundManager.SetVolume((int)SoundManager.AudioBusEnum.Master, config.GetValue("audio", "master", 0.5f).AsSingle());
+            SoundManager.SetVolume((int)SoundManager.AudioBusEnum.SFX, config.GetValue("audio", "sfx", 1f).AsSingle());
+            SoundManager.SetVolume((int)SoundManager.AudioBusEnum.BGM, config.GetValue("audio", "bgm", 1f).AsSingle());
+        }
+
+        public void ShakeCamera(float strength)
+        {
+            EmitSignal(SignalName.CameraShake, strength);
         }
     }
 }

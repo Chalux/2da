@@ -21,6 +21,7 @@ namespace da.Scripts.Objects.PlayerScript
             owner.IsQuickDowned = false;
             owner.HasWallJumped = false;
             owner.CoyoteTimer.Stop();
+            SoundManager.Ins.PlaySFX("Land");
         }
 
         public override void PhysicsProcess(double delta, Player owner)

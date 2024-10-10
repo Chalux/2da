@@ -16,14 +16,14 @@ namespace da.Scripts.Objects.PlayerScript
         {
             _owner = owner;
             owner.CharactorAnimPlayer.Play("jump");
-            owner.Direction = (int)owner.GetWallNormal().X;
+            owner.Direction = owner.GetWallNormal().X > 0 ? 1 : -1;
             owner.Velocity = new(owner.WallJumpVelocity.X * owner.GetWallNormal().X, owner.WallJumpVelocity.Y);
             owner.MoveAndSlide();
             owner.CharactorAnimPlayer.AnimationFinished += ChangeToFall;
             owner.JumpTimer.Start();
             owner.JumpRequestTimer.Stop();
             owner.HasReleasedCrouchKey = !Input.IsActionPressed("ui_down");
-            owner.HasReleasedJumpKey = !Input.IsActionPressed("ui_accept");
+            owner.HasReleasedJumpKey = !Input.IsActionPressed("jump");
             owner.HasWallJumped = true;
             timer = owner.GetTree().CreateTimer(0.1f);
             //Engine.TimeScale = 0.2f;
@@ -62,7 +62,7 @@ namespace da.Scripts.Objects.PlayerScript
                 {
                     owner.StateMachine.ChangeState(PlayerState.QuickDown);
                 }
-                else if (Input.IsActionPressed("ui_accept") && owner.HasReleasedJumpKey)
+                else if (Input.IsActionPressed("jump") && owner.HasReleasedJumpKey)
                 {
                     if (owner.CheckCanJump)
                     {

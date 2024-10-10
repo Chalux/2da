@@ -32,6 +32,8 @@ namespace da.Objects
         [Export] public RayCast2D FootRay;
         [Export] public HitBox HitBox;
         [Export] public HurtBox HurtBox;
+        [Export] public Camera2D PlayerCamera;
+        [Export] public PauseScene PauseScene;
         public const float Speed = 160;
         public const float JumpVelocity = -400;
         public const float FloorAcceleration = Speed / 0.2f;
@@ -69,6 +71,8 @@ namespace da.Objects
 
         public override void _PhysicsProcess(double delta)
         {
+            if (GameGlobal.Instance.IsChangingScene) return;
+
             StateMachine.PhysicsProcess(delta);
 
             MoveAndSlide();
@@ -109,6 +113,7 @@ namespace da.Objects
             HurtBox.onHurt += (Damage damage) =>
             {
                 status.Health -= damage.value;
+                Direction = (damage.source.Owner as Enemy).Position.X >= Position.X ? 1 : -1;
                 if (status.Health > 0)
                 {
                     StateMachine.ChangeState(PlayerState.Hurt);
@@ -117,7 +122,6 @@ namespace da.Objects
                 {
                     StateMachine.ChangeState(PlayerState.Death);
                 }
-                Direction = (damage.source.Owner as Enemy).Position.X >= Position.X ? 1 : -1;
             };
             WhosYourDaddy.Timeout += () =>
             {
@@ -128,7 +132,7 @@ namespace da.Objects
             EventMgr.DispatchEvent("PlayerReady", this);
         }
 
-        public bool CheckCanDash => (DashCount > 0 || StateMachine.currState.State == PlayerState.WallSliding) && DashTimer.IsStopped() && DashCoolDownTimer.IsStopped();
+        public bool CheckCanDash => (DashCount > 0 || StateMachine.currState.State == PlayerState.WallSliding || (StateMachine.currState.State == PlayerState.Dash && StateMachine.oldStateEnum == PlayerState.WallSliding)) && DashTimer.IsStopped() && DashCoolDownTimer.IsStopped();
         public bool TryDash()
         {
             if (!CheckCanDash)
@@ -194,7 +198,8 @@ namespace da.Objects
 
         public override void _UnhandledInput(InputEvent @event)
         {
-            if (@event.IsActionPressed("ui_accept"))
+            if (GameGlobal.Instance.IsChangingScene) return;
+            if (@event.IsActionPressed("jump"))
             {
                 JumpRequestTimer.Start();
                 if (IsOnFloor()) HasReleasedJumpKey = false;
@@ -203,7 +208,7 @@ namespace da.Objects
             {
                 AttackRequestTimer.Start();
             }
-            if (@event.IsActionReleased("ui_accept"))
+            if (@event.IsActionReleased("jump"))
             {
                 HasReleasedJumpKey = true;
                 if (Velocity.Y < JumpVelocity / 2)
@@ -215,13 +220,17 @@ namespace da.Objects
             {
                 HasReleasedCrouchKey = true;
             }
-            if (CheckCanDash && Input.IsActionPressed("dash"))
+            if (CheckCanDash && Input.IsActionJustPressed("dash"))
             {
                 StateMachine.ChangeState(PlayerState.Dash);
             }
             if (Input.IsActionJustPressed("interact"))
             {
                 if (NowInteraction.Count > 0) NowInteraction[0]?.Interact();
+            }
+            if (Input.IsActionJustPressed("pause"))
+            {
+                PauseScene.ShowPause();
             }
             StateMachine.UnhandledInput(@event);
             if (OS.IsDebugBuild())
