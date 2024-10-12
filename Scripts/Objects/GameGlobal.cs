@@ -2,9 +2,7 @@
 using da.Scenes;
 using Godot;
 using System.Linq;
-using System.Text.Json.Serialization.Metadata;
 using System.Threading.Tasks;
-using static Godot.TextServer;
 
 namespace da.Scripts.Objects
 {

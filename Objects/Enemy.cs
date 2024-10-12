@@ -1,10 +1,10 @@
 using da.Scripts;
+using da.Scripts.Interfaces;
 using da.Scripts.Objects;
 using da.Scripts.Objects.EnemyScript;
 using Godot;
-using System;
 
-public partial class Enemy : CharacterBody2D
+public partial class Enemy : CharacterBody2D, IAttackable, IHurtable
 {
     [Export] public Node2D Graphics;
     [Export] public AnimationPlayer AnimPlayer;
@@ -92,8 +92,28 @@ public partial class Enemy : CharacterBody2D
     private async void OnHurt(Damage damage)
     {
         Engine.TimeScale = 0.01;
-        var Timer = GetTree().CreateTimer(0.1f, true, false, true);
+        var Timer = GetTree().CreateTimer(0.05f, true, false, true);
         await Timer.ToSignal(Timer, SceneTreeTimer.SignalName.Timeout);
         Engine.TimeScale = 1;
+    }
+
+    public HitBox GetHitBox()
+    {
+        return HitBox;
+    }
+
+    public Damage DoAttack(IAttackable attacker, IHurtable target)
+    {
+        return new()
+        {
+            value = 1,
+            source = HitBox,
+            target = target.GetHurtBox()
+        };
+    }
+
+    public HurtBox GetHurtBox()
+    {
+        return HurtBox;
     }
 }

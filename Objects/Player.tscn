@@ -174,6 +174,18 @@ tracks/12/keys = {
 "update": 1,
 "values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
 }
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_oepst"]
 resource_name = "attack_1"
@@ -333,6 +345,18 @@ tracks/12/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_2i6pj"]
@@ -494,6 +518,18 @@ tracks/12/keys = {
 "update": 1,
 "values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
 }
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_v0op6"]
 resource_name = "attack_3"
@@ -653,6 +689,18 @@ tracks/12/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_gn5ci"]
@@ -814,6 +862,18 @@ tracks/12/keys = {
 "update": 1,
 "values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
 }
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_klldw"]
 resource_name = "fall"
@@ -974,6 +1034,18 @@ tracks/12/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2vh1n"]
@@ -1140,6 +1212,18 @@ tracks/12/keys = {
 "update": 1,
 "values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
 }
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_jd334"]
 resource_name = "idle"
@@ -1301,6 +1385,18 @@ tracks/12/keys = {
 "update": 1,
 "values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
 }
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_5hhk8"]
 resource_name = "jump"
@@ -1461,6 +1557,18 @@ tracks/12/keys = {
 "update": 1,
 "values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
 }
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_3mprx"]
 resource_name = "landing"
@@ -1620,6 +1728,18 @@ tracks/12/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_vx7wg"]
@@ -1782,6 +1902,18 @@ tracks/12/keys = {
 "update": 1,
 "values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
 }
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_v5g24"]
 resource_name = "slide"
@@ -1941,6 +2073,18 @@ tracks/12/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [PackedVector2Array(-7, 8, -7, 28, 7, 28, 7, 8)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_5eemh"]
@@ -2102,6 +2246,18 @@ tracks/12/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [PackedVector2Array(-7, 8, -7, 28, 7, 28, 7, 8)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_vmifn"]
@@ -2277,6 +2433,18 @@ tracks/13/keys = {
 "update": 1,
 "values": [PackedVector2Array(-7, 8, -7, 28, 7, 28, 7, 8)]
 }
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_3ii13"]
 resource_name = "squat_idle"
@@ -2438,6 +2606,18 @@ tracks/12/keys = {
 "update": 1,
 "values": [PackedVector2Array(-7, 8, -7, 28, 7, 28, 7, 8)]
 }
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_asyer"]
 resource_name = "wall_sliding"
@@ -2598,6 +2778,18 @@ tracks/12/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(5, -3)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6pky5"]
@@ -2869,6 +3061,8 @@ sprite_frames = SubResource("SpriteFrames_e0yff")
 frame_progress = 0.490118
 
 [node name="PauseScene" parent="." instance=ExtResource("11_gb2cv")]
+visible = false
+z_index = 100
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
 process_callback = 0

@@ -1,6 +1,5 @@
 using da.Scripts.Objects;
 using Godot;
-using System;
 
 public partial class GameOver : Control
 {
@@ -19,7 +18,8 @@ public partial class GameOver : Control
         tween.SetParallel();
         tween.TweenProperty(TitleBtn, "modulate", new Color(255, 255, 255, 1), 1f);
         tween.TweenProperty(LoadBtn, "modulate", new Color(255, 255, 255, 1), 1f);
-        tween.Finished += () => { 
+        tween.Finished += () =>
+        {
             LoadBtn.GrabFocus();
 
             LoadBtn.Pressed += Load;

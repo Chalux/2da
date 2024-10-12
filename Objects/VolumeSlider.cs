@@ -1,6 +1,5 @@
 using da.Scripts.Objects;
 using Godot;
-using System;
 
 public partial class VolumeSlider : HSlider
 {

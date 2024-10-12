@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace da.Objects
 {
-    public partial class Player : CharacterBody2D, IEvent
+    public partial class Player : CharacterBody2D, IEvent, IAttackable, IHurtable
     {
         public const int RIGHTPOSITION = 1;
         public const int LEFTPOSITION = -1;
@@ -44,7 +44,16 @@ namespace da.Objects
         public int CanDashCount = 1;
         public int DashCount = 0;
         public int CanJumpCount = 2;
-        public int JumpCount = 0;
+        private int _jumpcount = 0;
+        public int JumpCount
+        {
+            get => _jumpcount;
+            set
+            {
+                _jumpcount = value;
+                //GD.Print($"JumpCount : {_jumpcount}");
+            }
+        }
         public float DashSpeed = 500f;
         private int _direction = 1;
         public bool HasWallJumped = false;
@@ -283,6 +292,25 @@ namespace da.Objects
             Direction = (int)dict["direction"];
             status.FromDict(dict["status"].AsGodotDictionary<string, Variant>());
             GlobalPosition = new Vector2((float)dict["positionX"], (float)dict["positionY"]);
+        }
+
+        public HitBox GetHitBox() => HitBox;
+
+        public Damage DoAttack(IAttackable attacker, IHurtable target)
+        {
+            Damage result = new()
+            {
+                value = 1,
+                source = GetHitBox(),
+                target = target.GetHurtBox(),
+                onHitSound = ResourceLoader.Load<AudioStream>("res://Resources/SFX/17_orc_atk_sword_3.wav")
+            };
+            return result;
+        }
+
+        public HurtBox GetHurtBox()
+        {
+            return HurtBox;
         }
     }
 }

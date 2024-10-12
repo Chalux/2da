@@ -1,6 +1,5 @@
 using da.Scripts.Objects;
 using Godot;
-using System;
 using System.Linq;
 
 public partial class TitleScene : Control
@@ -36,7 +35,7 @@ public partial class TitleScene : Control
     private void StartGame()
     {
         GameGlobal.Instance.isRunning = true;
-        GameGlobal.Instance.Teleport("res://Scenes/ForestMap.tscn");
         GameGlobal.Instance.save = new();
+        GameGlobal.Instance.Teleport("res://Scenes/ForestMap.tscn");
     }
 }

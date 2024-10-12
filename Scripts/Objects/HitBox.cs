@@ -1,3 +1,4 @@
+using da.Scripts.Interfaces;
 using Godot;
 
 namespace da.Scripts.Objects
@@ -15,12 +16,24 @@ namespace da.Scripts.Objects
         private void OnAreaEntered(Area2D area)
         {
             //GD.Print($"[Hit] {Owner.Name} hit {area.Owner.Name}");
-            Damage damage = new()
+            Damage damage;
+            if (Owner is IAttackable attackable)
             {
-                value = 1,
-                source = this,
-                target = area as HurtBox
-            };
+                damage = attackable.DoAttack(attackable, area.Owner as IHurtable);
+            }
+            else
+            {
+                damage = new()
+                {
+                    value = 1,
+                    source = this,
+                    target = area as HurtBox
+                };
+            }
+            if (damage.onHitSound != null)
+            {
+                SoundManager.PlaySFXByStream(damage.onHitSound);
+            }
             EmitSignal(SignalName.onHit, damage);
             (area as HurtBox).EmitSignal(HurtBox.SignalName.onHurt, damage);
         }

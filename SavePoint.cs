@@ -1,6 +1,5 @@
 using da.Scripts.Objects;
 using Godot;
-using System;
 
 public partial class SavePoint : InteractableArea
 {
@@ -28,7 +27,7 @@ public partial class SavePoint : InteractableArea
 
         if (Active)
         {
-
+            GameGlobal.Instance.SaveGame();
         }
         else
         {

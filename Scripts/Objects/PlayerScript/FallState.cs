@@ -54,6 +54,13 @@ namespace da.Scripts.Objects.PlayerScript
             {
                 owner.StateMachine.ChangeState(PlayerState.WallSliding);
             }
+            else if (!owner.JumpRequestTimer.IsStopped())
+            {
+                if (owner.CheckCanJump && owner.HasReleasedJumpKey)
+                {
+                    owner.TryJump();
+                }
+            }
         }
     }
 }

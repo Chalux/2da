@@ -9,5 +9,6 @@ namespace da.Scripts
         public HitBox source;
         public HurtBox target;
         public bool repel;
+        public AudioStream onHitSound;
     }
 }

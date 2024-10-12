@@ -1,6 +1,5 @@
 using Godot;
 using Godot.Collections;
-using System;
 using System.Linq;
 
 public partial class SoundManager : Node
@@ -48,5 +47,16 @@ public partial class SoundManager : Node
         if (BGM.Stream == stream && BGM.Playing) return;
         BGM.Stream = stream;
         BGM.Play();
+    }
+
+    public static void PlaySFXByStream(AudioStream stream)
+    {
+        var sfx = new AudioStreamPlayer
+        {
+            Stream = stream
+        };
+        Ins.AddChild(sfx);
+        sfx.Play();
+        sfx.Finished += sfx.QueueFree;
     }
 }
