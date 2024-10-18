@@ -52,9 +52,9 @@ grow_horizontal = 0
 grow_vertical = 0
 
 [node name="TouchScreenButton" type="TouchScreenButton" parent="Actions"]
-position = Vector2(-12, 0)
+position = Vector2(-12, -44)
 texture_normal = SubResource("AtlasTexture_p5gnl")
-action = "interact"
+action = "jump"
 visibility_mode = 1
 
 [node name="TouchScreenButton2" type="TouchScreenButton" parent="Actions"]
@@ -64,9 +64,9 @@ action = "attack"
 visibility_mode = 1
 
 [node name="TouchScreenButton3" type="TouchScreenButton" parent="Actions"]
-position = Vector2(-12, -45)
+position = Vector2(-12, 0)
 texture_normal = SubResource("AtlasTexture_kp0hy")
-action = "jump"
+action = "interact"
 visibility_mode = 1
 
 [node name="TouchScreenButton4" type="TouchScreenButton" parent="Actions"]

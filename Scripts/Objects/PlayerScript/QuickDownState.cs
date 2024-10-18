@@ -28,11 +28,16 @@ namespace da.Scripts.Objects.PlayerScript
         public override void PhysicsProcess(double delta, Player owner)
         {
             owner.Velocity = new(0, owner.DashSpeed);
+        }
+
+        public override void AfterMove(double delta, Player owner)
+        {
             CheckChangeState(owner);
         }
 
         private void CheckChangeState(Player owner)
         {
+            if (owner.StateMachine.currState.State != State) return;
             if (owner.IsOnFloor())
             {
                 var direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");

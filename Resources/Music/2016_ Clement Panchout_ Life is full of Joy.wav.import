@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c6s672h6mx215"
+path="res://.godot/imported/2016_ Clement Panchout_ Life is full of Joy.wav-1ad363b7e4823f173e01476512c18df5.sample"
+
+[deps]
+
+source_file="res://Resources/Music/2016_ Clement Panchout_ Life is full of Joy.wav"
+dest_files=["res://.godot/imported/2016_ Clement Panchout_ Life is full of Joy.wav-1ad363b7e4823f173e01476512c18df5.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

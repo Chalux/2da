@@ -2,6 +2,7 @@ using da.Scripts;
 using da.Scripts.Interfaces;
 using da.Scripts.Objects;
 using da.Scripts.Objects.PlayerScript;
+using DialogicRuntime;
 using Godot;
 using System.Collections.Generic;
 
@@ -11,7 +12,7 @@ namespace da.Objects
     {
         public const int RIGHTPOSITION = 1;
         public const int LEFTPOSITION = -1;
-        //[Export] public Sprite2D CharactorSprite;
+        [Export] public Sprite2D Sprite;
         [Export] public Node2D Graphics;
         private Sprite2D CharactorSprite;
         [Export] public AnimationPlayer CharactorAnimPlayer;
@@ -34,6 +35,8 @@ namespace da.Objects
         [Export] public HurtBox HurtBox;
         [Export] public Camera2D PlayerCamera;
         [Export] public PauseScene PauseScene;
+        [Export] public Marker2D BubbleMarker;
+        [Export] public RayCast2D LadderRay;
         public const float Speed = 160;
         public const float JumpVelocity = -400;
         public const float FloorAcceleration = Speed / 0.2f;
@@ -74,13 +77,14 @@ namespace da.Objects
         public BaseState NextAttackState;
         public List<IInteractale> NowInteraction = new();
         [Export] public AnimatedSprite2D InteractableAnim;
+        public bool SkipInput = false;
 
         // Get the gravity from the project settings to be synced with RigidBody nodes.
         public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 
         public override void _PhysicsProcess(double delta)
         {
-            if (GameGlobal.Instance.IsChangingScene) return;
+            if (GameGlobal.Instance.IsChangingScene || SkipInput) return;
 
             StateMachine.PhysicsProcess(delta);
 
@@ -132,13 +136,17 @@ namespace da.Objects
                     StateMachine.ChangeState(PlayerState.Death);
                 }
             };
-            WhosYourDaddy.Timeout += () =>
-            {
-                //HurtBox.Visible = true;
-                HurtBox.SetDeferred("monitorable", true);
-            };
+            WhosYourDaddy.Timeout += InvincibleTimeout;
             EventMgr.RegisterEvent(this);
             EventMgr.DispatchEvent("PlayerReady", this);
+            Dialogic.TimelineStarted += () =>
+            {
+                SkipInput = true;
+            };
+            Dialogic.TimelineEnded += () =>
+            {
+                SkipInput = false;
+            };
         }
 
         public bool CheckCanDash => (DashCount > 0 || StateMachine.currState.State == PlayerState.WallSliding || (StateMachine.currState.State == PlayerState.Dash && StateMachine.oldStateEnum == PlayerState.WallSliding)) && DashTimer.IsStopped() && DashCoolDownTimer.IsStopped();
@@ -270,6 +278,10 @@ namespace da.Objects
             status.Health = status.MaxHealth;
             StateMachine.ChangeState(PlayerState.Idle);
             WhosYourDaddy.Start();
+            if (Sprite.Material != null)
+            {
+                (Sprite.Material as ShaderMaterial).SetShaderParameter("enable", true);
+            }
             CollisionLayer = 0;
             SetCollisionLayerValue(2, true);
             HitBox.SetDeferred("monitoring", true);
@@ -278,32 +290,55 @@ namespace da.Objects
 
         public Godot.Collections.Dictionary<string, Variant> ToDict()
         {
-            return new Godot.Collections.Dictionary<string, Variant>()
+            var result = new Godot.Collections.Dictionary<string, Variant>()
             {
                 { "direction", Direction },
                 { "status", status.ToDict() },
-                { "positionX", GlobalPosition.X },
-                { "positionY", GlobalPosition.Y }
+
             };
+            if (IsNodeReady())
+            {
+                result.Add("positionX", GlobalPosition.X);
+                result.Add("positionY", GlobalPosition.Y);
+            }
+            return result;
         }
 
-        public void FromDict(Godot.Collections.Dictionary<string, Variant> dict)
+        public void FromDict(Godot.Collections.Dictionary<string, Variant> dict, bool ignorePosition = false)
         {
-            Direction = (int)dict["direction"];
-            status.FromDict(dict["status"].AsGodotDictionary<string, Variant>());
-            GlobalPosition = new Vector2((float)dict["positionX"], (float)dict["positionY"]);
+            Direction = dict.GetValueOrDefault("direction", 1).AsInt32();
+            if (dict.ContainsKey("status"))
+            {
+                status.FromDict(dict["status"].AsGodotDictionary<string, Variant>());
+            }
+            if (dict.ContainsKey("positionX") && dict.ContainsKey("positionY") && !ignorePosition)
+            {
+                GlobalPosition = new Vector2((float)dict["positionX"], (float)dict["positionY"]);
+            }
         }
 
         public HitBox GetHitBox() => HitBox;
 
         public Damage DoAttack(IAttackable attacker, IHurtable target)
         {
+            float AttackStunDuration = 0.1f;
+            float AttackStunPower = 0.01f;
+            switch (StateMachine.currState.State)
+            {
+                case PlayerState.Attack3:
+                    AttackStunDuration = 1f;
+                    AttackStunPower = 0.01f;
+                    break;
+            }
             Damage result = new()
             {
                 value = 1,
                 source = GetHitBox(),
                 target = target.GetHurtBox(),
-                onHitSound = ResourceLoader.Load<AudioStream>("res://Resources/SFX/17_orc_atk_sword_3.wav")
+                onHitSound = ResourceLoader.Load<AudioStream>("res://Resources/SFX/17_orc_atk_sword_3.wav"),
+                isStunFrame = true,
+                stunDuration = AttackStunDuration,
+                stunPower = AttackStunPower
             };
             return result;
         }
@@ -311,6 +346,15 @@ namespace da.Objects
         public HurtBox GetHurtBox()
         {
             return HurtBox;
+        }
+
+        private void InvincibleTimeout()
+        {
+            HurtBox.SetDeferred("monitorable", true);
+            if (Sprite.Material != null)
+            {
+                (Sprite.Material as ShaderMaterial).SetShaderParameter("enable", false);
+            }
         }
     }
 }

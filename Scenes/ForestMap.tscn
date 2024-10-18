@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://bwwf45hrjp45w"]
+[gd_scene load_steps=36 format=4 uid="uid://bwwf45hrjp45w"]
 
 [ext_resource type="Texture2D" uid="uid://vf221s0alvnf" path="res://Resources/Assets/Legacy-Fantasy - High Forest 2.3/Background/Background.png" id="1_0i8uw"]
 [ext_resource type="Script" path="res://Scripts/Map.cs" id="1_wg0mu"]
@@ -14,6 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://nfovkta3ihjc" path="res://Objects/Player.tscn" id="11_pxg72"]
 [ext_resource type="PackedScene" uid="uid://ckynmnjvmk41r" path="res://Objects/Teleposition.tscn" id="12_175dj"]
 [ext_resource type="PackedScene" uid="uid://d3ox7n0w70b5t" path="res://Objects/Slime.tscn" id="13_4w5ua"]
+[ext_resource type="Texture2D" uid="uid://bym38syvpujjh" path="res://Resources/Assets/Slime-Sheet/slime-Sheet.png" id="15_xu0au"]
+[ext_resource type="Script" path="res://Scripts/Objects/SlimeBeginNpc1.cs" id="17_4866t"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xaf6k"]
 atlas = ExtResource("9_enml8")
@@ -1434,6 +1436,45 @@ sources/0 = SubResource("TileSetAtlasSource_uk2kj")
 sources/1 = SubResource("TileSetAtlasSource_70rdr")
 sources/2 = SubResource("TileSetAtlasSource_av3ig")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_eur6n"]
+atlas = ExtResource("15_xu0au")
+region = Rect2(0, 0, 32, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hvlkh"]
+atlas = ExtResource("15_xu0au")
+region = Rect2(32, 0, 32, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xqu7e"]
+atlas = ExtResource("15_xu0au")
+region = Rect2(64, 0, 32, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_urk3p"]
+atlas = ExtResource("15_xu0au")
+region = Rect2(96, 0, 32, 25)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eaiww"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eur6n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hvlkh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xqu7e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_urk3p")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3sye8"]
+size = Vector2(30, 32)
+
 [node name="Map" type="Control" node_paths=PackedStringArray("player")]
 layout_mode = 3
 anchors_preset = 0
@@ -1572,24 +1613,24 @@ tile_set = SubResource("TileSet_jxpot")
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
 offset_left = -16.0
-offset_top = 24.0
 offset_right = 80.0
-offset_bottom = 72.0
+offset_bottom = 74.0
 theme_override_colors/font_color = Color(0.89, 0.4895, 0, 1)
 text = "按wasd移动
-按空格键跳跃"
+按空格键跳跃
+按e交互"
+horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="."]
 layout_mode = 0
-offset_left = 168.0
-offset_top = -72.0
-offset_right = 315.0
-offset_bottom = 28.0
+offset_left = 152.0
+offset_top = -56.0
+offset_right = 299.0
+offset_bottom = 44.0
 theme_override_colors/font_color = Color(0.89, 0.4895, 0, 1)
 text = "在空中按空格二段跳
 任意时机按shift冲刺
-在空中按s速降
-按e交互"
+在空中按s速降"
 horizontal_alignment = 1
 
 [node name="Label3" type="Label" parent="."]
@@ -1610,12 +1651,29 @@ tile_set = SubResource("TileSet_jxpot")
 [node name="forest_save_point_1" parent="." instance=ExtResource("11_lmm05")]
 position = Vector2(202, -144)
 
-[node name="Enemy" parent="." instance=ExtResource("13_4w5ua")]
+[node name="SlimeForest1" parent="." instance=ExtResource("13_4w5ua")]
 position = Vector2(232, 112)
 Speed = 100.0
 
 [node name="Player" parent="." instance=ExtResource("11_pxg72")]
 position = Vector2(0, 128)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(72, 117)
+sprite_frames = SubResource("SpriteFrames_eaiww")
+autoplay = "default"
+frame_progress = 0.795507
+
+[node name="Area2D" type="Area2D" parent="AnimatedSprite2D" node_paths=PackedStringArray("SlimeBubbleMarker")]
+script = ExtResource("17_4866t")
+SlimeBubbleMarker = NodePath("../Marker2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Area2D"]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_3sye8")
+
+[node name="Marker2D" type="Marker2D" parent="AnimatedSprite2D"]
+position = Vector2(12, -6)
 
 [node name="Foreground" type="ParallaxBackground" parent="."]
 layer = 1

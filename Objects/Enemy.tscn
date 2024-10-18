@@ -1,11 +1,36 @@
-[gd_scene load_steps=10 format=3 uid="uid://c2ts5x2bc2og5"]
+[gd_scene load_steps=15 format=3 uid="uid://c2ts5x2bc2og5"]
 
 [ext_resource type="Script" path="res://Objects/Enemy.cs" id="1_84s06"]
 [ext_resource type="Script" path="res://Scripts/Objects/EnemyScript/EnemyStateMachine.cs" id="2_116m3"]
+[ext_resource type="Shader" path="res://Resources/Shaders/Blink.gdshader" id="2_cyfnm"]
 [ext_resource type="Script" path="res://Scripts/Objects/HitBox.cs" id="2_qo3un"]
 [ext_resource type="Script" path="res://Scripts/Objects/HurtBox.cs" id="3_t6m8f"]
 [ext_resource type="Script" path="res://Scripts/Status.cs" id="5_v2gsq"]
 [ext_resource type="Texture2D" uid="uid://dgpxclmviwt4o" path="res://Resources/Assets/Pixel UI pack 3/06.png" id="6_5tl7x"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yrbu1"]
+resource_local_to_scene = true
+shader = ExtResource("2_cyfnm")
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
+
+[sub_resource type="Gradient" id="Gradient_qikt7"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_urwia"]
+gradient = SubResource("Gradient_qikt7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qitcn"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+direction = Vector3(0.5, -0.5, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 400.0
+gravity = Vector3(0, 490, 0)
+damping_min = 100.0
+damping_max = 800.0
+scale_max = 3.0
+color_ramp = SubResource("GradientTexture1D_urwia")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bmk28"]
 size = Vector2(22, 20)
@@ -18,7 +43,7 @@ region = Rect2(195, 69, 42, 7)
 atlas = ExtResource("6_5tl7x")
 region = Rect2(3, 69, 42, 7)
 
-[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("Graphics", "AnimPlayer", "StateMachine", "HurtBox", "HitBox", "status", "sprite", "healBar", "HealthBarTimer")]
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("Graphics", "AnimPlayer", "StateMachine", "HurtBox", "HitBox", "status", "sprite", "healBar", "HealthBarTimer", "HitParticles")]
 collision_layer = 4
 script = ExtResource("1_84s06")
 Graphics = NodePath("Graphics")
@@ -30,10 +55,12 @@ status = NodePath("Status")
 sprite = NodePath("Graphics/Sprite2D")
 healBar = NodePath("HealthBar")
 HealthBarTimer = NodePath("HealthBarTimer")
+HitParticles = NodePath("Graphics/GPUParticles2D")
 
 [node name="Graphics" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Graphics"]
+material = SubResource("ShaderMaterial_yrbu1")
 hframes = 4
 region_enabled = true
 region_rect = Rect2(0, -1, 128, 25)
@@ -47,6 +74,14 @@ script = ExtResource("2_qo3un")
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("3_t6m8f")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Graphics"]
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_qitcn")
+lifetime = 0.8
+one_shot = true
+explosiveness = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_bmk28")

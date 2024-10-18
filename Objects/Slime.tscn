@@ -1,8 +1,15 @@
-[gd_scene load_steps=12 format=3 uid="uid://d3ox7n0w70b5t"]
+[gd_scene load_steps=14 format=3 uid="uid://d3ox7n0w70b5t"]
 
 [ext_resource type="PackedScene" uid="uid://c2ts5x2bc2og5" path="res://Objects/Enemy.tscn" id="1_lfs0e"]
 [ext_resource type="Script" path="res://Objects/Slime.cs" id="2_um4hb"]
 [ext_resource type="Texture2D" uid="uid://bym38syvpujjh" path="res://Resources/Assets/Slime-Sheet/slime-Sheet.png" id="2_v8fs1"]
+[ext_resource type="Shader" path="res://Resources/Shaders/Blink.gdshader" id="3_7el6d"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qvamd"]
+resource_local_to_scene = true
+shader = ExtResource("3_7el6d")
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_co5tk"]
 size = Vector2(0, 20)
@@ -629,6 +636,7 @@ Speed = 10.0
 Acceleration = 2.5
 
 [node name="Sprite2D" parent="Graphics" index="0"]
+material = SubResource("ShaderMaterial_qvamd")
 position = Vector2(0, -12)
 texture = ExtResource("2_v8fs1")
 
@@ -651,6 +659,9 @@ shape = SubResource("RectangleShape2D_co5tk")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Graphics/HurtBox" index="0"]
 polygon = PackedVector2Array(-10, 0, -10, -14, 14, -14, 14, 0)
+
+[node name="GPUParticles2D" parent="Graphics" index="6"]
+position = Vector2(0, -6)
 
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2(1, -10)

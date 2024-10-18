@@ -48,6 +48,10 @@ namespace da.Scripts.Objects.PlayerScript
             {
                 owner.StateMachine.ChangeState(PlayerState.Crouch);
             }
+            else if (direction.Y < -0.5 && owner.LadderRay.IsColliding())
+            {
+                owner.StateMachine.ChangeState(PlayerState.ClimbLadder);
+            }
         }
     }
 }

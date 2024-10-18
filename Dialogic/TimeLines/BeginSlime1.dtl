@@ -1,0 +1,12 @@
+SlimeNpc: 你来了
+Owens: ……
+SlimeNpc: 先帮我教训一下我的孩子们吧
+- 你是谁？
+	SlimeNpc: 这一切并不重要
+	Owens: ……
+- ……
+if {BeginSlimeKilled} >= 2:
+	SlimeNpc: 看来你已经很好的完成了任务
+	SlimeNpc: 那么请你接下来去打败魔王吧
+	Owens: 什么？
+	[signal arg_type="dict" arg="{"Argument1":"res://Scenes/HomeMap.tscn","Argument2":"bed","eventName":"Teleport"}"]

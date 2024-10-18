@@ -1,10 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c2ubgynxhdkjn"]
+[gd_scene load_steps=2 format=3 uid="uid://c2ubgynxhdkjn"]
 
 [ext_resource type="Script" path="res://Objects/GhostNode.cs" id="1_cbb1x"]
-[ext_resource type="Texture2D" uid="uid://b0c85d1vqfotg" path="res://icon.svg" id="1_yh6cc"]
 
 [node name="GhostNode" type="Sprite2D"]
 modulate = Color(0.299547, 0.299547, 0.299547, 1)
 show_behind_parent = true
-texture = ExtResource("1_yh6cc")
 script = ExtResource("1_cbb1x")

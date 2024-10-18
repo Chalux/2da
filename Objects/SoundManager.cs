@@ -49,7 +49,7 @@ public partial class SoundManager : Node
         BGM.Play();
     }
 
-    public static void PlaySFXByStream(AudioStream stream)
+    public static AudioStreamPlayer PlaySFXByStream(AudioStream stream)
     {
         var sfx = new AudioStreamPlayer
         {
@@ -58,5 +58,6 @@ public partial class SoundManager : Node
         Ins.AddChild(sfx);
         sfx.Play();
         sfx.Finished += sfx.QueueFree;
+        return sfx;
     }
 }

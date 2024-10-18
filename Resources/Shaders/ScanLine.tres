@@ -1,0 +1,23 @@
+[gd_resource type="VisualShader" load_steps=3 format=3 uid="uid://bvy84fenfj6ec"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_jfp1s"]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_uvrld"]
+default_input_values = [0, Vector2(0, 0)]
+op_type = 0
+
+[resource]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+
+
+"
+mode = 1
+flags/light_only = false
+nodes/fragment/2/node = SubResource("VisualShaderNodeInput_jfp1s")
+nodes/fragment/2/position = Vector2(-520, 140)
+nodes/fragment/3/node = SubResource("VisualShaderNodeVectorDecompose_uvrld")
+nodes/fragment/3/position = Vector2(-200, 100)
+nodes/fragment/connections = PackedInt32Array(2, 0, 3, 0)

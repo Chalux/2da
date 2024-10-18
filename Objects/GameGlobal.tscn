@@ -26,9 +26,10 @@ atlas = SubResource("AtlasTexture_ysh0d")
 atlas = ExtResource("5_g867i")
 region = Rect2(3, 21, 42, 7)
 
-[node name="GameGlobal" type="Node" node_paths=PackedStringArray("UIControl", "healthBar", "BlackMask")]
+[node name="GameGlobal" type="Node" node_paths=PackedStringArray("UIControl", "LeftUpperBox", "healthBar", "BlackMask")]
 script = ExtResource("1_7170a")
 UIControl = NodePath("UIControl")
+LeftUpperBox = NodePath("UIControl/LeftUpperBox")
 healthBar = NodePath("UIControl/LeftUpperBox/HealthBar")
 BlackMask = NodePath("UIControl/ColorRect")
 

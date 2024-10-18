@@ -3,7 +3,7 @@ using Godot.Collections;
 
 namespace da.Scripts
 {
-    public partial class SaveData : RefCounted
+    public partial class SaveData : GodotObject
     {
         /// <summary>
         /// 外部key值对应地图的Name，内部键值自己定义意义
@@ -13,6 +13,8 @@ namespace da.Scripts
         public string currMapPath = "res://Scenes/ForestMap.tscn";
 
         public Godot.Collections.Dictionary<string, Variant> PlayerData = new();
+
+        public Dictionary<string, Variant> GlobalSaveData = new();
 
         /// <summary>
         /// key值为存档点的Name值，value为地图的路径，用于跨地图传送
@@ -26,7 +28,8 @@ namespace da.Scripts
                 { "MapSaveData", MapSaveData },
                 { "currMapPath", currMapPath },
                 { "PlayerData", PlayerData },
-                { "ActivedSavePoints", ActivedSavePoints }
+                { "ActivedSavePoints", ActivedSavePoints },
+                { "GlobalSaveData", GlobalSaveData }
             };
         }
     }

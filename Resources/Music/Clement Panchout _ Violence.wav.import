@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b7s6eldd0vdhp"
+path="res://.godot/imported/Clement Panchout _ Violence.wav-3a4a1ed14b6aec179bf919db9db6af37.sample"
+
+[deps]
+
+source_file="res://Resources/Music/Clement Panchout _ Violence.wav"
+dest_files=["res://.godot/imported/Clement Panchout _ Violence.wav-3a4a1ed14b6aec179bf919db9db6af37.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

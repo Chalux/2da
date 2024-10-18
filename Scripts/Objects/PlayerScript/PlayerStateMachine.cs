@@ -23,6 +23,7 @@ namespace da.Scripts.Objects.PlayerScript
         WallJump,
         Slide,
         Sliding,
+        ClimbLadder,
     }
     public partial class PlayerStateMachine : Node
     {
@@ -49,6 +50,7 @@ namespace da.Scripts.Objects.PlayerScript
             { PlayerState.Hurt, new HurtState() },
             { PlayerState.Slide, new SlideState() },
             { PlayerState.Sliding, new SlidingState() },
+            { PlayerState.ClimbLadder, new ClimbLadderState() },
         };
 
         public void ChangeState(PlayerState newState)
@@ -58,8 +60,9 @@ namespace da.Scripts.Objects.PlayerScript
             oldStateEnum = currState?.State ?? PlayerState.Idle;
             currState?.Exit(Owner as Player);
             currState = stateDict[newState];
+            (Owner as Player).CharactorAnimPlayer.Advance(0);
             currState?.Enter(Owner as Player);
-            GD.Print($"Change State from {oldStateEnum} to {newState}");
+            //GD.Print($"Change State from {oldStateEnum} to {newState}");
             if ((oldStateEnum != PlayerState.Jump && oldStateEnum != PlayerState.WallJump) && newState == PlayerState.Fall)
             {
                 (Owner as Player).JumpCount -= 1;

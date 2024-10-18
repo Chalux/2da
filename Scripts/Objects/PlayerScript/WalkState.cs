@@ -54,6 +54,10 @@ namespace da.Scripts.Objects.PlayerScript
                     owner.StateMachine.ChangeState(PlayerState.Attack1);
                 }
             }
+            else if (direction.Y < -0.5 && owner.LadderRay.IsColliding())
+            {
+                owner.StateMachine.ChangeState(PlayerState.ClimbLadder);
+            }
             else
             {
                 if (direction.Y > 0.5)

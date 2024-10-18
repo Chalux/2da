@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://clmuoj0brv3vl"]
 
+[ext_resource type="Script" path="res://Objects/SavePoint.cs" id="1_ibtpx"]
 [ext_resource type="Texture2D" uid="uid://c5k0aqockd58q" path="res://Resources/Assets/Legacy-Fantasy - High Forest 2.3/Assets/Props-Rocks.png" id="1_nucfp"]
-[ext_resource type="Script" path="res://SavePoint.cs" id="1_qjvo0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k5ai3"]
 size = Vector2(59, 40)
@@ -156,7 +156,7 @@ _data = {
 position = Vector2(2, 0)
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("1_qjvo0")
+script = ExtResource("1_ibtpx")
 animationPlayer = NodePath("AnimationPlayer")
 
 [node name="Props-rocks" type="Sprite2D" parent="."]

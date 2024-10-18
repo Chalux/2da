@@ -17,6 +17,10 @@ namespace da.Scripts.Objects.PlayerScript
             owner.CharactorAnimPlayer.AnimationFinished += ChangeToIdle;
             owner.HurtBox.SetDeferred("monitorable", false);
             owner.WhosYourDaddy.Start();
+            if (owner.Sprite.Material != null)
+            {
+                (owner.Sprite.Material as ShaderMaterial).SetShaderParameter("enable", true);
+            }
             owner.Velocity = new(100 * -owner.Direction, -200);
             owner.MoveAndSlide();
             SoundManager.Ins.PlaySFX("Hurt");

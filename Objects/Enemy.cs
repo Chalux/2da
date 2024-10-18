@@ -15,8 +15,11 @@ public partial class Enemy : CharacterBody2D, IAttackable, IHurtable
     [Export] public Sprite2D sprite;
     [Export] public TextureProgressBar healBar;
     [Export] public Timer HealthBarTimer;
+    [Export] public GpuParticles2D HitParticles;
+    [Export] public bool CantRevive = false;
     public bool ShowHealthBar = true;
     private Tween tween;
+    private Tween hurtTween;
 
     public int mirror = 1;
     private int _direction = 1;
@@ -89,12 +92,29 @@ public partial class Enemy : CharacterBody2D, IAttackable, IHurtable
         healBar.MaxValue = maxhealth;
     }
 
-    private async void OnHurt(Damage damage)
+    private void OnHurt(Damage damage)
     {
-        Engine.TimeScale = 0.01;
-        var Timer = GetTree().CreateTimer(0.05f, true, false, true);
-        await Timer.ToSignal(Timer, SceneTreeTimer.SignalName.Timeout);
-        Engine.TimeScale = 1;
+        HitParticles.Restart();
+        HitParticles.Emitting = true;
+        //Engine.TimeScale = damage.stunPower;
+        //var Timer = GetTree().CreateTimer(damage.stunDuration, true, false, true);
+        //await Timer.ToSignal(Timer, SceneTreeTimer.SignalName.Timeout);
+        //Engine.TimeScale = 1;
+        hurtTween = GameGlobal.Instance.CreateTween();
+        hurtTween.SetParallel();
+        hurtTween.TweenMethod(Callable.From((float newvalue) => SetShaderBlinkIntensity(newvalue)), 1.0f, 0f, 0.5f);
+        hurtTween.TweenMethod(Callable.From((float scale) => SetTimeScale(scale)), damage.stunPower, 1f, damage.stunDuration);
+    }
+
+    private void SetShaderBlinkIntensity(float newvalue)
+    {
+        (sprite.Material as ShaderMaterial).SetShaderParameter("blink_intensity", newvalue);
+    }
+
+    private void SetTimeScale(float scale)
+    {
+        Engine.TimeScale = scale;
+        hurtTween.SetSpeedScale(1 / (float)Engine.TimeScale);
     }
 
     public HitBox GetHitBox()

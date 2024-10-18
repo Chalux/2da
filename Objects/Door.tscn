@@ -1,0 +1,68 @@
+[gd_scene load_steps=9 format=3 uid="uid://dgfaor37ptwpc"]
+
+[ext_resource type="Texture2D" uid="uid://cav6q4613avih" path="res://Resources/Assets/Dungeon Tile Set.png" id="1_5pqbd"]
+[ext_resource type="Script" path="res://Objects/Door.cs" id="1_poren"]
+[ext_resource type="Script" path="res://Objects/DoorInteract.cs" id="3_jejly"]
+[ext_resource type="AudioStream" uid="uid://cyxupdvliac21" path="res://Resources/SFX/05_door_open_2.mp3" id="4_v570k"]
+[ext_resource type="AudioStream" uid="uid://c0gbwf4dbjh2n" path="res://Resources/SFX/06_door_close_1.mp3" id="5_28n2g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_45nn8"]
+size = Vector2(16, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_frugg"]
+size = Vector2(42, 32)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_q63t7"]
+polygon = PackedVector2Array(-8, -32, -8, 0, 8, 0, 8, -32)
+
+[node name="Door" type="Control" node_paths=PackedStringArray("sprite", "Collision", "openDoorAudio", "closeDoorAudio") groups=["doors"]]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -384.0
+offset_bottom = -216.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_poren")
+sprite = NodePath("Sprite2D")
+Collision = NodePath("Collision")
+openDoorAudio = NodePath("OpenDoorAudio")
+closeDoorAudio = NodePath("CloseDoorAudio")
+
+[node name="Collision" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision"]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_45nn8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -16)
+texture = ExtResource("1_5pqbd")
+region_enabled = true
+region_rect = Rect2(208, 160, 16, 32)
+
+[node name="Interact" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("3_jejly")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interact"]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_frugg")
+
+[node name="OpenDoorAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_v570k")
+volume_db = 18.0
+max_distance = 60.0
+bus = &"SFX"
+
+[node name="CloseDoorAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_28n2g")
+volume_db = 18.0
+max_distance = 60.0
+bus = &"SFX"
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_q63t7")

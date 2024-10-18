@@ -35,6 +35,27 @@ namespace da.Scripts.Objects.PlayerScript
             {
                 owner.StateMachine.ChangeState(PlayerState.WallJump);
             }
+            else
+            {
+                if (owner == null || owner.GetLastSlideCollision() == null) return;
+                if (owner.GetLastSlideCollision().GetCollider() is TileMapLayer tml)
+                {
+                    if (tml.TileSet.GetCustomDataLayerByName("CantSlide") == -1)
+                    {
+                        return;
+                    }
+                    var coords = tml.GetCoordsForBodyRid(owner.GetLastSlideCollision().GetColliderRid());
+                    var customData = tml.GetCellTileData(coords).GetCustomData("CantSlide");
+                    if (customData.AsBool())
+                    {
+                        owner.StateMachine.ChangeState(PlayerState.Fall);
+                    }
+                }
+                else if (owner.GetLastSlideCollision().GetCollider().GetMeta("CantSlide", false).AsBool())
+                {
+                    owner.StateMachine.ChangeState(PlayerState.Fall);
+                }
+            }
         }
     }
 }

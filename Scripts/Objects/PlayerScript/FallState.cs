@@ -52,6 +52,24 @@ namespace da.Scripts.Objects.PlayerScript
             }
             else if (owner.IsOnWall() && owner.HandRay.IsColliding() && owner.FootRay.IsColliding())
             {
+                if (owner == null || owner.GetLastSlideCollision() == null) return;
+                if (owner.GetLastSlideCollision().GetCollider() is TileMapLayer tml)
+                {
+                    if (tml.TileSet.GetCustomDataLayerByName("CantSlide") == -1)
+                    {
+                        owner.StateMachine.ChangeState(PlayerState.WallSliding);
+                        return;
+                    }
+                    var coords = tml.GetCoordsForBodyRid(owner.GetLastSlideCollision().GetColliderRid());
+                    if (tml.GetCellTileData(coords).GetCustomData("CantSlide").AsBool())
+                    {
+                        return;
+                    }
+                }
+                else if (owner.GetLastSlideCollision().GetCollider().GetMeta("CantSlide", false).AsBool())
+                {
+                    return;
+                }
                 owner.StateMachine.ChangeState(PlayerState.WallSliding);
             }
             else if (!owner.JumpRequestTimer.IsStopped())
@@ -60,6 +78,10 @@ namespace da.Scripts.Objects.PlayerScript
                 {
                     owner.TryJump();
                 }
+            }
+            else if (direction.Y < -0.5 && owner.LadderRay.IsColliding())
+            {
+                owner.StateMachine.ChangeState(PlayerState.ClimbLadder);
             }
         }
     }

@@ -13,6 +13,7 @@ namespace da.Scripts
         {
             MouseFilter = MouseFilterEnum.Ignore;
             GameGlobal.Instance.UIControl.Visible = true;
+            GameGlobal.Instance.LeftUpperBox.Visible = true;
             GameGlobal.Instance.player = player;
             GameGlobal.Instance.camera = player.PlayerCamera;
             //var UsedRect = map.GetUsedRect().Grow(-1);
@@ -31,15 +32,13 @@ namespace da.Scripts
             player.PlayerCamera.ResetSmoothing();
             player.PlayerCamera.ForceUpdateScroll();
 
+            if (GameGlobal.Instance.save.PlayerData != null) player.FromDict(GameGlobal.Instance.save.PlayerData, true);
+            GameGlobal.Instance.UpdateLeftUpperBox();
+
             if (BGM != null)
             {
                 SoundManager.Ins.PlayBGM(BGM);
             }
-        }
-
-        public override void _ExitTree()
-        {
-            //GameGlobal.Instance.player = null;
         }
 
         public void ReceiveEvent(string eventName, params object[] datas)

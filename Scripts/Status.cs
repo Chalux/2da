@@ -31,6 +31,10 @@ namespace da.Scripts
                 {
                     EmitSignal(SignalName.OnHealthChanged, value, oldvalue);
                 }
+                if (Owner is Enemy && _health <= 0)
+                {
+                    EventMgr.DispatchEvent("EnemyDied", Owner);
+                }
             }
         }
 

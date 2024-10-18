@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://nfovkta3ihjc"]
+[gd_scene load_steps=60 format=3 uid="uid://nfovkta3ihjc"]
 
 [ext_resource type="Texture2D" uid="uid://ds1ag1dyvrytk" path="res://Resources/Assets/Charactor_blue/char_blue_1.png" id="1_850ap"]
 [ext_resource type="Script" path="res://Objects/Player.cs" id="1_wac6e"]
@@ -7,8 +7,8 @@
 [ext_resource type="Script" path="res://Scripts/Objects/PlayerScript/PlayerStateMachine.cs" id="4_d188b"]
 [ext_resource type="Script" path="res://Scripts/Objects/HitBox.cs" id="6_bvb0r"]
 [ext_resource type="Script" path="res://Scripts/Status.cs" id="6_iknsp"]
-[ext_resource type="Shader" path="res://Resources/Shaders/HitFlash.gdshader" id="7_a0jmo"]
 [ext_resource type="Script" path="res://Scripts/Objects/HurtBox.cs" id="7_kjpxj"]
+[ext_resource type="Shader" path="res://Resources/Shaders/ScanLine.gdshader" id="8_g1i2m"]
 [ext_resource type="Texture2D" uid="uid://l52nnasoabyo" path="res://Resources/Assets/Pixel UI pack 3/00.png" id="10_ao01t"]
 [ext_resource type="PackedScene" uid="uid://duf5w53whi0ek" path="res://Scenes/PauseScene.tscn" id="11_gb2cv"]
 [ext_resource type="Script" path="res://Objects/PlayerCamera.cs" id="12_n4hr1"]
@@ -21,38 +21,38 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Graphics/Sprite2D:region_rect")
+tracks/0/path = NodePath("Graphics/Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Rect2(0, 0, 336, 56)]
+"update": 1,
+"values": [ExtResource("3_h60p7")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Graphics/Sprite2D:hframes")
+tracks/1/path = NodePath("Graphics/Sprite2D:region_rect")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [6]
+"update": 0,
+"values": [Rect2(0, 0, 336, 56)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Graphics/Sprite2D:frame")
+tracks/2/path = NodePath("Graphics/Sprite2D:hframes")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [6]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -69,26 +69,26 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Graphics/Sprite2D/HitBox/CollisionPolygon2D:polygon")
+tracks/4/path = NodePath("Graphics/Sprite2D:frame")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [PackedVector2Array()]
+"values": [0]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Graphics/Sprite2D:texture")
+tracks/5/path = NodePath("Graphics/HitBox/CollisionPolygon2D:polygon")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_h60p7")]
+"values": [PackedVector2Array()]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -117,70 +117,22 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Graphics/Sprite2D:material")
+tracks/8/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:polygon")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [null]
+"values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Graphics/Sprite2D:material:shader_parameter/hit_color")
+tracks/9/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:position")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("Graphics/Sprite2D:material:shader")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("7_a0jmo")]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("Graphics/Sprite2D:material:shader_parameter/blink_intensity")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:polygon")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
-}
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -241,7 +193,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Graphics/Sprite2D/HitBox/CollisionPolygon2D:polygon")
+tracks/4/path = NodePath("Graphics/HitBox/CollisionPolygon2D:polygon")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -289,70 +241,22 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Graphics/Sprite2D:material")
+tracks/8/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:polygon")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [null]
+"values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Graphics/Sprite2D:material:shader_parameter/hit_color")
+tracks/9/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:position")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("Graphics/Sprite2D:material:shader")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("7_a0jmo")]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("Graphics/Sprite2D:material:shader_parameter/blink_intensity")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:polygon")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
-}
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -413,7 +317,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Graphics/Sprite2D/HitBox/CollisionPolygon2D:polygon")
+tracks/4/path = NodePath("Graphics/HitBox/CollisionPolygon2D:polygon")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -461,70 +365,22 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Graphics/Sprite2D:material")
+tracks/8/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:polygon")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [null]
+"values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Graphics/Sprite2D:material:shader_parameter/hit_color")
+tracks/9/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:position")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("Graphics/Sprite2D:material:shader")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("7_a0jmo")]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("Graphics/Sprite2D:material:shader_parameter/blink_intensity")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:polygon")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
-}
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -585,7 +441,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Graphics/Sprite2D/HitBox/CollisionPolygon2D:polygon")
+tracks/4/path = NodePath("Graphics/HitBox/CollisionPolygon2D:polygon")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -633,70 +489,22 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Graphics/Sprite2D:material")
+tracks/8/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:polygon")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [null]
+"values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Graphics/Sprite2D:material:shader_parameter/hit_color")
+tracks/9/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:position")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("Graphics/Sprite2D:material:shader")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("7_a0jmo")]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("Graphics/Sprite2D:material:shader_parameter/blink_intensity")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:polygon")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
-}
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -781,7 +589,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Graphics/Sprite2D/HitBox/CollisionPolygon2D:polygon")
+tracks/6/path = NodePath("Graphics/HitBox/CollisionPolygon2D:polygon")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -805,70 +613,22 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Graphics/Sprite2D:material")
+tracks/8/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:polygon")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [null]
+"values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Graphics/Sprite2D:material:shader_parameter/hit_color")
+tracks/9/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:position")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("Graphics/Sprite2D:material:shader")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("7_a0jmo")]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("Graphics/Sprite2D:material:shader_parameter/blink_intensity")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:polygon")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
-}
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -954,7 +714,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Graphics/Sprite2D/HitBox/CollisionPolygon2D:polygon")
+tracks/6/path = NodePath("Graphics/HitBox/CollisionPolygon2D:polygon")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -978,80 +738,27 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Graphics/Sprite2D:material")
+tracks/8/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:polygon")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [null]
+"values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Graphics/Sprite2D:material:shader_parameter/hit_color")
+tracks/9/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:position")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("Graphics/Sprite2D:material:shader")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("7_a0jmo")]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("Graphics/Sprite2D:material:shader_parameter/blink_intensity")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:polygon")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
-}
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
 "values": [Vector2(0, 0)]
 }
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2vh1n"]
-shader = ExtResource("7_a0jmo")
-shader_parameter/hit_color = Color(1, 1, 1, 1)
-shader_parameter/blink_intensity = 0.0
 
 [sub_resource type="Animation" id="Animation_o8ptg"]
 resource_name = "hurt"
@@ -1107,7 +814,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Graphics/Sprite2D/HitBox/CollisionPolygon2D:polygon")
+tracks/4/path = NodePath("Graphics/HitBox/CollisionPolygon2D:polygon")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -1155,70 +862,22 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Graphics/Sprite2D:material")
+tracks/8/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:polygon")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [null, SubResource("ShaderMaterial_2vh1n"), null]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("Graphics/Sprite2D:material:shader_parameter/hit_color")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("Graphics/Sprite2D:material:shader")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("7_a0jmo")]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("Graphics/Sprite2D:material:shader_parameter/blink_intensity")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [1.0, 0.0, 1.0, 0.0]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:polygon")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
 }
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -1304,7 +963,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Graphics/Sprite2D/HitBox/CollisionPolygon2D:polygon")
+tracks/6/path = NodePath("Graphics/HitBox/CollisionPolygon2D:polygon")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -1328,70 +987,22 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Graphics/Sprite2D:material")
+tracks/8/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:polygon")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [null]
+"values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Graphics/Sprite2D:material:shader_parameter/hit_color")
+tracks/9/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:position")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("Graphics/Sprite2D:material:shader")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("7_a0jmo")]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("Graphics/Sprite2D:material:shader_parameter/blink_intensity")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:polygon")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
-}
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -1476,7 +1087,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Graphics/Sprite2D/HitBox/CollisionPolygon2D:polygon")
+tracks/6/path = NodePath("Graphics/HitBox/CollisionPolygon2D:polygon")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -1500,70 +1111,22 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Graphics/Sprite2D:material")
+tracks/8/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:polygon")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [null]
+"values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Graphics/Sprite2D:material:shader_parameter/hit_color")
+tracks/9/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:position")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("Graphics/Sprite2D:material:shader")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("7_a0jmo")]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("Graphics/Sprite2D:material:shader_parameter/blink_intensity")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:polygon")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
-}
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -1648,7 +1211,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Graphics/Sprite2D/HitBox/CollisionPolygon2D:polygon")
+tracks/6/path = NodePath("Graphics/HitBox/CollisionPolygon2D:polygon")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -1672,70 +1235,22 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Graphics/Sprite2D:material")
+tracks/8/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:polygon")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [null]
+"values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Graphics/Sprite2D:material:shader_parameter/hit_color")
+tracks/9/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:position")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("Graphics/Sprite2D:material:shader")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("7_a0jmo")]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("Graphics/Sprite2D:material:shader_parameter/blink_intensity")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:polygon")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
-}
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -1821,7 +1336,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Graphics/Sprite2D/HitBox/CollisionPolygon2D:polygon")
+tracks/6/path = NodePath("Graphics/HitBox/CollisionPolygon2D:polygon")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -1845,70 +1360,22 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Graphics/Sprite2D:material")
+tracks/8/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:polygon")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [null]
+"values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Graphics/Sprite2D:material:shader_parameter/hit_color")
+tracks/9/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:position")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("Graphics/Sprite2D:material:shader")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("7_a0jmo")]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("Graphics/Sprite2D:material:shader_parameter/blink_intensity")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:polygon")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
-}
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -1969,7 +1436,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Graphics/Sprite2D/HitBox/CollisionPolygon2D:polygon")
+tracks/4/path = NodePath("Graphics/HitBox/CollisionPolygon2D:polygon")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -2017,70 +1484,22 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Graphics/Sprite2D:material")
+tracks/8/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:polygon")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [null]
+"values": [PackedVector2Array(-7, 8, -7, 28, 7, 28, 7, 8)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Graphics/Sprite2D:material:shader_parameter/hit_color")
+tracks/9/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:position")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("Graphics/Sprite2D:material:shader")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("7_a0jmo")]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("Graphics/Sprite2D:material:shader_parameter/blink_intensity")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:polygon")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [PackedVector2Array(-7, 8, -7, 28, 7, 28, 7, 8)]
-}
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -2142,7 +1561,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Graphics/Sprite2D/HitBox/CollisionPolygon2D:polygon")
+tracks/4/path = NodePath("Graphics/HitBox/CollisionPolygon2D:polygon")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -2190,70 +1609,22 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Graphics/Sprite2D:material")
+tracks/8/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:polygon")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [null]
+"values": [PackedVector2Array(-7, 8, -7, 28, 7, 28, 7, 8)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Graphics/Sprite2D:material:shader_parameter/hit_color")
+tracks/9/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:position")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("Graphics/Sprite2D:material:shader")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("7_a0jmo")]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("Graphics/Sprite2D:material:shader_parameter/blink_intensity")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:polygon")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [PackedVector2Array(-7, 8, -7, 28, 7, 28, 7, 8)]
-}
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -2352,7 +1723,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Graphics/Sprite2D/HitBox/CollisionPolygon2D:polygon")
+tracks/7/path = NodePath("Graphics/HitBox/CollisionPolygon2D:polygon")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -2376,70 +1747,22 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Graphics/Sprite2D:material")
+tracks/9/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:polygon")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [null]
+"values": [PackedVector2Array(-7, 8, -7, 28, 7, 28, 7, 8)]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Graphics/Sprite2D:material:shader_parameter/hit_color")
+tracks/10/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:position")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("Graphics/Sprite2D:material:shader")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("7_a0jmo")]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("Graphics/Sprite2D:material:shader_parameter/blink_intensity")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:polygon")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [PackedVector2Array(-7, 8, -7, 28, 7, 28, 7, 8)]
-}
-tracks/14/type = "value"
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -2525,7 +1848,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Graphics/Sprite2D/HitBox/CollisionPolygon2D:polygon")
+tracks/6/path = NodePath("Graphics/HitBox/CollisionPolygon2D:polygon")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -2549,70 +1872,22 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Graphics/Sprite2D:material")
+tracks/8/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:polygon")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [null]
+"values": [PackedVector2Array(-7, 8, -7, 28, 7, 28, 7, 8)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Graphics/Sprite2D:material:shader_parameter/hit_color")
+tracks/9/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:position")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("Graphics/Sprite2D:material:shader")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("7_a0jmo")]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("Graphics/Sprite2D:material:shader_parameter/blink_intensity")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:polygon")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [PackedVector2Array(-7, 8, -7, 28, 7, 28, 7, 8)]
-}
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -2698,7 +1973,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Graphics/Sprite2D/HitBox/CollisionPolygon2D:polygon")
+tracks/6/path = NodePath("Graphics/HitBox/CollisionPolygon2D:polygon")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -2722,74 +1997,150 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Graphics/Sprite2D:material")
+tracks/8/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:polygon")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [null]
+"values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Graphics/Sprite2D:material:shader_parameter/hit_color")
+tracks/9/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:position")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Vector2(5, -3)]
 }
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("Graphics/Sprite2D:material:shader")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("7_a0jmo")]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("Graphics/Sprite2D:material:shader_parameter/blink_intensity")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
+
+[sub_resource type="Animation" id="Animation_mhkt2"]
+resource_name = "climb_ladder"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [Vector2(0, -23)]
 }
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:polygon")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Graphics/Sprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_h60p7")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Graphics/Sprite2D:region_rect")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(0, 280, 448, 112)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Graphics/Sprite2D:hframes")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Graphics/Sprite2D:vframes")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Graphics/Sprite2D:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 5, 6]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Graphics/HitBox/CollisionPolygon2D:polygon")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [PackedVector2Array()]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath(".:CanCancelAttack")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:polygon")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)]
 }
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("Graphics/Sprite2D/HurtBox/CollisionPolygon2D:position")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Graphics/HurtBox/CollisionPolygon2D:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(5, -3)]
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6pky5"]
@@ -2798,6 +2149,7 @@ _data = {
 "attack_1": SubResource("Animation_oepst"),
 "attack_2": SubResource("Animation_2i6pj"),
 "attack_3": SubResource("Animation_v0op6"),
+"climb_ladder": SubResource("Animation_mhkt2"),
 "death": SubResource("Animation_gn5ci"),
 "fall": SubResource("Animation_klldw"),
 "hurt": SubResource("Animation_o8ptg"),
@@ -2912,6 +2264,11 @@ states/squat_idle/position = Vector2(499, -22.6427)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_vc7vs"), "idle", "running", SubResource("AnimationNodeStateMachineTransition_0hk1s"), "death", "End", SubResource("AnimationNodeStateMachineTransition_d4hh6"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_b7loy"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_ranka"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_qyfp0"), "idle", "squat", SubResource("AnimationNodeStateMachineTransition_5kxse"), "squat", "idle", SubResource("AnimationNodeStateMachineTransition_r1cm5"), "squat_idle", "squat", SubResource("AnimationNodeStateMachineTransition_7yq53"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_o8b4f"), "fall", "idle", SubResource("AnimationNodeStateMachineTransition_fce3f"), "squat", "squat_idle", SubResource("AnimationNodeStateMachineTransition_bt356")]
 graph_offset = Vector2(0, -55.5647)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xb0k3"]
+shader = ExtResource("8_g1i2m")
+shader_parameter/enable = false
+shader_parameter/scan_strength = 3600.0
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_3mtw5"]
 atlas = ExtResource("10_ao01t")
 region = Rect2(195, 0, 21, 16)
@@ -2934,13 +2291,14 @@ animations = [{
 "speed": 2.0
 }]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("Graphics", "CharactorAnimPlayer", "Collision", "AttackCollision", "GhostTimer", "DashTimer", "DashCoolDownTimer", "CoyoteTimer", "JumpTimer", "JumpRequestTimer", "AttackRequestTimer", "WhosYourDaddy", "DashParticles", "AnimTree", "HandRay", "FootRay", "HitBox", "HurtBox", "PlayerCamera", "PauseScene", "status", "StateMachine", "InteractableAnim")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("Sprite", "Graphics", "CharactorAnimPlayer", "Collision", "AttackCollision", "GhostTimer", "DashTimer", "DashCoolDownTimer", "CoyoteTimer", "JumpTimer", "JumpRequestTimer", "AttackRequestTimer", "WhosYourDaddy", "DashParticles", "AnimTree", "HandRay", "FootRay", "HitBox", "HurtBox", "PlayerCamera", "PauseScene", "BubbleMarker", "LadderRay", "status", "StateMachine", "InteractableAnim")]
 collision_layer = 2
 script = ExtResource("1_wac6e")
+Sprite = NodePath("Graphics/Sprite2D")
 Graphics = NodePath("Graphics")
 CharactorAnimPlayer = NodePath("AnimationPlayer")
 Collision = NodePath("CollisionShape2D")
-AttackCollision = NodePath("Graphics/Sprite2D/HitBox/CollisionPolygon2D")
+AttackCollision = NodePath("Graphics/HitBox/CollisionPolygon2D")
 GhostNode = ExtResource("2_xijd7")
 GhostTimer = NodePath("GhostTimer")
 DashTimer = NodePath("DashTimer")
@@ -2954,10 +2312,12 @@ DashParticles = NodePath("DashParticles")
 AnimTree = NodePath("AnimationTree")
 HandRay = NodePath("Graphics/HandRay")
 FootRay = NodePath("Graphics/FootRay")
-HitBox = NodePath("Graphics/Sprite2D/HitBox")
-HurtBox = NodePath("Graphics/Sprite2D/HurtBox")
+HitBox = NodePath("Graphics/HitBox")
+HurtBox = NodePath("Graphics/HurtBox")
 PlayerCamera = NodePath("PlayerCamera")
 PauseScene = NodePath("PauseScene")
+BubbleMarker = NodePath("BubbleMarker")
+LadderRay = NodePath("Graphics/LadderRay")
 status = NodePath("Status")
 StateMachine = NodePath("StateMachine")
 InteractableAnim = NodePath("AnimatedSprite2D")
@@ -3022,27 +2382,30 @@ script = ExtResource("6_iknsp")
 [node name="Graphics" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Graphics"]
+material = SubResource("ShaderMaterial_xb0k3")
 position = Vector2(0, -28)
 texture = ExtResource("3_h60p7")
 hframes = 6
 region_enabled = true
 region_rect = Rect2(0, 0, 336, 56)
 
-[node name="HitBox" type="Area2D" parent="Graphics/Sprite2D"]
+[node name="HitBox" type="Area2D" parent="Graphics"]
+position = Vector2(0, -28)
 disable_mode = 1
 collision_layer = 0
 collision_mask = 16
 script = ExtResource("6_bvb0r")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Graphics/Sprite2D/HitBox"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Graphics/HitBox"]
 position = Vector2(-2, 0)
 
-[node name="HurtBox" type="Area2D" parent="Graphics/Sprite2D"]
+[node name="HurtBox" type="Area2D" parent="Graphics"]
+position = Vector2(0, -28)
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("7_kjpxj")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Graphics/Sprite2D/HurtBox"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Graphics/HurtBox"]
 polygon = PackedVector2Array(-7, 4, -7, 28, 7, 28, 7, 4)
 
 [node name="FootRay" type="RayCast2D" parent="Graphics"]
@@ -3052,6 +2415,11 @@ target_position = Vector2(8, 0)
 [node name="HandRay" type="RayCast2D" parent="Graphics"]
 position = Vector2(0, -27)
 target_position = Vector2(8, 0)
+
+[node name="LadderRay" type="RayCast2D" parent="Graphics"]
+target_position = Vector2(0, -26)
+collision_mask = 64
+hit_from_inside = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -3067,3 +2435,6 @@ z_index = 100
 [node name="PlayerCamera" type="Camera2D" parent="."]
 process_callback = 0
 script = ExtResource("12_n4hr1")
+
+[node name="BubbleMarker" type="Marker2D" parent="."]
+position = Vector2(8, -32)
