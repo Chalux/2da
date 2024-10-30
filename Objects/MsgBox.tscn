@@ -1,27 +1,32 @@
-[gd_scene load_steps=2 format=3 uid="uid://sx2dtilxnj8r"]
+[gd_scene load_steps=3 format=3 uid="uid://sx2dtilxnj8r"]
 
+[ext_resource type="Theme" uid="uid://cxlvaqyy7s7ke" path="res://Resources/Theme/MainTheme.tres" id="1_bnf8k"]
 [ext_resource type="Script" path="res://Objects/MsgBox.cs" id="1_xaxp2"]
 
-[node name="MsgBox" type="ColorRect" node_paths=PackedStringArray("timer", "msg")]
+[node name="Msg" type="RichTextLabel" node_paths=PackedStringArray("timer")]
 custom_minimum_size = Vector2(128, 16)
 offset_right = 128.0
 offset_bottom = 16.0
-color = Color(0, 0, 0, 0.396078)
+theme = ExtResource("1_bnf8k")
+bbcode_enabled = true
+text = "神秘提示神秘提示神秘提示神秘提示神秘提示"
+fit_content = true
+scroll_active = false
 script = ExtResource("1_xaxp2")
 timer = NodePath("Timer")
-msg = NodePath("Msg")
-
-[node name="Msg" type="Label" parent="."]
-custom_minimum_size = Vector2(128, 16)
-layout_mode = 0
-offset_right = 128.0
-offset_bottom = 16.0
-theme_override_font_sizes/font_size = 8
-text = "神秘提示"
-vertical_alignment = 1
-autowrap_mode = 3
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
 autostart = true
+
+[node name="MsgBox" type="ColorRect" parent="."]
+show_behind_parent = true
+custom_minimum_size = Vector2(128, 16)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.396078)

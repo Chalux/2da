@@ -25,6 +25,6 @@ public partial class VolumeSlider : HSlider
     public override void _ExitTree()
     {
         base._ExitTree();
-        GameGlobal.Instance.SaveConfig();
+        GameGlobal.SaveConfig();
     }
 }

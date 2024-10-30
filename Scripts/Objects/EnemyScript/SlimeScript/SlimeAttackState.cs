@@ -37,5 +37,10 @@ namespace da.Scripts.Objects.EnemyScript.SlimeScript
                 owner.StateMachine.ChangeState("fall");
             }
         }
+
+        public override void Exit(Enemy owner)
+        {
+            owner.AnimPlayer.AnimationFinished -= OnAnimationFinished;
+        }
     }
 }

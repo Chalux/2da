@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://37b57r4s1d6l"]
+[gd_scene load_steps=13 format=3 uid="uid://37b57r4s1d6l"]
 
 [ext_resource type="Script" path="res://Scripts/Objects/GameGlobal.cs" id="1_7170a"]
 [ext_resource type="Script" path="res://Scenes/UIControl.cs" id="2_tkeyv"]
 [ext_resource type="Texture2D" uid="uid://ds1ag1dyvrytk" path="res://Resources/Assets/Charactor_blue/char_blue_1.png" id="3_7yswp"]
 [ext_resource type="Texture2D" uid="uid://ctuqduaondlps" path="res://Resources/Assets/Pixel UI pack 3/02.png" id="4_hwlfq"]
 [ext_resource type="Texture2D" uid="uid://dgpxclmviwt4o" path="res://Resources/Assets/Pixel UI pack 3/06.png" id="5_g867i"]
+[ext_resource type="PackedScene" uid="uid://bn063ja8xutue" path="res://Objects/SkillBtn.tscn" id="6_83mka"]
 [ext_resource type="PackedScene" uid="uid://b30i2d7i853k5" path="res://Objects/VirtualJoypad.tscn" id="6_eyhwx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_404n3"]
@@ -26,12 +27,21 @@ atlas = SubResource("AtlasTexture_ysh0d")
 atlas = ExtResource("5_g867i")
 region = Rect2(3, 21, 42, 7)
 
-[node name="GameGlobal" type="Node" node_paths=PackedStringArray("UIControl", "LeftUpperBox", "healthBar", "BlackMask")]
+[node name="GameGlobal" type="Node" node_paths=PackedStringArray("UIControl", "LeftUpperBox", "healthBar", "BlackMask", "SkillSlotContainer", "richHintTimer", "richHint", "richHintBg", "skillBtn1", "skillBtn2", "skillBtn3", "skillBtn4")]
+process_mode = 2
 script = ExtResource("1_7170a")
 UIControl = NodePath("UIControl")
 LeftUpperBox = NodePath("UIControl/LeftUpperBox")
 healthBar = NodePath("UIControl/LeftUpperBox/HealthBar")
-BlackMask = NodePath("UIControl/ColorRect")
+BlackMask = NodePath("CanvasLayer/ColorRect")
+SkillSlotContainer = NodePath("UIControl/DownBox/SkillSlotContainer")
+richHintTimer = NodePath("UIControl/RichHintTimer")
+richHint = NodePath("CanvasLayer/RichHintBg/RichHintLabel")
+richHintBg = NodePath("CanvasLayer/RichHintBg")
+skillBtn1 = NodePath("UIControl/DownBox/SkillSlotContainer/Slot1")
+skillBtn2 = NodePath("UIControl/DownBox/SkillSlotContainer/Slot2")
+skillBtn3 = NodePath("UIControl/DownBox/SkillSlotContainer/Slot3")
+skillBtn4 = NodePath("UIControl/DownBox/SkillSlotContainer/Slot4")
 
 [node name="UIControl" type="CanvasLayer" parent="." node_paths=PackedStringArray("HeadControl", "HealthBar", "MsgContainer")]
 layer = 99
@@ -89,12 +99,74 @@ offset_top = 32.0
 offset_right = 112.0
 offset_bottom = 72.0
 
-[node name="VirtualJoypad" parent="UIControl" instance=ExtResource("6_eyhwx")]
+[node name="DownBox" type="Control" parent="UIControl"]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -77.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 1
 
-[node name="ColorRect" type="ColorRect" parent="UIControl"]
-modulate = Color(0, 0, 0, 1)
+[node name="SkillSlotContainer" type="HBoxContainer" parent="UIControl/DownBox"]
+process_mode = 1
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -96.0
+offset_top = -48.0
+offset_right = 96.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 20
+
+[node name="Slot1" parent="UIControl/DownBox/SkillSlotContainer" instance=ExtResource("6_83mka")]
+layout_mode = 2
+
+[node name="Slot2" parent="UIControl/DownBox/SkillSlotContainer" instance=ExtResource("6_83mka")]
+layout_mode = 2
+
+[node name="Slot3" parent="UIControl/DownBox/SkillSlotContainer" instance=ExtResource("6_83mka")]
+layout_mode = 2
+
+[node name="Slot4" parent="UIControl/DownBox/SkillSlotContainer" instance=ExtResource("6_83mka")]
+layout_mode = 2
+
+[node name="VirtualJoypad" parent="UIControl" instance=ExtResource("6_eyhwx")]
+metadata/_edit_lock_ = true
+
+[node name="RichHintTimer" type="Timer" parent="UIControl"]
+wait_time = 0.1
+one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="RichHintBg" type="ColorRect" parent="CanvasLayer"]
+color = Color(0, 0, 0, 0.431373)
+
+[node name="RichHintLabel" type="RichTextLabel" parent="CanvasLayer/RichHintBg"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 5
+bbcode_enabled = true
+text = "[font_size=5]这是一段描述1111111111111111111111111111111111[/font_size]"
+fit_content = true
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+modulate = Color(0, 0, 0, 0)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_lock_ = true

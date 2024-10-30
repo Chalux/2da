@@ -91,6 +91,7 @@ HSlider/icons/grabber_highlight = SubResource("AtlasTexture_yfs7e")
 HSlider/styles/grabber_area = SubResource("StyleBoxEmpty_qadgh")
 HSlider/styles/grabber_area_highlight = SubResource("StyleBoxEmpty_vlqab")
 HSlider/styles/slider = SubResource("StyleBoxTexture_hl8ih")
+ItemList/colors/font_selected_color = Color(1, 1, 0.556863, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 0.701961)
 Label/colors/font_shadow_color = Color(0, 0, 0, 0.788235)
 Label/constants/outline_size = 4

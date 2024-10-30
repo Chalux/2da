@@ -4,7 +4,9 @@ using da.Scripts.Objects;
 using da.Scripts.Objects.PlayerScript;
 using DialogicRuntime;
 using Godot;
+using Godot.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace da.Objects
 {
@@ -37,6 +39,9 @@ namespace da.Objects
         [Export] public PauseScene PauseScene;
         [Export] public Marker2D BubbleMarker;
         [Export] public RayCast2D LadderRay;
+        [Export] public Marker2D SlashMarker;
+        [Export] public RayCast2D SlashChecker;
+        [Export] public RayCast2D WaterChecker;
         public const float Speed = 160;
         public const float JumpVelocity = -400;
         public const float FloorAcceleration = Speed / 0.2f;
@@ -48,6 +53,11 @@ namespace da.Objects
         public int DashCount = 0;
         public int CanJumpCount = 2;
         private int _jumpcount = 0;
+        public Skill currSkill;
+        public Godot.Collections.Array<string> LearnedSkill = new();
+        public System.Collections.Generic.Dictionary<string, Skill> SkillList = new();
+        public Array<Item> Bag = new();
+        private BagCompare _bagCompare = new();
         public int JumpCount
         {
             get => _jumpcount;
@@ -86,11 +96,25 @@ namespace da.Objects
         {
             if (GameGlobal.Instance.IsChangingScene || SkipInput) return;
 
+            foreach (var skill in SkillList.Values)
+            {
+                if (skill.CurrentCooldown > 0)
+                {
+                    skill.CurrentCooldown -= (float)delta;
+                    skill.CurrentCooldown = Mathf.Max(skill.CurrentCooldown, 0);
+                }
+            };
+
             StateMachine.PhysicsProcess(delta);
 
             MoveAndSlide();
 
             StateMachine.AfterMove(delta);
+
+            if (WaterChecker.IsColliding())
+            {
+                StateMachine.ChangeState(PlayerState.InWater);
+            }
         }
 
         private void AddGhost()
@@ -249,6 +273,22 @@ namespace da.Objects
             {
                 PauseScene.ShowPause();
             }
+            if (@event.IsActionPressed("skill1"))
+            {
+                GameGlobal.Instance.skillBtn1.OnPressed();
+            }
+            else if (@event.IsActionPressed("skill2"))
+            {
+                GameGlobal.Instance.skillBtn2.OnPressed();
+            }
+            else if (@event.IsActionPressed("skill3"))
+            {
+                GameGlobal.Instance.skillBtn3.OnPressed();
+            }
+            else if (@event.IsActionPressed("skill4"))
+            {
+                GameGlobal.Instance.skillBtn4.OnPressed();
+            }
             StateMachine.UnhandledInput(@event);
             if (OS.IsDebugBuild())
             {
@@ -290,11 +330,20 @@ namespace da.Objects
 
         public Godot.Collections.Dictionary<string, Variant> ToDict()
         {
+            Godot.Collections.Dictionary<int, int> bagdict = new();
+            foreach (var item in Bag)
+            {
+                if (item != null)
+                {
+                    bagdict.Add(item.id, item.StackCount);
+                }
+            }
             var result = new Godot.Collections.Dictionary<string, Variant>()
             {
                 { "direction", Direction },
                 { "status", status.ToDict() },
-
+                { "learned_skill", LearnedSkill },
+                { "bag", bagdict },
             };
             if (IsNodeReady())
             {
@@ -314,6 +363,32 @@ namespace da.Objects
             if (dict.ContainsKey("positionX") && dict.ContainsKey("positionY") && !ignorePosition)
             {
                 GlobalPosition = new Vector2((float)dict["positionX"], (float)dict["positionY"]);
+            }
+            if (dict.ContainsKey("learned_skill"))
+            {
+                LearnedSkill = dict["learned_skill"].AsGodotArray<string>();
+                SkillList = new();
+                foreach (var skill in LearnedSkill)
+                {
+                    if (SkillManager.Instance.SkillDict.ContainsKey(skill) && SkillManager.Instance.SkillDict[skill] != null && !SkillList.ContainsKey(skill))
+                    {
+                        SkillList.Add(skill, SkillManager.Instance.SkillDict[skill]);
+                    }
+                }
+            }
+            if (dict.ContainsKey("bag"))
+            {
+                Bag = new();
+                var datas = dict["bag"].AsGodotDictionary<int, int>();
+                foreach (var data in datas)
+                {
+                    //Bag.Add(new Item(data.Key) { StackCount = data.Value });
+                    AddItem(data.Key, data.Value);
+                }
+                if (Bag.Count < 30)
+                {
+                    Bag.Resize(30);
+                }
             }
         }
 
@@ -355,6 +430,82 @@ namespace da.Objects
             {
                 (Sprite.Material as ShaderMaterial).SetShaderParameter("enable", false);
             }
+        }
+
+        public void GenerateSlash()
+        {
+            if (SlashChecker.IsColliding()) return;
+            PackedScene res = ResourceLoader.Load<PackedScene>("res://Objects/SlashVFX.tscn");
+            if (res == null) return;
+            SlashVfx slash = res.Instantiate<SlashVfx>();
+            var CurrMap = FindParent("*Map*");
+            CurrMap.AddChild(slash);
+            //var transform = SlashMarker.GetRelativeTransformToParent(CurrMap);
+            slash.Init(this, SlashMarker.GlobalPosition, Direction);
+        }
+
+        public void UseSkill()
+        {
+            //if (currSkill == null) return;
+            currSkill?.SkillUse();
+        }
+
+        public bool AddItem(int id, int count)
+        {
+            if (count == 0) return false;
+            int i = 0;
+            for (; i < Bag.Count; i++)
+            {
+                var item = Bag[i];
+                if (item == null || item.id > id)
+                {
+                    break;
+                }
+                if (item.id == id)
+                {
+                    if (count < 0 && item.StackCount < count) return false;
+                    else
+                    {
+                        item.StackCount += count;
+                        if (item.StackCount <= 0)
+                        {
+                            Bag.RemoveAt(i);
+                        }
+                        _ = Bag.OrderBy(i => i, _bagCompare);
+                        EventMgr.DispatchEvent("BagUpdate");
+                        return true;
+                    }
+                }
+            }
+            if (count > 0 && Datas.Items.ContainsKey(id))
+            {
+                Item item = new(id)
+                {
+                    StackCount = count
+                };
+                if (Bag.Count <= i)
+                {
+                    for (int j = Bag.Count; j <= i; j++)
+                    {
+                        Bag.Add(null);
+                    }
+                }
+                if (Bag[i] == null) Bag[i] = item;
+                else Bag.Add(item);
+                _ = Bag.OrderBy(i => i, _bagCompare);
+                EventMgr.DispatchEvent("BagUpdate");
+                return true;
+            }
+            return false;
+        }
+    }
+
+    public class BagCompare : IComparer<Item>
+    {
+        public int Compare(Item x, Item y)
+        {
+            if (x == null || y == null) return int.MaxValue;
+            else return x.id.CompareTo(y.id);
         }
     }
 }

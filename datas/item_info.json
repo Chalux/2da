@@ -1,0 +1,10 @@
+[
+	{
+		"id": 1,
+		"name": "冰钻",
+		"description": "",
+		"IconPath": "res://Resources/Assets/skillicons/ice-spear.png",
+		"ScriptPath": "res://Scripts/Items/IceSpearScript.cs",
+		"type": 1
+	}
+]

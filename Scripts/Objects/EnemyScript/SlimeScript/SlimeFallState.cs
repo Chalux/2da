@@ -11,7 +11,7 @@ namespace da.Scripts.Objects.EnemyScript.SlimeScript
 
         public override void PhysicsProcess(double delta, Enemy owner)
         {
-            EnemyStaticFunc.Move(owner, 0, 0, (float)delta, ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle());
+            EnemyStaticFunc.Move(owner, 0, 0, (float)delta, owner.Gravity);
             if (owner.IsOnFloor())
             {
                 owner.StateMachine.ChangeState("idle");

@@ -1475,7 +1475,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3sye8"]
 size = Vector2(30, 32)
 
-[node name="Map" type="Control" node_paths=PackedStringArray("player")]
+[node name="Map" type="Control" node_paths=PackedStringArray("player") groups=["maps"]]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -1651,9 +1651,9 @@ tile_set = SubResource("TileSet_jxpot")
 [node name="forest_save_point_1" parent="." instance=ExtResource("11_lmm05")]
 position = Vector2(202, -144)
 
-[node name="SlimeForest1" parent="." instance=ExtResource("13_4w5ua")]
-position = Vector2(232, 112)
-Speed = 100.0
+[node name="forest_slime_1" parent="." instance=ExtResource("13_4w5ua")]
+position = Vector2(251, 128)
+CantRevive = true
 
 [node name="Player" parent="." instance=ExtResource("11_pxg72")]
 position = Vector2(0, 128)

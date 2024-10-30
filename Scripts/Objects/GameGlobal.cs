@@ -2,6 +2,7 @@
 using da.Scenes;
 using Godot;
 using Godot.Collections;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,12 +22,20 @@ namespace da.Scripts.Objects
         [Export] public Control LeftUpperBox;
         [Export] public TextureProgressBar healthBar;
         [Export] public ColorRect BlackMask;
+        [Export] public HBoxContainer SkillSlotContainer;
         public Player player;
         public Camera2D camera;
         public SaveData save = new();
         public RootScene root;
         public bool isRunning = false;
         public bool IsChangingScene = false;
+        [Export] public Timer richHintTimer;
+        [Export] public RichTextLabel richHint;
+        [Export] public ColorRect richHintBg;
+        [Export] public SkillBtn skillBtn1;
+        [Export] public SkillBtn skillBtn2;
+        [Export] public SkillBtn skillBtn3;
+        [Export] public SkillBtn skillBtn4;
 
         [Signal] public delegate void CameraShakeEventHandler(float strength);
         public static GameGlobal Instance { get; private set; }
@@ -37,6 +46,8 @@ namespace da.Scripts.Objects
             BlackMask.Modulate = new(BlackMask.Modulate, 0);
             BlackMask.MouseFilter = Control.MouseFilterEnum.Ignore;
             LoadConfig();
+            HideRichHint();
+            Datas.Boost();
         }
 
         public async void Teleport(string sceneUrl, string positionName = null, int Direction = 1)
@@ -53,9 +64,17 @@ namespace da.Scripts.Objects
             tween.SetPauseMode(Tween.TweenPauseMode.Process);
             tween.TweenProperty(BlackMask, "modulate", new Color(BlackMask.Modulate, 1), 1f);
             await ToSignal(tween, Tween.SignalName.Finished);
-            if (root.WorldControl.GetChild(0) != null) SaveMapData(root.WorldControl.GetChild(0) as Control);
-            if (sceneUrl != root.WorldControl.GetChild(0).SceneFilePath.SimplifyPath())
+            var currMap = root.WorldControl.GetChild(0) as Control;
+            if (currMap != null) SaveMapData(currMap);
+            if (sceneUrl != currMap.SceneFilePath.SimplifyPath())
             {
+                if (save.MapSaveData.ContainsKey(currMap.Name))
+                {
+                    if (save.MapSaveData[currMap.Name].ContainsKey("enemies_died"))
+                    {
+                        save.MapSaveData[currMap.Name].Remove("enemies_died");
+                    }
+                }
                 foreach (var child in root.WorldControl.GetChildren())
                 {
                     child.QueueFree();
@@ -145,6 +164,9 @@ namespace da.Scripts.Objects
                     break;
                 case "EnemyDied":
                     RecordEnemyDied(datas[0] as Enemy);
+                    break;
+                case "SkillUpdate":
+                    UpdateSkillSlots();
                     break;
             }
         }
@@ -239,13 +261,22 @@ namespace da.Scripts.Objects
                     door.IsOpened = save.MapSaveData[map.Name][door.Name].AsBool();
                 }
             }
+            foreach (Crate crate in GetTree().GetNodesInGroup("crates").Cast<Crate>())
+            {
+                if (save.CrateOpened.Contains(crate.Name))
+                {
+                    crate.isOpen = true;
+                }
+            }
         }
 
         public void SaveGame()
         {
             save.currMapPath = (root.WorldControl.GetChild(0) as Control).SceneFilePath.GetFile().GetBaseDir();
             SaveMapData(root.WorldControl.GetChild(0) as Control);
+            player.status.Health = player.status.MaxHealth;
             save.PlayerData = player.ToDict();
+            save.SkillSlot = SkillSlot;
             var json = Json.Stringify(save.ToList());
             if (!DirAccess.DirExistsAbsolute("user://saves"))
             {
@@ -270,16 +301,21 @@ namespace da.Scripts.Objects
             var data = Json.ParseString(json).AsGodotDictionary();
             save = new()
             {
-                currMapPath = data["currMapPath"].AsString(),
-                PlayerData = data["PlayerData"].AsGodotDictionary<string, Variant>(),
-                MapSaveData = data["MapSaveData"].AsGodotDictionary<string, Godot.Collections.Dictionary<string, Variant>>(),
-                ActivedSavePoints = data["ActivedSavePoints"].AsGodotDictionary<string, string>(),
-                GlobalSaveData = data["GlobalSaveData"].AsGodotDictionary<string, Variant>(),
+                currMapPath = data.GetValueOrDefault("currMapPath", "res://Scenes/ForestMap.tscn").AsString(),
+                PlayerData = data.GetValueOrDefault("PlayerData", new Godot.Collections.Dictionary<string, Variant>()).AsGodotDictionary<string, Variant>(),
+                MapSaveData = data.GetValueOrDefault("MapSaveData", new Godot.Collections.Dictionary<string, Variant>()).AsGodotDictionary<string, Godot.Collections.Dictionary<string, Variant>>(),
+                ActivedSavePoints = data.GetValueOrDefault("ActivedSavePoints", new Godot.Collections.Dictionary<string, Variant>()).AsGodotDictionary<string, string>(),
+                GlobalSaveData = data.GetValueOrDefault("GlobalSaveData", new Godot.Collections.Dictionary<string, Variant>()).AsGodotDictionary<string, Variant>(),
+                SkillSlot = data.GetValueOrDefault("SkillSlot", new Array<string>()).AsGodotArray<string>(),
             };
-            //save = Json.ParseString(json).As<SaveData>();
+            var CrateOpened = data.GetValueOrDefault("CrateOpened", new Array<string>()).AsGodotArray<string>();
+            foreach (var item in CrateOpened)
+            {
+                save.CrateOpened.Add(item);
+            }
+            SkillSlot = save.SkillSlot;
+            UpdateSkillSlots();
             await ChangeSceneAsync(save.currMapPath, true);
-
-            //player.FromDict(save.PlayerData);
         }
 
         public static bool SaveFileExists()
@@ -345,7 +381,7 @@ namespace da.Scripts.Objects
             };
         }
 
-        public void SaveConfig()
+        public static void SaveConfig()
         {
             ConfigFile config = new();
             config.SetValue("audio", "master", SoundManager.GetVolume((int)SoundManager.AudioBusEnum.Master));
@@ -354,7 +390,7 @@ namespace da.Scripts.Objects
             config.Save(CONFIG_PATH);
         }
 
-        public void LoadConfig()
+        public static void LoadConfig()
         {
             ConfigFile config = new();
             config.Load(CONFIG_PATH);
@@ -367,6 +403,78 @@ namespace da.Scripts.Objects
         public void ShakeCamera(float strength)
         {
             EmitSignal(SignalName.CameraShake, strength);
+        }
+
+        public Array<string> SkillSlot = new();
+        public void SetSkill(int skillslot, string skillname)
+        {
+            if (SkillSlot.Count < skillslot + 1)
+            {
+                for (int i = SkillSlot.Count; i <= skillslot; i++)
+                {
+                    SkillSlot.Add(null);
+                }
+            }
+            SkillSlot[skillslot] = skillname;
+            //UpdateSkillSlots();
+            EventMgr.DispatchEvent("SkillUpdate");
+        }
+        public void UpdateSkillSlots()
+        {
+            foreach (SkillBtn skillBtn in SkillSlotContainer.GetChildren().Cast<SkillBtn>())
+            {
+                var skillname = SkillSlot.Count > skillBtn.GetIndex() ? SkillSlot[skillBtn.GetIndex()] : null;
+                var dict = SkillManager.Instance.SkillDict;
+                if (skillname != null && dict.ContainsKey(skillname))
+                {
+                    skillBtn.SetSkill(dict[skillname]);
+                }
+                else
+                {
+                    skillBtn.SetSkill(null);
+                }
+            }
+        }
+
+        public override void _Process(double delta)
+        {
+            if (richHintBg.Visible == true)
+            {
+                float PositionX = GetViewport().GetMousePosition().X + 5;
+                float PositionY = GetViewport().GetMousePosition().Y + 5;
+                richHintBg.Position = new Vector2((PositionX + richHintBg.Size.X) > 384 ? PositionX - 20 - richHintBg.Size.X : PositionX, (PositionY + richHintBg.Size.Y) > 216 ? PositionY - richHintBg.Size.Y : PositionY);
+                richHintBg.Size = richHint.Size;
+            }
+        }
+
+        private Action richHintAction;
+        public void ShowRichHint(string hint)
+        {
+            richHintAction?.Invoke();
+            richHintAction = new Action(() =>
+            {
+                if (hint.Length > 50)
+                {
+                    richHint.Size = new(200, 0);
+                }
+                else
+                {
+                    richHint.Size = new(80, 0);
+                }
+                richHint.Text = hint;
+                richHintBg.Visible = true;
+            });
+            richHintTimer.Timeout += richHintAction;
+            richHintTimer.WaitTime = 0.1f;
+            richHintTimer.OneShot = true;
+            richHintTimer.Start();
+        }
+        public void HideRichHint()
+        {
+            richHintAction?.Invoke();
+            richHintTimer.Stop();
+            richHint.Text = "";
+            richHintBg.Visible = false;
         }
     }
 }

@@ -20,6 +20,7 @@ public partial class Enemy : CharacterBody2D, IAttackable, IHurtable
     public bool ShowHealthBar = true;
     private Tween tween;
     private Tween hurtTween;
+    private bool UnActive = false;
 
     public int mirror = 1;
     private int _direction = 1;
@@ -38,6 +39,8 @@ public partial class Enemy : CharacterBody2D, IAttackable, IHurtable
 
     public override void _PhysicsProcess(double delta)
     {
+        if (UnActive) return;
+
         StateMachine.PhysicsProcess(delta);
 
         MoveAndSlide();
@@ -47,11 +50,18 @@ public partial class Enemy : CharacterBody2D, IAttackable, IHurtable
 
     public override void _Process(double delta)
     {
+        if (GameGlobal.Instance.player == null || GlobalPosition.DistanceSquaredTo(GameGlobal.Instance.player.GlobalPosition) > 600)
+        {
+            UnActive = false;
+        }
+        if (UnActive) return;
         StateMachine.Update(delta);
     }
 
     public override void _UnhandledInput(InputEvent @event)
     {
+        if (UnActive) return;
+
         StateMachine.UnhandledInput(@event);
     }
 

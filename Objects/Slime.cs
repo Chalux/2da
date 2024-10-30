@@ -1,5 +1,6 @@
 ﻿using da.Scripts;
 using da.Scripts.Objects;
+using da.Scripts.Objects.EnemyScript;
 using da.Scripts.Objects.EnemyScript.SlimeScript;
 using Godot;
 
@@ -25,7 +26,7 @@ namespace da.Objects
             StateMachine.AddState("move_to_player", new SlimeMoveToPlayerState());
             StateMachine.AddState("fall", new SlimeFallState());
             StateMachine.AddState("hurt", new SlimeHurtState());
-            StateMachine.AddState("death", new SlimeDeathState());
+            StateMachine.AddState("death", new EnemyDeathState());
             StateMachine.ChangeState("idle");
 
             mirror = -1;

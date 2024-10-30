@@ -23,7 +23,7 @@ namespace da.Scripts.Objects.EnemyScript
             currState?.Exit(Owner as Enemy);
             currState = StateDic[newState.ToUpper()];
             currState?.Enter(Owner as Enemy);
-            //GD.Print($"Enemy Change State from {oldState?.ToUpper()} to {newState.ToUpper()}");
+            GD.Print($"{Owner.Name} Change State from {oldState?.ToUpper()} to {newState.ToUpper()}");
             //EmitSignal(SignalName.OnStateChange, Variant.From((int)oldState), Variant.From((int)newState));
         }
 

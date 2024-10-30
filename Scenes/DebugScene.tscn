@@ -1,0 +1,71 @@
+[gd_scene load_steps=5 format=3 uid="uid://b32jrqufv4iu8"]
+
+[ext_resource type="Theme" uid="uid://cxlvaqyy7s7ke" path="res://Resources/Theme/MainTheme.tres" id="1_fx1du"]
+[ext_resource type="Script" path="res://Scenes/DebugScene.cs" id="2_3qkpb"]
+[ext_resource type="Texture2D" uid="uid://78hvqpw527e7" path="res://Resources/Assets/Legacy-Fantasy - High Forest 2.3/HUD/Base-01.png" id="2_8i36x"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c5e1c"]
+atlas = ExtResource("2_8i36x")
+region = Rect2(20, 149, 7, 7)
+
+[node name="DebugScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_fx1du")
+script = ExtResource("2_3qkpb")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.411765)
+
+[node name="Actions" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Actions"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Actions/ScrollContainer"]
+layout_mode = 2
+
+[node name="AddItemBtn" type="Button" parent="Actions/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "添加道具"
+
+[node name="ItemEdit" type="TextEdit" parent="Actions/ScrollContainer/VBoxContainer/AddItemBtn"]
+layout_mode = 0
+offset_left = 64.0
+offset_right = 176.0
+offset_bottom = 24.0
+placeholder_text = "道具id"
+scroll_fit_content_height = true
+
+[node name="ItemEdit2" type="TextEdit" parent="Actions/ScrollContainer/VBoxContainer/AddItemBtn"]
+layout_mode = 0
+offset_left = 184.0
+offset_right = 296.0
+offset_bottom = 24.0
+placeholder_text = "道具数量"
+scroll_fit_content_height = true
+
+[node name="ExitBtn" type="Button" parent="."]
+layout_mode = 0
+offset_left = 356.0
+offset_top = 4.0
+offset_right = 380.0
+offset_bottom = 28.0
+icon = SubResource("AtlasTexture_c5e1c")
+expand_icon = true

@@ -1,5 +1,7 @@
 ﻿using Godot;
 using Godot.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace da.Scripts
 {
@@ -14,22 +16,28 @@ namespace da.Scripts
 
         public Godot.Collections.Dictionary<string, Variant> PlayerData = new();
 
-        public Dictionary<string, Variant> GlobalSaveData = new();
+        public Godot.Collections.Dictionary<string, Variant> GlobalSaveData = new();
+
+        public Array<string> SkillSlot = new();
+
+        public HashSet<string> CrateOpened = new();
 
         /// <summary>
         /// key值为存档点的Name值，value为地图的路径，用于跨地图传送
         /// </summary>
-        public Dictionary<string, string> ActivedSavePoints = new();
+        public Godot.Collections.Dictionary<string, string> ActivedSavePoints = new();
 
-        public Dictionary<string, Variant> ToList()
+        public Godot.Collections.Dictionary<string, Variant> ToList()
         {
-            return new Dictionary<string, Variant>()
+            return new Godot.Collections.Dictionary<string, Variant>()
             {
                 { "MapSaveData", MapSaveData },
                 { "currMapPath", currMapPath },
                 { "PlayerData", PlayerData },
                 { "ActivedSavePoints", ActivedSavePoints },
-                { "GlobalSaveData", GlobalSaveData }
+                { "GlobalSaveData", GlobalSaveData },
+                { "SkillSlot", SkillSlot },
+                { "CrateOpened", CrateOpened.ToArray() },
             };
         }
     }

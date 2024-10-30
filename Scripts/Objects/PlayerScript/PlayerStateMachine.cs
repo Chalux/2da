@@ -24,6 +24,8 @@ namespace da.Scripts.Objects.PlayerScript
         Slide,
         Sliding,
         ClimbLadder,
+        InWater,
+        Skill,
     }
     public partial class PlayerStateMachine : Node
     {
@@ -51,6 +53,8 @@ namespace da.Scripts.Objects.PlayerScript
             { PlayerState.Slide, new SlideState() },
             { PlayerState.Sliding, new SlidingState() },
             { PlayerState.ClimbLadder, new ClimbLadderState() },
+            { PlayerState.InWater, new InWaterState() },
+            { PlayerState.Skill, new SkillState() },
         };
 
         public void ChangeState(PlayerState newState)

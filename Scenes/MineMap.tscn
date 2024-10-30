@@ -1204,7 +1204,7 @@ terrain_set_0/terrain_1/color = Color(0.196078, 0.164706, 0.0941176, 1)
 sources/0 = SubResource("TileSetAtlasSource_07gwc")
 sources/1 = SubResource("TileSetAtlasSource_k5yfx")
 
-[node name="MineMap" type="Control" node_paths=PackedStringArray("player")]
+[node name="MineMap" type="Control" node_paths=PackedStringArray("player") groups=["maps"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1253,9 +1253,9 @@ tile_set = SubResource("TileSet_sl3lf")
 [node name="mine_save_point_1" parent="." instance=ExtResource("7_yvj3m")]
 position = Vector2(280, 112)
 
-[node name="Enemy" parent="." instance=ExtResource("11_bw1tm")]
-position = Vector2(312, 144)
-Speed = 100.0
+[node name="mine_slime_1" parent="." instance=ExtResource("11_bw1tm")]
+position = Vector2(361, 161)
+CantRevive = true
 
 [node name="Player" parent="." instance=ExtResource("5_xfipk")]
 position = Vector2(72, 160)

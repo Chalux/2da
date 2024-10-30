@@ -39,7 +39,7 @@ namespace da.Scripts.Objects.EnemyScript.SlimeScript
                     slime.Direction = -1;
                 }
             }
-            EnemyStaticFunc.Move(slime, slime.Speed * 18, slime.Acceleration * 20, (float)delta, 0f);
+            EnemyStaticFunc.Move(slime, slime.Speed * 10, slime.Acceleration * 20, (float)delta, 0f);
             if (slime.PlayerRay.IsColliding())
             {
                 if (slime.PlayerRay.GetCollider() is Player player)

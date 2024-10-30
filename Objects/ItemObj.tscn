@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=3 uid="uid://dxsyg48x3grt0"]
+
+[ext_resource type="Theme" uid="uid://cxlvaqyy7s7ke" path="res://Resources/Theme/MainTheme.tres" id="1_tet6f"]
+[ext_resource type="Script" path="res://Objects/ItemObj.cs" id="1_v6jhv"]
+[ext_resource type="Texture2D" uid="uid://32vsigl6otpk" path="res://Resources/Assets/skillicons/potion-ball.png" id="2_n4lrp"]
+
+[node name="ItemObj" type="Button" node_paths=PackedStringArray("ItemIcon", "PopupMenu", "StackCountLabel")]
+custom_minimum_size = Vector2(24, 24)
+offset_right = 24.0
+offset_bottom = 24.0
+theme = ExtResource("1_tet6f")
+script = ExtResource("1_v6jhv")
+ItemIcon = NodePath("TextureRect")
+PopupMenu = NodePath("PopupMenu")
+StackCountLabel = NodePath("StackCountLabel")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.203922, 0.203922, 0.203922, 0.843137)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_n4lrp")
+expand_mode = 2
+
+[node name="StackCountLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 5
+text = "999"
+horizontal_alignment = 2
+
+[node name="PopupMenu" type="PopupMenu" parent="."]
+position = Vector2i(166, 90)
+size = Vector2i(52, 35)
+item_count = 1
+item_0/text = "使用"
