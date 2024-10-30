@@ -1,8 +1,8 @@
-using da.Scripts.Objects;
-using Godot;
 using da.Scripts;
-using da.Scripts.Objects.EnemyScript.BoarScript;
+using da.Scripts.Objects;
 using da.Scripts.Objects.EnemyScript;
+using da.Scripts.Objects.EnemyScript.BoarScript;
+using Godot;
 
 namespace da.Objects
 {

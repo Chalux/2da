@@ -2,7 +2,6 @@
 using da.Scripts;
 using da.Scripts.Objects;
 using Godot;
-using System;
 using System.Linq;
 
 public partial class PauseScene : Control, IEvent

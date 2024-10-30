@@ -1,9 +1,8 @@
-﻿using da.Scripts.Objects.EnemyScript;
-using da.Scripts;
-using Godot;
-using da.Scripts.Objects.EnemyScript.BeeScript;
+﻿using da.Scripts;
 using da.Scripts.Interfaces;
-using System;
+using da.Scripts.Objects.EnemyScript;
+using da.Scripts.Objects.EnemyScript.BeeScript;
+using Godot;
 
 namespace da.Objects
 {

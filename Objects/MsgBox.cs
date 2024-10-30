@@ -1,4 +1,3 @@
-using da.Scripts;
 using Godot;
 
 public partial class MsgBox : RichTextLabel

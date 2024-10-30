@@ -1,6 +1,4 @@
-﻿using Godot;
-
-namespace da.Scripts.Objects.EnemyScript.SlimeScript
+﻿namespace da.Scripts.Objects.EnemyScript.SlimeScript
 {
     internal class SlimeFallState : EnemyState
     {
