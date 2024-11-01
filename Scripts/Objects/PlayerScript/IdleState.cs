@@ -23,7 +23,6 @@ namespace da.Scripts.Objects.PlayerScript
         public override void PhysicsProcess(double delta, Player owner)
         {
             Vector2 velocity = owner.Velocity;
-            Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
             if (!owner.IsOnFloor())
             {
                 owner.StateMachine.ChangeState(PlayerState.Fall);
@@ -31,6 +30,7 @@ namespace da.Scripts.Objects.PlayerScript
             }
             velocity.X = Mathf.MoveToward(owner.Velocity.X, 0, Player.Speed);
             owner.Velocity = velocity;
+            Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
             // 状态转换
             if (direction.X != 0)
             {
@@ -40,10 +40,6 @@ namespace da.Scripts.Objects.PlayerScript
             {
                 owner.TryJump();
             }
-            else if (Input.IsActionPressed("attack"))
-            {
-                owner.StateMachine.ChangeState(PlayerState.Attack1);
-            }
             else if (direction.Y > 0.5)
             {
                 owner.StateMachine.ChangeState(PlayerState.Crouch);
@@ -51,6 +47,14 @@ namespace da.Scripts.Objects.PlayerScript
             else if (direction.Y < -0.5 && owner.LadderRay.IsColliding())
             {
                 owner.StateMachine.ChangeState(PlayerState.ClimbLadder);
+            }
+        }
+
+        public override void UnhandledInput(InputEvent @event, Player owner)
+        {
+            if (Input.IsActionPressed("attack"))
+            {
+                owner.StateMachine.ChangeState(PlayerState.Attack1);
             }
         }
     }

@@ -17,3 +17,7 @@ shape = SubResource("RectangleShape2D_x053v")
 stream = ExtResource("2_i4ysb")
 volume_db = 12.0
 bus = &"SFX"
+
+[node name="CloseSprite" type="Sprite2D" parent="."]
+
+[node name="OpenedSprite" type="Sprite2D" parent="."]

@@ -28,6 +28,7 @@ public partial class SkillBtn : Control
                 GameGlobal.Instance.player.StateMachine.ChangeState(da.Scripts.Objects.PlayerScript.PlayerState.Skill);
             }
         }
+        GetViewport().SetInputAsHandled();
     }
 
     public override void _Process(double delta)

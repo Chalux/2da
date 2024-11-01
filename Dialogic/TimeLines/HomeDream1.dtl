@@ -1,2 +1,6 @@
 Owens: 原来是一场梦
 Owens: ……天都这么亮了啊
+[signal arg_type="dict" arg="{"Argument1":16,"eventName":"CameraShake"}"]
+[wait time="2.0"]
+Owens: 发生什么事了？
+Owens: 出门看看情况

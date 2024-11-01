@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d32qopyhlowst"
-path="res://.godot/imported/Props.png-20f4a766e5c1fa5f3914addbaf7e8663.ctex"
+uid="uid://cat5m3wycbh8g"
+path="res://.godot/imported/PurpleKey.png-b9a990945b72669fb10f6223c8efacb8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Assets/Dungeon Prison/Assets/Props.png"
-dest_files=["res://.godot/imported/Props.png-20f4a766e5c1fa5f3914addbaf7e8663.ctex"]
+source_file="res://Resources/Assets/Sprites/PurpleKey.png"
+dest_files=["res://.godot/imported/PurpleKey.png-b9a990945b72669fb10f6223c8efacb8.ctex"]
 
 [params]
 

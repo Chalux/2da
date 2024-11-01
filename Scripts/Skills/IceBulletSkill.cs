@@ -43,6 +43,11 @@ namespace da.Scripts.Skills
         public override void Enter(Player owner)
         {
             _owner = owner;
+            if (!owner.SkillList.ContainsKey("IceBullet"))
+            {
+                ChangeToIdle("skill");
+                return;
+            }
             owner.Velocity = Vector2.Zero;
             owner.CharactorAnimPlayer.Play("skill");
             owner.CharactorAnimPlayer.AnimationFinished += ChangeToIdle;
@@ -51,7 +56,8 @@ namespace da.Scripts.Skills
 
         private void ChangeToIdle(StringName animName)
         {
-            _owner.StateMachine.ChangeState(PlayerState.Idle);
+            if (animName == "skill")
+                _owner.StateMachine.ChangeState(PlayerState.Idle);
         }
 
         public override void Exit(Player owner)

@@ -32,6 +32,8 @@ public partial class IceBullet : Control, IAttackable
         AnimPlayer.Play("disappear");
         Damage d = User.DoAttack(attacker, target);
         d.onHitSound = ResourceLoader.Load<AudioStream>("res://Resources/SFX/26_sword_hit_3.wav");
+        d.stunPower = 0.01f;
+        d.stunDuration = 0.5f;
         return d;
     }
 

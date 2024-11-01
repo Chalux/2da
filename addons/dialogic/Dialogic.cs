@@ -130,6 +130,9 @@ namespace DialogicRuntime
                         case "Teleport":
                             GameGlobal.Instance.Teleport(dic["Argument1"].AsString(), a2?.AsString(), a3?.AsInt32() ?? 1);
                             break;
+                        case "CameraShake":
+                            GameGlobal.Instance.ShakeCamera(a1?.AsSingle() ?? 0f);
+                            break;
                     }
                 }
             };

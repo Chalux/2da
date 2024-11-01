@@ -498,6 +498,16 @@ namespace da.Objects
             }
             return false;
         }
+
+        public bool HasItem(int itemId, int count = 1)
+        {
+            if (Bag == null) return false;
+            foreach (Item i in Bag)
+            {
+                if (i.id == itemId) return i.StackCount >= count;
+            }
+            return false;
+        }
     }
 
     public class BagCompare : IComparer<Item>

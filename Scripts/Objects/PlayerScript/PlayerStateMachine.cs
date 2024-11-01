@@ -66,7 +66,7 @@ namespace da.Scripts.Objects.PlayerScript
             currState = stateDict[newState];
             (Owner as Player).CharactorAnimPlayer.Advance(0);
             currState?.Enter(Owner as Player);
-            //GD.Print($"Change State from {oldStateEnum} to {newState}");
+            GD.Print($"Change State from {oldStateEnum} to {newState}");
             if ((oldStateEnum != PlayerState.Jump && oldStateEnum != PlayerState.WallJump) && newState == PlayerState.Fall)
             {
                 (Owner as Player).JumpCount -= 1;

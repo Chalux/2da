@@ -49,10 +49,10 @@ namespace da.Scripts.Objects.PlayerScript
                 {
                     owner.StateMachine.ChangeState(PlayerState.Idle);
                 }
-                else if (Input.IsActionJustPressed("attack"))
-                {
-                    owner.StateMachine.ChangeState(PlayerState.Attack1);
-                }
+                //else if (Input.IsActionJustPressed("attack"))
+                //{
+                //    owner.StateMachine.ChangeState(PlayerState.Attack1);
+                //}
             }
             else if (direction.Y < -0.5 && owner.LadderRay.IsColliding())
             {
@@ -68,6 +68,14 @@ namespace da.Scripts.Objects.PlayerScript
                 {
                     owner.CoyoteTimer.Start();
                 }
+            }
+        }
+
+        public override void UnhandledInput(InputEvent @event, Player owner)
+        {
+            if ((owner.IsOnFloor() || !owner.CoyoteTimer.IsStopped()) && Input.IsActionJustPressed("attack"))
+            {
+                owner.StateMachine.ChangeState(PlayerState.Attack1);
             }
         }
     }

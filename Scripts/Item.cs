@@ -21,10 +21,13 @@ namespace da.Scripts
                 name = item.name;
                 description = item.description;
                 IconPath = item.IconPath;
-                var scriptres = ResourceLoader.Load<CSharpScript>(item.ScriptPath);
-                if (scriptres != null)
+                if (item.ScriptPath != null && item.ScriptPath != "")
                 {
-                    script = (BaseItemScript)scriptres.New();
+                    var scriptres = ResourceLoader.Load<CSharpScript>(item.ScriptPath);
+                    if (scriptres != null)
+                    {
+                        script = (BaseItemScript)scriptres.New();
+                    }
                 }
                 type = item.type;
             }

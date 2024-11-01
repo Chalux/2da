@@ -9,6 +9,7 @@ namespace da.Objects
     public partial class HomeMap : Map
     {
         [Export] public Area2D InsideChecker;
+        [Export] public SpeakPoint HomeSpeakPoint1;
         [Export] public GpuParticles2D WindParticles;
         [Export] public AudioStreamPlayer WindSound;
         bool _isInside = false;

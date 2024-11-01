@@ -38,7 +38,11 @@ namespace da.Scripts.Objects.PlayerScript
             {
                 owner.StateMachine.ChangeState(PlayerState.Idle);
             }
-            else if (!owner.AttackRequestTimer.IsStopped())
+        }
+
+        public override void UnhandledInput(InputEvent @event, Player owner)
+        {
+            if (!owner.AttackRequestTimer.IsStopped())
             {
                 owner.StateMachine.ChangeState(PlayerState.Attack1);
             }

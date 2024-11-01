@@ -14,7 +14,6 @@ namespace da.Scripts.Objects.EnemyScript.SlimeScript
         public override void OnAdd(Enemy owner)
         {
             this.owner = owner as Slime;
-            owner.AnimPlayer.AnimationFinished += OnAnimationFinished;
         }
 
         private void OnAnimationFinished(StringName animName)
@@ -28,6 +27,7 @@ namespace da.Scripts.Objects.EnemyScript.SlimeScript
         public override void Enter(Enemy owner)
         {
             owner.AnimPlayer.Play("attack");
+            owner.AnimPlayer.AnimationFinished += OnAnimationFinished;
         }
 
         public override void PhysicsProcess(double delta, Enemy owner)

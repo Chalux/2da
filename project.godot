@@ -16,7 +16,7 @@ warnings/check_angle_interpolation_type_conflicting=false
 [application]
 
 config/name="plat adv demo"
-config/version="0.1beta"
+config/version="0.1.1"
 run/main_scene="res://Scenes/RootScene.tscn"
 config/features=PackedStringArray("4.3", "C#", "Mobile")
 run/max_fps=60
@@ -38,7 +38,8 @@ directories/dch_directory={
 }
 directories/dtl_directory={
 "BeginSlime1": "res://Dialogic/TimeLines/BeginSlime1.dtl",
-"HomeDream1": "res://Dialogic/TimeLines/HomeDream1.dtl"
+"HomeDream1": "res://Dialogic/TimeLines/HomeDream1.dtl",
+"HomeSpeakPoint1": "res://Dialogic/TimeLines/HomeSpeakPoint1.dtl"
 }
 glossary/default_case_sensitive=true
 layout/style_list=["res://Resources/Assets/Slime-Sheet/VisualNovel.tres", "res://Dialogic/Styles/BubbleStyle.tres", "res://Dialogic/Styles/Style1.tres"]
@@ -219,6 +220,7 @@ locale/translations_pot_files=PackedStringArray("res://Dialogues/SlimeBegin1.dia
 2d_physics/layer_6="Water"
 2d_physics/layer_7="爬梯层"
 2d_physics/layer_8="无法滑墙层"
+2d_physics/layer_9="PlayerHitBox"
 
 [physics]
 

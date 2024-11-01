@@ -13,7 +13,18 @@ public partial class ItemObj : Button
         this.data = data;
         if (data != null)
         {
-            ItemIcon.Texture = ResourceLoader.Load<CompressedTexture2D>(data.IconPath);
+            //var res = ResourceLoader.Load<CompressedTexture2D>(data.IconPath);
+            //if (res == null)
+            //{
+            //    var res2 = ResourceLoader.Load<AtlasTexture>(data.IconPath);
+            //    if (res2 != null) ItemIcon.Texture = res2;
+            //}
+            //else
+            //{
+            //    ItemIcon.Texture = res;
+            //}
+            var res = ResourceLoader.Load(data.IconPath);
+            if (res != null) ItemIcon.Texture = res as Texture2D;
             if (data.StackCount > 1)
             {
                 StackCountLabel.Text = data.StackCount.ToString();

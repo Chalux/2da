@@ -53,6 +53,10 @@ namespace da.Scripts.Objects.PlayerScript
             else if (owner.IsOnWall() && owner.HandRay.IsColliding() && owner.FootRay.IsColliding())
             {
                 if (owner == null || owner.GetLastSlideCollision() == null) return;
+                if (owner.GetLastSlideCollision().GetCollider().GetMeta("CantSlide", false).AsBool())
+                {
+                    return;
+                }
                 if (owner.GetLastSlideCollision().GetCollider() is TileMapLayer tml)
                 {
                     if (tml.TileSet.GetCustomDataLayerByName("CantSlide") == -1)
@@ -65,10 +69,6 @@ namespace da.Scripts.Objects.PlayerScript
                     {
                         return;
                     }
-                }
-                else if (owner.GetLastSlideCollision().GetCollider().GetMeta("CantSlide", false).AsBool())
-                {
-                    return;
                 }
                 owner.StateMachine.ChangeState(PlayerState.WallSliding);
             }

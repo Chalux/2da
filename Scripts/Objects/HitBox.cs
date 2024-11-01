@@ -15,27 +15,30 @@ namespace da.Scripts.Objects
 
         private void OnAreaEntered(Area2D area)
         {
-            //GD.Print($"[Hit] {Owner.Name} hit {area.Owner.Name}");
-            Damage damage;
-            if (Owner is IAttackable attackable)
+            if (area.Owner is IHurtable)
             {
-                damage = attackable.DoAttack(attackable, area.Owner as IHurtable);
-            }
-            else
-            {
-                damage = new()
+                //GD.Print($"[Hit] {Owner.Name} hit {area.Owner.Name}");
+                Damage damage;
+                if (Owner is IAttackable attackable)
                 {
-                    value = 1,
-                    source = this,
-                    target = area as HurtBox
-                };
+                    damage = attackable.DoAttack(attackable, area.Owner as IHurtable);
+                }
+                else
+                {
+                    damage = new()
+                    {
+                        value = 1,
+                        source = this,
+                        target = area as HurtBox
+                    };
+                }
+                if (damage.onHitSound != null)
+                {
+                    SoundManager.PlaySFXByStream(damage.onHitSound);
+                }
+                EmitSignal(SignalName.onHit, damage);
+                (area as HurtBox).EmitSignal(HurtBox.SignalName.onHurt, damage);
             }
-            if (damage.onHitSound != null)
-            {
-                SoundManager.PlaySFXByStream(damage.onHitSound);
-            }
-            EmitSignal(SignalName.onHit, damage);
-            (area as HurtBox).EmitSignal(HurtBox.SignalName.onHurt, damage);
         }
     }
 }

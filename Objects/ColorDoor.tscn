@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=3 uid="uid://cdtdarfqsiqs3"]
+
+[ext_resource type="Texture2D" uid="uid://cav6q4613avih" path="res://Resources/Assets/Dungeon Tile Set.png" id="1_nv06u"]
+[ext_resource type="Script" path="res://Objects/ColorDoor.cs" id="2_sdiqi"]
+[ext_resource type="Script" path="res://Objects/ColorDoorInteract.cs" id="3_4rbjk"]
+[ext_resource type="AudioStream" uid="uid://cyxupdvliac21" path="res://Resources/SFX/05_door_open_2.mp3" id="3_vqd2f"]
+[ext_resource type="AudioStream" uid="uid://c0gbwf4dbjh2n" path="res://Resources/SFX/06_door_close_1.mp3" id="4_osi1v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nk4qb"]
+size = Vector2(16, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mlblb"]
+size = Vector2(42, 32)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_l8vt0"]
+polygon = PackedVector2Array(-8, -32, -8, 0, 8, 0, 8, -32)
+
+[node name="Control" type="Control" node_paths=PackedStringArray("sprite", "Collision", "openDoorAudio", "closeDoorAudio")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("2_sdiqi")
+sprite = NodePath("Sprite2D")
+Collision = NodePath("Collision")
+openDoorAudio = NodePath("OpenDoorAudio")
+closeDoorAudio = NodePath("CloseDoorAudio")
+
+[node name="Collision" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision"]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_nk4qb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -16)
+texture = ExtResource("1_nv06u")
+region_enabled = true
+region_rect = Rect2(208, 160, 16, 32)
+
+[node name="Interact" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("3_4rbjk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interact"]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_mlblb")
+
+[node name="OpenDoorAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_vqd2f")
+volume_db = 18.0
+max_distance = 60.0
+bus = &"SFX"
+
+[node name="CloseDoorAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_osi1v")
+volume_db = 18.0
+max_distance = 60.0
+bus = &"SFX"
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_l8vt0")

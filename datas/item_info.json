@@ -1,10 +1,26 @@
 [
-	{
-		"id": 1,
-		"name": "冰钻",
-		"description": "",
-		"IconPath": "res://Resources/Assets/skillicons/ice-spear.png",
-		"ScriptPath": "res://Scripts/Items/IceSpearScript.cs",
-		"type": 1
-	}
+  {
+    "id": 1,
+    "name": "冰钻",
+    "description": "",
+    "IconPath": "res://Resources/Assets/skillicons/ice-spear.png",
+    "ScriptPath": "res://Scripts/Items/IceSpearScript.cs",
+    "type": 1
+  },
+  {
+    "id": 2,
+    "name": "小药水",
+    "description": "小瓶的药水，增加5点生命",
+    "IconPath": "res://Resources/Assets/Sprites/HealthPotion1.tres",
+    "ScriptPath": "res://Scripts/Items/HealthPotion1.cs",
+    "type": 1
+  },
+  {
+    "id": 3,
+    "name": "红钥匙",
+    "description": "红色的钥匙，用来开红色的门。一把钥匙只能使用一次。",
+    "IconPath": "res://Resources/Assets/Sprites/RedKey.png",
+    "ScriptPath": "",
+    "type": 1
+  }
 ]

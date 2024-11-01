@@ -54,6 +54,24 @@ namespace da.Scripts.Objects.PlayerScript
             }
             else if (owner.IsOnWall() && owner.HandRay.IsColliding() && owner.FootRay.IsColliding())
             {
+                if (owner == null || owner.GetLastSlideCollision() == null) return;
+                if (owner.GetLastSlideCollision().GetCollider().GetMeta("CantSlide", false).AsBool())
+                {
+                    return;
+                }
+                if (owner.GetLastSlideCollision().GetCollider() is TileMapLayer tml)
+                {
+                    if (tml.TileSet.GetCustomDataLayerByName("CantSlide") == -1)
+                    {
+                        owner.StateMachine.ChangeState(PlayerState.WallSliding);
+                        return;
+                    }
+                    var coords = tml.GetCoordsForBodyRid(owner.GetLastSlideCollision().GetColliderRid());
+                    if (tml.GetCellTileData(coords).GetCustomData("CantSlide").AsBool())
+                    {
+                        return;
+                    }
+                }
                 owner.StateMachine.ChangeState(PlayerState.WallSliding);
             }
             else

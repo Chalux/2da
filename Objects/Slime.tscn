@@ -636,7 +636,6 @@ PlayerRay = NodePath("Graphics/PlayerRay")
 WallRay = NodePath("Graphics/WallRay")
 IdleTimer = NodePath("IdleTimer")
 CalmDownTimer = NodePath("CalmDownTimer")
-Speed = 10.0
 Acceleration = 2.5
 
 [node name="Sprite2D" parent="Graphics" index="0"]

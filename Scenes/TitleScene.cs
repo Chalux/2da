@@ -36,6 +36,9 @@ public partial class TitleScene : Control
     {
         GameGlobal.Instance.isRunning = true;
         GameGlobal.Instance.save = new();
+        GameGlobal.Instance.player = null;
+        GameGlobal.Instance.SkillSlot = new();
+        GameGlobal.Instance.UpdateSkillSlots();
         GameGlobal.Instance.Teleport("res://Scenes/ForestMap.tscn");
     }
 }

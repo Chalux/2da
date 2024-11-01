@@ -33,8 +33,8 @@ public partial class Enemy : CharacterBody2D, IAttackable, IHurtable
             //AttackCollision.Scale = new Vector2(value > 0 ? 1 : -1, 1);
         }
     }
-    [Export] public float Speed = 180;
-    [Export] public float Acceleration = 2000;
+    [Export] public float Speed = 10;
+    [Export] public float Acceleration = 20;
     public float Gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 
     public override void _PhysicsProcess(double delta)
@@ -110,10 +110,13 @@ public partial class Enemy : CharacterBody2D, IAttackable, IHurtable
         //var Timer = GetTree().CreateTimer(damage.stunDuration, true, false, true);
         //await Timer.ToSignal(Timer, SceneTreeTimer.SignalName.Timeout);
         //Engine.TimeScale = 1;
-        hurtTween = GameGlobal.Instance.CreateTween();
-        hurtTween.SetParallel();
-        hurtTween.TweenMethod(Callable.From((float newvalue) => SetShaderBlinkIntensity(newvalue)), 1.0f, 0f, 0.5f);
-        hurtTween.TweenMethod(Callable.From((float scale) => SetTimeScale(scale)), damage.stunPower, 1f, damage.stunDuration);
+        hurtTween = GameGlobal.Instance.player?.CreateTween();
+        if (hurtTween!= null)
+        {
+            hurtTween.SetParallel();
+            hurtTween.TweenMethod(Callable.From((float newvalue) => SetShaderBlinkIntensity(newvalue)), 1.0f, 0f, 0.5f);
+            hurtTween.TweenMethod(Callable.From((float scale) => SetTimeScale(scale)), damage.stunPower, 1f, damage.stunDuration);
+        }
     }
 
     private void SetShaderBlinkIntensity(float newvalue)

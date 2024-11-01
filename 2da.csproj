@@ -6,4 +6,7 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>da</RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Scripts\Objects\SpeakPoints\" />
+  </ItemGroup>
 </Project>

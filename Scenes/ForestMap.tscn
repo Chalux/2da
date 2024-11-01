@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://bwwf45hrjp45w"]
+[gd_scene load_steps=35 format=4 uid="uid://bwwf45hrjp45w"]
 
 [ext_resource type="Texture2D" uid="uid://vf221s0alvnf" path="res://Resources/Assets/Legacy-Fantasy - High Forest 2.3/Background/Background.png" id="1_0i8uw"]
 [ext_resource type="Script" path="res://Scripts/Map.cs" id="1_wg0mu"]
@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://bsc7mtnb0r2m4" path="res://Resources/Assets/Legacy-Fantasy - High Forest 2.3/Assets/Tiles.png" id="4_q6ik8"]
 [ext_resource type="Script" path="res://Scripts/Objects/Teleporter.cs" id="8_abdxq"]
 [ext_resource type="Texture2D" uid="uid://kd7iysfxvtm3" path="res://Resources/Assets/Legacy-Fantasy - High Forest 2.3/Assets/Buildings.png" id="8_qi0rw"]
-[ext_resource type="Texture2D" uid="uid://d32qopyhlowst" path="res://Resources/Assets/Dungeon Prison/Assets/Props.png" id="9_enml8"]
 [ext_resource type="Script" path="res://Scenes/InfHealthPotion.cs" id="10_knmdj"]
 [ext_resource type="PackedScene" uid="uid://clmuoj0brv3vl" path="res://Objects/SavePoint.tscn" id="11_lmm05"]
 [ext_resource type="PackedScene" uid="uid://nfovkta3ihjc" path="res://Objects/Player.tscn" id="11_pxg72"]
@@ -17,36 +16,36 @@
 [ext_resource type="Texture2D" uid="uid://bym38syvpujjh" path="res://Resources/Assets/Slime-Sheet/slime-Sheet.png" id="15_xu0au"]
 [ext_resource type="Script" path="res://Scripts/Objects/SlimeBeginNpc1.cs" id="17_4866t"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xaf6k"]
-atlas = ExtResource("9_enml8")
-region = Rect2(0, 224, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_6qgth"]
+atlas = ExtResource("4_q6ik8")
+region = Rect2(240, 384, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nkorl"]
-atlas = ExtResource("9_enml8")
-region = Rect2(16, 224, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_eivcu"]
+atlas = ExtResource("4_q6ik8")
+region = Rect2(256, 384, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bx82b"]
-atlas = ExtResource("9_enml8")
-region = Rect2(32, 224, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_japu7"]
+atlas = ExtResource("4_q6ik8")
+region = Rect2(272, 384, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0ykos"]
-atlas = ExtResource("9_enml8")
-region = Rect2(48, 224, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_8hsrd"]
+atlas = ExtResource("4_q6ik8")
+region = Rect2(288, 384, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5a07f"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_xaf6k")
+"texture": SubResource("AtlasTexture_6qgth")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_nkorl")
+"texture": SubResource("AtlasTexture_eivcu")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bx82b")
+"texture": SubResource("AtlasTexture_japu7")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0ykos")
+"texture": SubResource("AtlasTexture_8hsrd")
 }],
 "loop": false,
 "name": &"default",
@@ -1620,6 +1619,7 @@ text = "按wasd移动
 按空格键跳跃
 按e交互"
 horizontal_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="Label2" type="Label" parent="."]
 layout_mode = 0
@@ -1632,6 +1632,7 @@ text = "在空中按空格二段跳
 任意时机按shift冲刺
 在空中按s速降"
 horizontal_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="Label3" type="Label" parent="."]
 layout_mode = 0
@@ -1642,6 +1643,7 @@ offset_bottom = 180.0
 theme_override_colors/font_color = Color(0.89, 0.4895, 0, 1)
 text = "按J/鼠标左键攻击"
 horizontal_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="Geometry" type="TileMapLayer" parent="."]
 use_parent_material = true

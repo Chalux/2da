@@ -263,10 +263,7 @@ namespace da.Scripts.Objects
             }
             foreach (Crate crate in GetTree().GetNodesInGroup("crates").Cast<Crate>())
             {
-                if (save.CrateOpened.Contains(crate.Name))
-                {
-                    crate.isOpen = true;
-                }
+                crate.IsOpen = save.CrateOpened.Contains(crate.Name);
             }
         }
 
