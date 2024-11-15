@@ -19,7 +19,8 @@ namespace da.Scripts.Objects.PlayerScript
 
         public override void PhysicsProcess(double delta, Player owner)
         {
-            PlayerStaticFunc.Move(owner, delta, owner.gravity);
+            owner.CheckGrapple();
+            if (!owner.chain.isHooked) PlayerStaticFunc.Move(owner, delta, owner.gravity);
         }
 
         public override void AfterMove(double delta, Player owner)

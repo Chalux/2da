@@ -1,0 +1,7 @@
+Owens: 地上好像放了什么东西
+[signal arg_type="dict" arg="{"Argument1":"RopeUnlock","eventName":"MovePlayer"}"]
+[signal arg_type="dict" arg="{"eventName":"RopeUnlock"}"]
+[wait time="2.0"]
+Owens: 好像是一套钩索
+Owens: 不知道是谁放在这里的，先拿走再说吧
+获得了钩索，对准固定的钩索目标按右键即可发射钩索

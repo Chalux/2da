@@ -15,8 +15,12 @@ namespace da.Scripts.Objects.PlayerScript
         {
             _owner = owner;
             owner.CharactorAnimPlayer.Play("jump");
+            if (owner.JumpCount == owner.CanJumpCount) owner.Velocity = new Vector2(owner.Velocity.X, Player.JumpVelocity);
+            else
+            {
+                owner.Velocity = new Vector2(owner.Velocity.X, Player.JumpVelocity * 0.75f);
+            }
             owner.JumpCount -= 1;
-            owner.Velocity = new Vector2(owner.Velocity.X, Player.JumpVelocity);
             //owner.MoveAndSlide();
             owner.CharactorAnimPlayer.AnimationFinished += ChangeToFall;
             owner.JumpTimer.Start();
@@ -26,7 +30,8 @@ namespace da.Scripts.Objects.PlayerScript
 
         public override void PhysicsProcess(double delta, Player owner)
         {
-            PlayerStaticFunc.Move(owner, delta, owner.gravity);
+            owner.CheckGrapple();
+            if (!owner.chain.isHooked) PlayerStaticFunc.Move(owner, delta, owner.gravity);
         }
 
         public override void AfterMove(double delta, Player owner)

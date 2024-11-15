@@ -24,6 +24,7 @@ namespace da.Objects
         {
             // 懒狗不想写配置文件了直接写死吧
             SkillDict.Add("IceBullet", new IceBulletSkill());
+            SkillDict.Add("Heal", new HealSkill());
         }
     }
 }

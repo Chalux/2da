@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace da.Objects
 {
-    public partial class Player : CharacterBody2D, IEvent, IAttackable, IHurtable
+    public partial class Player : Role, IEvent, IAttackable, IHurtable
     {
         public const int RIGHTPOSITION = 1;
         public const int LEFTPOSITION = -1;
@@ -42,11 +42,16 @@ namespace da.Objects
         [Export] public Marker2D SlashMarker;
         [Export] public RayCast2D SlashChecker;
         [Export] public RayCast2D WaterChecker;
+        [Export] public Light2D Light;
+        [Export] public RayCast2D GrappleRay;
+        [Export] public Chain chain;
         public const float Speed = 160;
         public const float JumpVelocity = -400;
         public const float FloorAcceleration = Speed / 0.2f;
         public const float AirAcceleration = Speed / 0.1f;
-        public Vector2 WallJumpVelocity = new(240, JumpVelocity);
+        public const float GrappleForce = 30;
+        private Vector2 tempGrappleVelocity = Vector2.Zero;
+        public Vector2 WallJumpVelocity = new(360, JumpVelocity);
         [Export] public bool CanCancelAttack = false;
         [Export] public bool CanHurtMove = false;
         public int CanDashCount = 1;
@@ -58,6 +63,7 @@ namespace da.Objects
         public System.Collections.Generic.Dictionary<string, Skill> SkillList = new();
         public Array<Item> Bag = new();
         private BagCompare _bagCompare = new();
+        public float poisonCount = 0f;
         public int JumpCount
         {
             get => _jumpcount;
@@ -88,13 +94,25 @@ namespace da.Objects
         public List<IInteractale> NowInteraction = new();
         [Export] public AnimatedSprite2D InteractableAnim;
         public bool SkipInput = false;
+        public Node2D AutoMoveTarget = null;
 
         // Get the gravity from the project settings to be synced with RigidBody nodes.
         public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 
         public override void _PhysicsProcess(double delta)
         {
+            if (AutoMoveTarget != null)
+            {
+                Velocity = new((int)((AutoMoveTarget.GlobalPosition.X - GlobalPosition.X) * 3f), 0);
+                if (Velocity.X != 0) StateMachine.ChangeState(PlayerState.Walk);
+                else StateMachine.ChangeState(PlayerState.Idle);
+                MoveAndSlide();
+                return;
+            }
+
             if (GameGlobal.Instance.IsChangingScene || SkipInput) return;
+
+            base._PhysicsProcess(delta);
 
             foreach (var skill in SkillList.Values)
             {
@@ -111,10 +129,22 @@ namespace da.Objects
 
             StateMachine.AfterMove(delta);
 
+            if (Velocity == Vector2.Zero)
+            {
+                AutoMoveTarget = null;
+            }
+
             if (WaterChecker.IsColliding())
             {
                 StateMachine.ChangeState(PlayerState.InWater);
             }
+        }
+
+        public override void _Process(double delta)
+        {
+            base._Process(delta);
+
+            StateMachine.Update(delta);
         }
 
         private void AddGhost()
@@ -135,6 +165,7 @@ namespace da.Objects
 
         public override void _Ready()
         {
+            base._Ready();
             CharactorSprite = Graphics.GetChild<Sprite2D>(0);
             StateMachine.ChangeState(PlayerState.Idle);
             GhostTimer.Timeout += AddGhost;
@@ -150,7 +181,7 @@ namespace da.Objects
             HurtBox.onHurt += (Damage damage) =>
             {
                 status.Health -= damage.value;
-                Direction = (damage.source.Owner as Enemy).Position.X >= Position.X ? 1 : -1;
+                Direction = (damage.source.Owner as Node2D).Position.X >= Position.X ? 1 : -1;
                 if (status.Health > 0)
                 {
                     StateMachine.ChangeState(PlayerState.Hurt);
@@ -171,6 +202,7 @@ namespace da.Objects
             {
                 SkipInput = false;
             };
+            GrappleRay.Enabled = Utils.CheckGlobalData("IsRopeUnlock");
         }
 
         public bool CheckCanDash => (DashCount > 0 || StateMachine.currState.State == PlayerState.WallSliding || (StateMachine.currState.State == PlayerState.Dash && StateMachine.oldStateEnum == PlayerState.WallSliding)) && DashTimer.IsStopped() && DashCoolDownTimer.IsStopped();
@@ -194,6 +226,7 @@ namespace da.Objects
             DashTimer.Start();
             GhostTimer.Start();
             DashParticles.Emitting = true;
+            chain.Release();
         }
 
         public bool CheckCanJump => JumpCount > 0 && JumpTimer.IsStopped();
@@ -289,12 +322,32 @@ namespace da.Objects
             {
                 GameGlobal.Instance.skillBtn4.OnPressed();
             }
+            Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+            if (direction != Vector2.Zero)
+            {
+                AutoMoveTarget = null;
+            }
             StateMachine.UnhandledInput(@event);
             if (OS.IsDebugBuild())
             {
                 if (Input.IsKeyPressed(Key.P) && Input.IsKeyPressed(Key.Alt))
                 {
                     StateMachine.ChangeState(PlayerState.Death);
+                }
+                else if (Input.IsKeyPressed(Key.O) && Input.IsKeyPressed(Key.Alt))
+                {
+                    Utils.SaveToGlobalData("IsRopeUnlock", true);
+                    foreach (StaticRopePoint node in GameGlobal.Instance.GetTree().GetNodesInGroup("static_rope_point").Cast<StaticRopePoint>())
+                    {
+                        node.Visible = true;
+                        node.SetDeferred("monitoring", true);
+                        node.SetDeferred("monitorable", true);
+                    }
+                    GrappleRay.Enabled = true;
+                }
+                else if (Input.IsKeyPressed(Key.S) && Input.IsKeyPressed(Key.Alt))
+                {
+                    GameGlobal.Instance.SaveGame();
                 }
             }
         }
@@ -307,10 +360,6 @@ namespace da.Objects
         public void ResetJumpCount(int times = 0)
         {
             JumpCount = times > 0 ? times : CanJumpCount;
-        }
-
-        public void ReceiveEvent(string eventName, params object[] datas)
-        {
         }
 
         public void Respawn()
@@ -504,9 +553,80 @@ namespace da.Objects
             if (Bag == null) return false;
             foreach (Item i in Bag)
             {
-                if (i.id == itemId) return i.StackCount >= count;
+                if (i != null && i.id == itemId) return i.StackCount >= count;
             }
             return false;
+        }
+
+        public void CheckGrapple()
+        {
+            GrappleRay.LookAt(GetGlobalMousePosition());
+            if (Input.IsActionJustPressed("rope_key"))
+            {
+                if (GrappleRay.IsColliding() && GrappleRay.GetCollider() is StaticRopePoint staticRopePoint)
+                {
+                    chain.HookSomething(staticRopePoint);
+                }
+            }
+            if (chain.isHooked && Input.IsActionJustReleased("rope_key"))
+            {
+                Velocity = new(Velocity.X * 0.8f, Velocity.Y * 0.5f);
+            }
+            if (!Input.IsActionPressed("rope_key"))
+            {
+                chain.Release();
+            }
+            if (chain.isHooked)
+            {
+                tempGrappleVelocity = ToLocal(chain.Arrow).Normalized() * GrappleForce;
+                //if (tempGrappleVelocity.Y > 0)
+                //{
+                //    tempGrappleVelocity *= 0.3f;
+                //}
+                //else
+                //{
+                //    tempGrappleVelocity *= 1.6f;
+                //}
+                if (GlobalPosition.Y < chain.Arrow.Y)
+                {
+                    Velocity = new(Velocity.X * 0.8f, Velocity.Y * 0.5f);
+                }
+            }
+            else
+            {
+                tempGrappleVelocity = Vector2.Zero;
+            }
+            Velocity += tempGrappleVelocity;
+        }
+
+        public override void ReceiveEvent(string eventName, params object[] datas)
+        {
+            base.ReceiveEvent(eventName, datas);
+
+            switch (eventName)
+            {
+                case "MovePlayer":
+                    if (datas[0] is Variant str)
+                    {
+                        Marker2D node = null;
+                        foreach (Marker2D n in GetTree().GetNodesInGroup("movemarker").Cast<Marker2D>())
+                        {
+                            if (n.Name == str.AsString())
+                            {
+                                node = n;
+                                break;
+                            }
+                        }
+                        if (node != null)
+                        {
+                            if (TestMove(Transform, node.GlobalPosition))
+                            {
+                                AutoMoveTarget = node;
+                            }
+                        }
+                    }
+                    break;
+            }
         }
     }
 

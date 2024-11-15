@@ -16,6 +16,13 @@ namespace da.Scripts.Objects.PlayerScript
             owner.Velocity = Vector2.Zero;
         }
 
+        public override void Update(double delta, Player owner)
+        {
+            base.Update(delta, owner);
+
+            owner.CheckGrapple();
+        }
+
         public override void PhysicsProcess(double delta, Player owner)
         {
             PlayerStaticFunc.Move(owner, delta, owner.gravity / 3);

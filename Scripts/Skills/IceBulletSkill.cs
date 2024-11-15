@@ -50,7 +50,14 @@ namespace da.Scripts.Skills
             }
             owner.Velocity = Vector2.Zero;
             owner.CharactorAnimPlayer.Play("skill");
-            owner.CharactorAnimPlayer.AnimationFinished += ChangeToIdle;
+            try
+            {
+                owner.CharactorAnimPlayer.AnimationFinished += ChangeToIdle;
+            }
+            catch
+            {
+
+            }
             owner.SkillList["IceBullet"].CurrentCooldown = owner.SkillList["IceBullet"].Cooldown;
         }
 
@@ -62,7 +69,7 @@ namespace da.Scripts.Skills
 
         public override void Exit(Player owner)
         {
-            owner.CharactorAnimPlayer.AnimationFinished -= ChangeToIdle;
+            try { owner.CharactorAnimPlayer.AnimationFinished -= ChangeToIdle; } catch { }
             owner.currSkill = null;
         }
     }

@@ -6,6 +6,9 @@
 
 [node name="PauseScene" type="Control" node_paths=PackedStringArray("ResumeBtn", "TitleBtn", "SkillTabbar", "SkillList", "BagGrid")]
 process_mode = 2
+light_mask = 0
+z_index = 1024
+z_as_relative = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,6 +24,7 @@ SkillList = NodePath("VBoxContainer/TabContainer/技能设置/SkillTabbar/SkillL
 BagGrid = NodePath("VBoxContainer/TabContainer/背包/ScrollContainer/GridContainer")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+light_mask = 0
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,6 +34,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.411765)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+light_mask = 0
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -45,18 +50,21 @@ grow_vertical = 2
 alignment = 1
 
 [node name="Label" type="Label" parent="VBoxContainer"]
+light_mask = 0
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "暂停"
 horizontal_alignment = 1
 
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
+light_mask = 0
 custom_minimum_size = Vector2(197, 94)
 layout_mode = 2
 theme_override_font_sizes/font_size = 5
 current_tab = 0
 
 [node name="背包" type="PanelContainer" parent="VBoxContainer/TabContainer"]
+light_mask = 0
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -72,10 +80,12 @@ columns = 6
 
 [node name="技能设置" type="PanelContainer" parent="VBoxContainer/TabContainer"]
 visible = false
+light_mask = 0
 layout_mode = 2
 metadata/_tab_index = 1
 
 [node name="SkillTabbar" type="TabBar" parent="VBoxContainer/TabContainer/技能设置"]
+light_mask = 0
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 5
@@ -87,6 +97,7 @@ tab_2/title = "技能3"
 tab_3/title = "技能4"
 
 [node name="SkillList" type="ItemList" parent="VBoxContainer/TabContainer/技能设置/SkillTabbar"]
+light_mask = 0
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 offset_top = 16.0
@@ -101,6 +112,7 @@ fixed_icon_size = Vector2i(16, 16)
 
 [node name="音量设置" type="PanelContainer" parent="VBoxContainer/TabContainer"]
 visible = false
+light_mask = 0
 layout_mode = 2
 metadata/_tab_index = 2
 
@@ -148,17 +160,21 @@ size_flags_vertical = 4
 Bus = &"SFX"
 
 [node name="Actions" type="PanelContainer" parent="VBoxContainer"]
+light_mask = 0
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Actions"]
+light_mask = 0
 layout_mode = 2
 theme_override_constants/separation = 15
 alignment = 1
 
 [node name="ResumeBtn" type="Button" parent="VBoxContainer/Actions/HBoxContainer"]
+light_mask = 0
 layout_mode = 2
 text = "恢复游戏"
 
 [node name="QuitBtn" type="Button" parent="VBoxContainer/Actions/HBoxContainer"]
+light_mask = 0
 layout_mode = 2
 text = "返回标题"

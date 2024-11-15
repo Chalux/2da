@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "冰钻",
-    "description": "",
+    "description": "技能书。向前方发射一枚冰钻，遇到第一个敌人或地形时消失，造成1点伤害，冷却3秒",
     "IconPath": "res://Resources/Assets/skillicons/ice-spear.png",
     "ScriptPath": "res://Scripts/Items/IceSpearScript.cs",
     "type": 1
@@ -20,6 +20,38 @@
     "name": "红钥匙",
     "description": "红色的钥匙，用来开红色的门。一把钥匙只能使用一次。",
     "IconPath": "res://Resources/Assets/Sprites/RedKey.png",
+    "ScriptPath": "",
+    "type": 1
+  },
+  {
+    "id": 4,
+    "name": "治疗术",
+    "description": "技能书。缓慢恢复5点生命，冷却10秒",
+    "IconPath": "res://Resources/Assets/skillicons/healing.png",
+    "ScriptPath": "res://Scripts/Items/HealScript.cs",
+    "type": 1
+  },
+  {
+    "id": 5,
+    "name": "绿钥匙",
+    "description": "绿色的钥匙，用来开绿色的门。一把钥匙只能使用一次。",
+    "IconPath": "res://Resources/Assets/Sprites/GreenKey.png",
+    "ScriptPath": "",
+    "type": 1
+  },
+  {
+    "id": 6,
+    "name": "蓝钥匙",
+    "description": "蓝色的钥匙，用来开蓝色的门。一把钥匙只能使用一次。",
+    "IconPath": "res://Resources/Assets/Sprites/BlueKey.png",
+    "ScriptPath": "",
+    "type": 1
+  },
+  {
+    "id": 7,
+    "name": "紫钥匙",
+    "description": "紫色的钥匙，用来开紫色的门。一把钥匙只能使用一次。",
+    "IconPath": "res://Resources/Assets/Sprites/PurpleKey.png",
     "ScriptPath": "",
     "type": 1
   }

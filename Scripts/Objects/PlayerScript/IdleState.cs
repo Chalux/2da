@@ -22,6 +22,8 @@ namespace da.Scripts.Objects.PlayerScript
 
         public override void PhysicsProcess(double delta, Player owner)
         {
+            owner.CheckGrapple();
+            if (owner.chain.isHooked) return;
             Vector2 velocity = owner.Velocity;
             if (!owner.IsOnFloor())
             {
@@ -30,7 +32,14 @@ namespace da.Scripts.Objects.PlayerScript
             }
             velocity.X = Mathf.MoveToward(owner.Velocity.X, 0, Player.Speed);
             owner.Velocity = velocity;
-            Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+        }
+
+        public override void AfterMove(double delta, Player owner)
+        {
+            base.AfterMove(delta, owner);
+
+            Vector2 direction = Vector2.Zero;
+            if (!(GameGlobal.Instance.IsChangingScene || owner.SkipInput)) direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
             // 状态转换
             if (direction.X != 0)
             {

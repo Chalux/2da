@@ -1,4 +1,5 @@
 using da.Scripts;
+using da.Scripts.Interfaces;
 using da.Scripts.Objects;
 using Godot;
 
@@ -19,8 +20,13 @@ public partial class SkillBtn : Control
 
     public void OnPressed()
     {
+        if (GameGlobal.Instance.IsChangingScene || (GameGlobal.Instance.player?.SkipInput ?? false)) return;
         if (currSkill != null && GameGlobal.Instance.player != null)
         {
+            if (currSkill is INeedSetOwner so)
+            {
+                so.SetOwner(GameGlobal.Instance.player);
+            }
             currSkill.CheckIsReady();
             if (currSkill.IsReady)
             {

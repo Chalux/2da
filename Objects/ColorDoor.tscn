@@ -13,6 +13,7 @@ size = Vector2(16, 32)
 size = Vector2(42, 32)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_l8vt0"]
+cull_mode = 1
 polygon = PackedVector2Array(-8, -32, -8, 0, 8, 0, 8, -32)
 
 [node name="Control" type="Control" node_paths=PackedStringArray("sprite", "Collision", "openDoorAudio", "closeDoorAudio")]

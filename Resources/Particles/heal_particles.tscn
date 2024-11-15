@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://ca0x6xy0bis4f"]
+
+[sub_resource type="Curve" id="Curve_u4quf"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.747368, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_63gco"]
+curve = SubResource("Curve_u4quf")
+
+[sub_resource type="Gradient" id="Gradient_nwr6k"]
+colors = PackedColorArray(1, 1, 1, 1, 0.304914, 0.669102, 0.361449, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4toun"]
+gradient = SubResource("Gradient_nwr6k")
+
+[sub_resource type="Curve" id="Curve_r83s3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.0105263, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.505494), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_xl4i6"]
+curve = SubResource("Curve_r83s3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nok2b"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, 20, 0)
+emission_shape = 3
+emission_box_extents = Vector3(20, 10, 1)
+direction = Vector3(0, -980, 0)
+spread = 0.0
+initial_velocity_min = 30.0
+initial_velocity_max = 60.0
+gravity = Vector3(0, 40, 0)
+scale_min = 2.0
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_xl4i6")
+color_ramp = SubResource("GradientTexture1D_4toun")
+alpha_curve = SubResource("CurveTexture_63gco")
+
+[node name="HealParticles" type="GPUParticles2D"]
+emitting = false
+amount = 15
+process_material = SubResource("ParticleProcessMaterial_nok2b")
+lifetime = 0.75
+one_shot = true
+explosiveness = 1.0

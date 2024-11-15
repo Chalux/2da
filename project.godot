@@ -39,7 +39,10 @@ directories/dch_directory={
 directories/dtl_directory={
 "BeginSlime1": "res://Dialogic/TimeLines/BeginSlime1.dtl",
 "HomeDream1": "res://Dialogic/TimeLines/HomeDream1.dtl",
-"HomeSpeakPoint1": "res://Dialogic/TimeLines/HomeSpeakPoint1.dtl"
+"HomeMineSP1": "res://Dialogic/TimeLines/HomeMineSP1.dtl",
+"HomeMineSP2": "res://Dialogic/TimeLines/HomeMineSP2.dtl",
+"HomeSpeakPoint1": "res://Dialogic/TimeLines/HomeSpeakPoint1.dtl",
+"SlimeEndDialog": "res://Dialogic/TimeLines/SlimeEndDialog.dtl"
 }
 glossary/default_case_sensitive=true
 layout/style_list=["res://Resources/Assets/Slime-Sheet/VisualNovel.tres", "res://Dialogic/Styles/BubbleStyle.tres", "res://Dialogic/Styles/Style1.tres"]
@@ -115,6 +118,8 @@ doors=""
 enemies=""
 maps=""
 crates=""
+movemarker=""
+static_rope_point=""
 
 [input]
 
@@ -205,6 +210,15 @@ skill4={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":52,"key_label":0,"unicode":52,"location":0,"echo":false,"script":null)
 ]
 }
+rope_key={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":2,"position":Vector2(279, 22),"global_position":Vector2(288, 68),"factor":1.0,"button_index":2,"canceled":false,"pressed":true,"double_click":false,"script":null)
+]
+}
+no_action={
+"deadzone": 0.5,
+"events": []
+}
 
 [internationalization]
 
@@ -221,6 +235,8 @@ locale/translations_pot_files=PackedStringArray("res://Dialogues/SlimeBegin1.dia
 2d_physics/layer_7="爬梯层"
 2d_physics/layer_8="无法滑墙层"
 2d_physics/layer_9="PlayerHitBox"
+2d_physics/layer_10="PoisonWater"
+2d_physics/layer_32="Grapple"
 
 [physics]
 

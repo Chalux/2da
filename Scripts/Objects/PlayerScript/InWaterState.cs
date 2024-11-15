@@ -18,10 +18,22 @@ namespace da.Scripts.Objects.PlayerScript
 
         public override void PhysicsProcess(double delta, Player owner)
         {
+            owner.CheckGrapple();
             PlayerStaticFunc.Move(owner, delta, owner.gravity);
             if (Input.IsActionPressed("jump"))
             {
                 owner.Velocity = new Vector2(owner.Velocity.X, -200);
+            }
+            if (owner.WaterChecker.GetCollider() is Area2D a && a.GetCollisionLayerValue(10))
+            {
+                int tempOldValue = (int)owner.poisonCount;
+                owner.poisonCount += (float)delta;
+                if (tempOldValue < (int)owner.poisonCount)
+                {
+                    owner.status.Health -= 1;
+                    SoundManager.Ins.PlaySFX("Hurt");
+                    GameGlobal.Instance.ShakeCamera(2);
+                }
             }
         }
 
@@ -43,6 +55,7 @@ namespace da.Scripts.Objects.PlayerScript
         public override void Exit(Player owner)
         {
             owner.gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+            owner.poisonCount = 0;
         }
     }
 }

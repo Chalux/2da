@@ -22,12 +22,14 @@ namespace da.Scripts.Objects.PlayerScript
 
         public override void PhysicsProcess(double delta, Player owner)
         {
-            PlayerStaticFunc.Move(owner, delta, 0);
+            owner.CheckGrapple();
+            if (!owner.chain.isHooked) PlayerStaticFunc.Move(owner, delta, 0);
         }
 
         public override void AfterMove(double delta, Player owner)
         {
-            Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+            Vector2 direction = Vector2.Zero;
+            if (!(GameGlobal.Instance.IsChangingScene || owner.SkipInput)) direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
             if (owner.IsOnFloor() || !owner.CoyoteTimer.IsStopped())
             {
                 if (direction.Y > 0.5)

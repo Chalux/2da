@@ -84,7 +84,7 @@ namespace da.Scripts
         /// 将节点保存到地图存储数据中
         /// </summary>
         /// <param name="node"></param>
-        public static void SaveToMapData(Node node)
+        public static void SaveToMapData(Node node, bool state = true)
         {
             if (node != null && Node.IsInstanceValid(node))
             {
@@ -95,10 +95,37 @@ namespace da.Scripts
                     if (mapsave.ContainsKey(map.Name))
                     {
                         var dict = mapsave[map.Name];
-                        dict.TryAdd(node.Name, true);
+                        dict.TryAdd(node.Name, state);
                     }
                 }
             }
+        }
+
+        public static bool CheckSaved(Node node)
+        {
+            if (node != null && Node.IsInstanceValid(node))
+            {
+                var map = node.FindParent("*Map*");
+                if (map != null)
+                {
+                    var mapsave = GameGlobal.Instance.save.MapSaveData;
+                    return mapsave.ContainsKey(map.Name) && mapsave[map.Name].ContainsKey(node.Name);
+                }
+            }
+            return false;
+        }
+
+        public static void SaveToGlobalData(string key, bool value = true)
+        {
+            if (GameGlobal.Instance.save.GlobalSaveData.TryAdd(key, value))
+            {
+                GameGlobal.Instance.save.GlobalSaveData[key] = value;
+            }
+        }
+
+        public static bool CheckGlobalData(string key)
+        {
+            return GameGlobal.Instance.save.GlobalSaveData.ContainsKey(key) && GameGlobal.Instance.save.GlobalSaveData[key].AsBool();
         }
     }
 }

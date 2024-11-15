@@ -10,6 +10,8 @@ namespace da.Scripts
         public double _maxHealth;
         [Signal]
         public delegate void OnMaxHealthChangedEventHandler(double maxhealth);
+        [Signal]
+        public delegate void OnDeathEventHandler();
         public double MaxHealth
         {
             get => _maxHealth;
@@ -33,6 +35,7 @@ namespace da.Scripts
                 }
                 if (Owner is Enemy && _health <= 0)
                 {
+                    EmitSignal(SignalName.OnDeath);
                     EventMgr.DispatchEvent("EnemyDied", Owner);
                 }
             }

@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7c4krb75is17"]
+
+[ext_resource type="Script" path="res://Objects/Chain.cs" id="1_o3hp2"]
+[ext_resource type="Texture2D" uid="uid://dw0ix1i03yvl1" path="res://Resources/Assets/Sprites/arrow01.png" id="1_vldjq"]
+[ext_resource type="Texture2D" uid="uid://cvjhxr02dw4lv" path="res://Resources/Assets/Sprites/prog01.png" id="1_y63oa"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7s81y"]
+radius = 5.0
+
+[node name="Chain" type="Node2D" node_paths=PackedStringArray("ChainSprite", "Hook")]
+script = ExtResource("1_o3hp2")
+ChainSprite = NodePath("Prog01")
+Hook = NodePath("RigidBody2D")
+
+[node name="Prog01" type="Sprite2D" parent="."]
+texture_repeat = 2
+texture = ExtResource("1_y63oa")
+centered = false
+offset = Vector2(-5, 0)
+region_enabled = true
+region_rect = Rect2(0, 0, 10, 180)
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("CircleShape2D_7s81y")
+
+[node name="Arrow01" type="Sprite2D" parent="RigidBody2D"]
+rotation = -1.5708
+texture = ExtResource("1_vldjq")

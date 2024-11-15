@@ -36,6 +36,7 @@ namespace da.Scripts.Objects
         [Export] public SkillBtn skillBtn2;
         [Export] public SkillBtn skillBtn3;
         [Export] public SkillBtn skillBtn4;
+        [Export] public Label HealthLab;
 
         [Signal] public delegate void CameraShakeEventHandler(float strength);
         public static GameGlobal Instance { get; private set; }
@@ -141,11 +142,13 @@ namespace da.Scripts.Objects
         public void PlayerHealthChanged(double newhealth, double oldhealth)
         {
             healthBar.Value = newhealth;
+            HealthLab.Text = newhealth.ToString() + "/" + (player?.status.MaxHealth.ToString() ?? "0");
         }
 
         public void PlayerMaxHealthChanged(double newhealth)
         {
             healthBar.MaxValue = newhealth;
+            HealthLab.Text = (player?.status.Health.ToString() ?? "0") + "/" + (player?.status.MaxHealth.ToString() ?? "0");
         }
 
         public void ReceiveEvent(string eventName, params object[] datas)
@@ -157,7 +160,7 @@ namespace da.Scripts.Objects
                     UpdateLeftUpperBox();
                     break;
                 case "PlayerMaxHealthChanged":
-                    healthBar.MaxValue = (double)datas[0];
+                    PlayerMaxHealthChanged((double)datas[0]);
                     break;
                 case "RootReady":
                     root = (RootScene)datas[0];
@@ -176,6 +179,7 @@ namespace da.Scripts.Objects
             healthBar.MaxValue = player?.status?.MaxHealth ?? 1;
             healthBar.Value = player?.status?.Health ?? 1;
             healthBar.MinValue = 0;
+            HealthLab.Text = (player?.status?.Health ?? 1) + "/" + (player?.status.MaxHealth.ToString() ?? "0");
         }
 
         public void RecordEnemyDied(Enemy enemy)
@@ -227,6 +231,8 @@ namespace da.Scripts.Objects
 
         private void LoadMapData(Control map)
         {
+            if (save == null || map == null) return;
+            save.MapSaveData ??= new();
             if (save.MapSaveData.ContainsKey(map.Name))
             {
                 Array<string> enemies_died = null;
@@ -243,6 +249,7 @@ namespace da.Scripts.Objects
                 {
                     if ((enemies_died != null && enemies_died.Contains(enemy.Name)) || (enemies_cantrevive != null && enemies_cantrevive.Contains(enemy.Name)))
                     {
+                        enemy.OnDeathFunc();
                         enemy.QueueFree();
                     }
                 }

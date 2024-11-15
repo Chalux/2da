@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cp8fh608lmpsd"]
+[gd_scene load_steps=10 format=3 uid="uid://cp8fh608lmpsd"]
 
 [ext_resource type="Script" path="res://Objects/SoundManager.cs" id="1_nqxfv"]
 [ext_resource type="AudioStream" uid="uid://ckr5dhgntjsfo" path="res://Resources/SFX/07_human_atk_sword_1.wav" id="2_60p66"]
@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://dckeuvuixneee" path="res://Resources/SFX/13_human_jump_land_2.wav" id="6_evrp4"]
 [ext_resource type="AudioStream" uid="uid://d0blbkl8c0dk7" path="res://Resources/SFX/15_human_dash_2.wav" id="7_sxwes"]
 [ext_resource type="AudioStream" uid="uid://btevh7ndj5pep" path="res://Resources/SFX/Minifantasy_Forgotten_Plains_SFX/16_Hit_on_brick_1.wav" id="8_guceo"]
+[ext_resource type="AudioStream" uid="uid://5homlikielau" path="res://Resources/SFX/8_Buffs_Heals_SFX/02_Heal_02.wav" id="9_sffe6"]
 
 [node name="SoundManager" type="Node" node_paths=PackedStringArray("SFX", "BGM")]
 process_mode = 3
@@ -44,6 +45,10 @@ bus = &"SFX"
 [node name="HitWall" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("8_guceo")
 bus = &"SFX"
+
+[node name="Heal" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("9_sffe6")
+volume_db = -20.0
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 bus = &"BGM"

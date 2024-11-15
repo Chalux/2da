@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://nfovkta3ihjc"]
+[gd_scene load_steps=64 format=3 uid="uid://nfovkta3ihjc"]
 
 [ext_resource type="Texture2D" uid="uid://ds1ag1dyvrytk" path="res://Resources/Assets/Charactor_blue/char_blue_1.png" id="1_850ap"]
 [ext_resource type="Script" path="res://Objects/Player.cs" id="1_wac6e"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://l52nnasoabyo" path="res://Resources/Assets/Pixel UI pack 3/00.png" id="10_ao01t"]
 [ext_resource type="PackedScene" uid="uid://duf5w53whi0ek" path="res://Scenes/PauseScene.tscn" id="11_gb2cv"]
 [ext_resource type="Script" path="res://Objects/PlayerCamera.cs" id="12_n4hr1"]
+[ext_resource type="PackedScene" uid="uid://c7c4krb75is17" path="res://Objects/Chain.tscn" id="13_n6f15"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b1nvo"]
 size = Vector2(20, 24)
@@ -2448,7 +2449,16 @@ animations = [{
 "speed": 2.0
 }]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("Sprite", "Graphics", "CharactorAnimPlayer", "Collision", "AttackCollision", "GhostTimer", "DashTimer", "DashCoolDownTimer", "CoyoteTimer", "JumpTimer", "JumpRequestTimer", "AttackRequestTimer", "WhosYourDaddy", "DashParticles", "AnimTree", "HandRay", "FootRay", "HitBox", "HurtBox", "PlayerCamera", "PauseScene", "BubbleMarker", "LadderRay", "SlashMarker", "SlashChecker", "WaterChecker", "status", "StateMachine", "InteractableAnim")]
+[sub_resource type="Gradient" id="Gradient_lvxjy"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ofkrp"]
+gradient = SubResource("Gradient_lvxjy")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("Sprite", "Graphics", "CharactorAnimPlayer", "Collision", "AttackCollision", "GhostTimer", "DashTimer", "DashCoolDownTimer", "CoyoteTimer", "JumpTimer", "JumpRequestTimer", "AttackRequestTimer", "WhosYourDaddy", "DashParticles", "AnimTree", "HandRay", "FootRay", "HitBox", "HurtBox", "PlayerCamera", "PauseScene", "BubbleMarker", "LadderRay", "SlashMarker", "SlashChecker", "WaterChecker", "Light", "GrappleRay", "chain", "status", "StateMachine", "InteractableAnim")]
 collision_layer = 2
 script = ExtResource("1_wac6e")
 Sprite = NodePath("Graphics/Sprite2D")
@@ -2472,12 +2482,15 @@ FootRay = NodePath("Graphics/FootRay")
 HitBox = NodePath("Graphics/HitBox")
 HurtBox = NodePath("Graphics/HurtBox")
 PlayerCamera = NodePath("PlayerCamera")
-PauseScene = NodePath("PauseScene")
+PauseScene = NodePath("CanvasLayer/PauseScene")
 BubbleMarker = NodePath("BubbleMarker")
 LadderRay = NodePath("Graphics/LadderRay")
 SlashMarker = NodePath("Graphics/Sprite2D/SlashMarker")
 SlashChecker = NodePath("Graphics/Sprite2D/SlashMarker/RayCast2D")
 WaterChecker = NodePath("Graphics/WaterRay")
+Light = NodePath("Light")
+GrappleRay = NodePath("GrappleRay")
+chain = NodePath("Chain")
 status = NodePath("Status")
 StateMachine = NodePath("StateMachine")
 InteractableAnim = NodePath("AnimatedSprite2D")
@@ -2591,7 +2604,7 @@ hit_from_inside = true
 [node name="WaterRay" type="RayCast2D" parent="Graphics"]
 position = Vector2(0, -40)
 target_position = Vector2(0, 24)
-collision_mask = 32
+collision_mask = 544
 hit_from_inside = true
 collide_with_areas = true
 collide_with_bodies = false
@@ -2603,13 +2616,33 @@ scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_e0yff")
 frame_progress = 0.490118
 
-[node name="PauseScene" parent="." instance=ExtResource("11_gb2cv")]
-visible = false
-z_index = 100
-
 [node name="PlayerCamera" type="Camera2D" parent="."]
 process_callback = 0
 script = ExtResource("12_n4hr1")
 
 [node name="BubbleMarker" type="Marker2D" parent="."]
 position = Vector2(8, -32)
+
+[node name="Light" type="PointLight2D" parent="."]
+position = Vector2(0, -16)
+enabled = false
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_ofkrp")
+texture_scale = 2.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 126
+
+[node name="PauseScene" parent="CanvasLayer" instance=ExtResource("11_gb2cv")]
+visible = false
+z_index = 100
+
+[node name="GrappleRay" type="RayCast2D" parent="."]
+position = Vector2(0, -12)
+target_position = Vector2(200, 0)
+collision_mask = 2147483649
+collide_with_areas = true
+
+[node name="Chain" parent="." instance=ExtResource("13_n6f15")]
+position = Vector2(0, -16)
+scale = Vector2(0.5, 0.5)

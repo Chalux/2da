@@ -33,10 +33,10 @@ namespace da.Objects
             CalmDownTimer.Timeout += OnCalmDownTimerTimeout;
             Gravity = 0;
 
-            TreeExited += OnTreeExited;
+            try { TreeExited += OnTreeExited; } catch { }
         }
 
-        private void OnTreeExited()
+        public void OnTreeExited()
         {
             ActionArea?.QueueFree();
         }

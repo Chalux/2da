@@ -2,6 +2,7 @@
 using da.Scripts.Objects;
 using Godot;
 using Godot.Collections;
+using System.Linq;
 
 namespace DialogicRuntime
 {
@@ -37,35 +38,35 @@ namespace DialogicRuntime
 
         public static DialogicTimeline CurrentTimeline
         {
-            get => (DialogicTimeline)Instance.Get("current_timeline");
-            set => Instance.Set("current_timeline", value);
+            get => (DialogicTimeline)Instance?.Get("current_timeline");
+            set => Instance?.Set("current_timeline", value);
         }
         public static Array CurrentTimelineEvents
         {
-            get => (Array)Instance.Get("current_timeline_events");
-            set => Instance.Set("current_timeline_events", value);
+            get => (Array)Instance?.Get("current_timeline_events");
+            set => Instance?.Set("current_timeline_events", value);
         }
         public static int CurrentEventIdx
         {
-            get => (int)Instance.Get("current_event_idx");
-            set => Instance.Set("current_event_idx", value);
+            get => (int)Instance?.Get("current_event_idx");
+            set => Instance?.Set("current_event_idx", value);
         }
 
         public static Dictionary CurrentStateInfo
         {
-            get => (Dictionary)Instance.Get("current_state_info");
-            set => Instance.Set("current_state_info", value);
+            get => (Dictionary)Instance?.Get("current_state_info");
+            set => Instance?.Set("current_state_info", value);
         }
 
         public static States CurrentState
         {
-            get => (States)Instance.Get("current_state").AsInt32();
-            set => Instance.Set("current_state", (int)value);
+            get => (States)Instance?.Get("current_state").AsInt32();
+            set => Instance?.Set("current_state", (int)value);
         }
         public static bool Paused
         {
-            get => (bool)Instance.Get("paused");
-            set => Instance.Set("paused", value);
+            get => (bool)Instance?.Get("paused");
+            set => Instance?.Set("paused", value);
         }
 
         public delegate void StateChangedEventHandler(States NewState);
@@ -88,22 +89,23 @@ namespace DialogicRuntime
 
         public static Node Start(string timeline, string label = "")
         {
-            if (GameGlobal.Instance.player != null) GameGlobal.Instance.player.StateMachine.ChangeState(da.Scripts.Objects.PlayerScript.PlayerState.Idle);
-            return (Node)Instance.Call("start", timeline, label);
+            GameGlobal.Instance.player?.StateMachine.ChangeState(da.Scripts.Objects.PlayerScript.PlayerState.Idle);
+            return (Node)Instance?.Call("start", timeline, label);
         }
 
         public static void StartTimeline(string timeline, string label_or_idx = "")
         {
-            Instance.Call("start_timeline", timeline, label_or_idx);
+            Instance?.Call("start_timeline", timeline, label_or_idx);
         }
 
         public static void StartTimeline(string timeline, int label_or_idx)
         {
-            Instance.Call("start_timeline", timeline, label_or_idx);
+            Instance?.Call("start_timeline", timeline, label_or_idx);
         }
 
         public static void Prepare()
         {
+            if (Instance == null) return;
             Instance.Connect("state_changed", Callable.From((States newState) => StateChanged?.Invoke(newState)));
             Instance.Connect("dialogic_paused", Callable.From(() => DialogicPaused?.Invoke()));
             Instance.Connect("dialogic_resumed", Callable.From(() => DialogicResumed?.Invoke()));
@@ -133,8 +135,26 @@ namespace DialogicRuntime
                         case "CameraShake":
                             GameGlobal.Instance.ShakeCamera(a1?.AsSingle() ?? 0f);
                             break;
+                        case "RopeUnlock":
+                            Utils.SaveToGlobalData("IsRopeUnlock", true);
+                            foreach (StaticRopePoint node in GameGlobal.Instance.GetTree().GetNodesInGroup("static_rope_point").Cast<StaticRopePoint>())
+                            {
+                                node.Visible = true;
+                                node.SetDeferred("monitoring", true);
+                                node.SetDeferred("monitorable", true);
+                            }
+                            GameGlobal.Instance.player.GrappleRay.Enabled = true;
+                            break;
+                        default:
+                            EventMgr.DispatchEvent(eventName, a1, a2, a3);
+                            break;
                     }
                 }
+            };
+
+            TimelineStarted += () =>
+            {
+                GameGlobal.Instance.player?.StateMachine.ChangeState(da.Scripts.Objects.PlayerScript.PlayerState.Idle);
             };
         }
 

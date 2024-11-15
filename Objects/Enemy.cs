@@ -2,9 +2,10 @@ using da.Scripts;
 using da.Scripts.Interfaces;
 using da.Scripts.Objects;
 using da.Scripts.Objects.EnemyScript;
+using da.Scripts.Objects.Others;
 using Godot;
 
-public partial class Enemy : CharacterBody2D, IAttackable, IHurtable
+public partial class Enemy : Role, IAttackable, IHurtable
 {
     [Export] public Node2D Graphics;
     [Export] public AnimationPlayer AnimPlayer;
@@ -17,6 +18,7 @@ public partial class Enemy : CharacterBody2D, IAttackable, IHurtable
     [Export] public Timer HealthBarTimer;
     [Export] public GpuParticles2D HitParticles;
     [Export] public bool CantRevive = false;
+    [Export] Node[] linkedObj;
     public bool ShowHealthBar = true;
     private Tween tween;
     private Tween hurtTween;
@@ -40,6 +42,8 @@ public partial class Enemy : CharacterBody2D, IAttackable, IHurtable
     public override void _PhysicsProcess(double delta)
     {
         if (UnActive) return;
+
+        base._PhysicsProcess(delta);
 
         StateMachine.PhysicsProcess(delta);
 
@@ -67,6 +71,7 @@ public partial class Enemy : CharacterBody2D, IAttackable, IHurtable
 
     public override void _Ready()
     {
+        base._Ready();
         HealthBarTimer.Timeout += OnHealBarTimerout;
         healBar.MinValue = 0;
         healBar.MaxValue = status.MaxHealth;
@@ -75,6 +80,24 @@ public partial class Enemy : CharacterBody2D, IAttackable, IHurtable
         status.OnMaxHealthChanged += EnemyMaxHealthChanged;
         AddToGroup("enemies");
         HurtBox.onHurt += OnHurt;
+        if (linkedObj != null && linkedObj.Length > 0)
+        {
+            status.OnDeath += OnDeathFunc;
+        }
+    }
+
+    public void OnDeathFunc()
+    {
+        if (linkedObj != null)
+        {
+            foreach (Node node in linkedObj)
+            {
+                if (node is Oprated op)
+                {
+                    op.OnOpen();
+                }
+            }
+        }
     }
 
     private void OnHealBarTimerout()
@@ -111,7 +134,7 @@ public partial class Enemy : CharacterBody2D, IAttackable, IHurtable
         //await Timer.ToSignal(Timer, SceneTreeTimer.SignalName.Timeout);
         //Engine.TimeScale = 1;
         hurtTween = GameGlobal.Instance.player?.CreateTween();
-        if (hurtTween!= null)
+        if (hurtTween != null)
         {
             hurtTween.SetParallel();
             hurtTween.TweenMethod(Callable.From((float newvalue) => SetShaderBlinkIntensity(newvalue)), 1.0f, 0f, 0.5f);

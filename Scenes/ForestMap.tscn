@@ -1653,9 +1653,10 @@ tile_set = SubResource("TileSet_jxpot")
 [node name="forest_save_point_1" parent="." instance=ExtResource("11_lmm05")]
 position = Vector2(202, -144)
 
-[node name="forest_slime_1" parent="." instance=ExtResource("13_4w5ua")]
+[node name="forest_slime_1" parent="." node_paths=PackedStringArray("linkedObj") instance=ExtResource("13_4w5ua")]
 position = Vector2(251, 128)
 CantRevive = true
+linkedObj = []
 
 [node name="Player" parent="." instance=ExtResource("11_pxg72")]
 position = Vector2(0, 128)

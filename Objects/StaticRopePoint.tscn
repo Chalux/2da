@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dunyo8hxgc3in"]
+
+[ext_resource type="Script" path="res://Objects/StaticRopePoint.cs" id="1_5cwq4"]
+[ext_resource type="Texture2D" uid="uid://c00ca0gwe0x27" path="res://Resources/Assets/Sprites/icon01.png" id="1_ny15v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_61uet"]
+size = Vector2(48, 48)
+
+[node name="StaticRopePoint" type="Area2D" node_paths=PackedStringArray("sprite", "lightTimer") groups=["static_rope_point"]]
+collision_layer = 2147483648
+collision_mask = 2
+script = ExtResource("1_5cwq4")
+sprite = NodePath("Icon01")
+lightTimer = NodePath("Timer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_61uet")
+
+[node name="Icon01" type="Sprite2D" parent="."]
+texture = ExtResource("1_ny15v")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true

@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1x54rbqf2lqu"]
+
+[ext_resource type="Texture2D" uid="uid://pfkpn4a6v64i" path="res://Resources/Assets/Trap/Spike_B.png" id="1_150y6"]
+[ext_resource type="Script" path="res://Objects/SpikeTrap.cs" id="1_g37xu"]
+[ext_resource type="Script" path="res://Scripts/Objects/HitBox.cs" id="2_7soj3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m7edb"]
+size = Vector2(32, 16)
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("HitBox")]
+script = ExtResource("1_g37xu")
+HitBox = NodePath("SpikeTrap")
+
+[node name="SpikeTrap" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("2_7soj3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpikeTrap"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_m7edb")
+
+[node name="SpikeB" type="Sprite2D" parent="."]
+position = Vector2(0, -6)
+texture = ExtResource("1_150y6")
+region_enabled = true
+region_rect = Rect2(96, 0, 32, 32)

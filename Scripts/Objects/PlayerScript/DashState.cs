@@ -6,6 +6,7 @@ namespace da.Scripts.Objects.PlayerScript
     internal class DashState : BaseState
     {
         public float oldVelocityY;
+        private Vector2 Angle = Vector2.Zero;
         public DashState()
         {
             State = PlayerState.Dash;
@@ -22,6 +23,7 @@ namespace da.Scripts.Objects.PlayerScript
                 {
                     owner.CharactorAnimPlayer.Play("fall");
                     owner.Direction = owner.GetWallNormal().X > 0 ? 1 : -1;
+                    Angle = new Vector2(owner.Direction, 0);
                 }
                 else
                 {
@@ -33,8 +35,14 @@ namespace da.Scripts.Objects.PlayerScript
                     {
                         owner.Direction = 1;
                     }
+                    Angle = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down").Normalized();
+                    if (Angle == Vector2.Zero)
+                    {
+                        Angle = new Vector2(owner.Direction, 0);
+                    }
                 }
-                oldVelocityY = owner.Velocity.Y;
+                //oldVelocityY = owner.Velocity.Y;
+                oldVelocityY = 0;
                 owner.JumpRequestTimer.Stop();
                 SoundManager.Ins.PlaySFX("Dash");
             }
@@ -42,7 +50,8 @@ namespace da.Scripts.Objects.PlayerScript
 
         public override void PhysicsProcess(double delta, Player owner)
         {
-            owner.Velocity = new(owner.DashSpeed * owner.Direction, 0);
+            //owner.Velocity = new(owner.DashSpeed * owner.Direction, 0);
+            owner.Velocity = new(owner.DashSpeed * Angle.X, owner.DashSpeed * Angle.Y);
             if (Input.IsActionPressed("ui_down") && !owner.IsQuickDowned && !owner.IsOnFloor())
             {
                 owner.StateMachine.ChangeState(PlayerState.QuickDown);

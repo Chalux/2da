@@ -13,6 +13,7 @@ namespace da.Scripts.Objects.PlayerScript
 
         public override void Enter(Player owner)
         {
+            owner.chain.Release();
             owner.IsQuickDowned = true;
             owner.GhostTimer.Start();
             owner.DashParticles.Emitting = true;
