@@ -5104,7 +5104,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f0aso"]
 size = Vector2(30, 32)
 
-[node name="HomeMineMap" type="Control" node_paths=PackedStringArray("player")]
+[node name="HomeMineMap" type="Control" node_paths=PackedStringArray("player", "mainTileMap") groups=["maps"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -5114,6 +5114,7 @@ grow_vertical = 2
 script = ExtResource("1_dranl")
 player = NodePath("Player")
 BGM = ExtResource("2_arx80")
+mainTileMap = NodePath("GeoBg")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0, 0, 0, 1)

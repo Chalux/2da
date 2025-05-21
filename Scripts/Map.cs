@@ -8,6 +8,7 @@ namespace da.Scripts
     {
         [Export] public Player player;
         [Export] public AudioStream BGM;
+        [Export] public TileMapLayer mainTileMap;
 
         public override void _Ready()
         {

@@ -28,7 +28,7 @@ atlas = SubResource("AtlasTexture_ysh0d")
 atlas = ExtResource("5_g867i")
 region = Rect2(3, 21, 42, 7)
 
-[node name="GameGlobal" type="Node" node_paths=PackedStringArray("UIControl", "LeftUpperBox", "healthBar", "BlackMask", "SkillSlotContainer", "richHintTimer", "richHint", "richHintBg", "skillBtn1", "skillBtn2", "skillBtn3", "skillBtn4", "HealthLab")]
+[node name="GameGlobal" type="Node" node_paths=PackedStringArray("UIControl", "LeftUpperBox", "healthBar", "BlackMask", "SkillSlotContainer", "richHintTimer", "richHint", "richHintBg", "skillBtn1", "skillBtn2", "skillBtn3", "skillBtn4", "HealthLab", "MiniMap")]
 process_mode = 2
 script = ExtResource("1_7170a")
 UIControl = NodePath("UIControl")
@@ -44,6 +44,7 @@ skillBtn2 = NodePath("UIControl/DownBox/SkillSlotContainer/Slot2")
 skillBtn3 = NodePath("UIControl/DownBox/SkillSlotContainer/Slot3")
 skillBtn4 = NodePath("UIControl/DownBox/SkillSlotContainer/Slot4")
 HealthLab = NodePath("UIControl/LeftUpperBox/HealthLab")
+MiniMap = NodePath("")
 
 [node name="UIControl" type="CanvasLayer" parent="." node_paths=PackedStringArray("HeadControl", "HealthBar", "MsgContainer")]
 layer = 99
@@ -164,6 +165,7 @@ light_mask = 0
 layout_mode = 2
 
 [node name="VirtualJoypad" parent="UIControl" instance=ExtResource("6_eyhwx")]
+visible = false
 light_mask = 0
 metadata/_edit_lock_ = true
 

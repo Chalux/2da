@@ -101,6 +101,25 @@ namespace da.Scripts
             }
         }
 
+        /// <summary>
+        /// 将数据保存到地图存储数据中
+        /// </summary>
+        /// <param name="map">地图节点</param>
+        /// <param name="key">保存的键名</param>
+        /// <param name="data">保存的数据</param>
+        public static void SaveDataToMapData(Node map, string key, Variant data)
+        {
+            if (map != null && Node.IsInstanceValid(map))
+            {
+                var mapsave = GameGlobal.Instance.save.MapSaveData;
+                if (!mapsave.ContainsKey(map.Name)) mapsave.Add(map.Name, new());
+                if (!mapsave[map.Name].TryAdd(key, data))
+                {
+                    mapsave[map.Name][key] = data;
+                }
+            }
+        }
+
         public static bool CheckSaved(Node node)
         {
             if (node != null && Node.IsInstanceValid(node))
