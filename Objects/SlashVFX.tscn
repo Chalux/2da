@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://chou52pd18yx2"]
 
-[ext_resource type="Script" path="res://Objects/SlashVfx.cs" id="1_ir22o"]
+[ext_resource type="Script" uid="uid://bgtkc2vqtrbnb" path="res://Objects/SlashVfx.cs" id="1_ir22o"]
 [ext_resource type="Texture2D" uid="uid://dfvlff3dba60s" path="res://Resources/Assets/Smear VFX/Smear 01 Horizontal 1.png" id="1_mj72m"]
-[ext_resource type="Script" path="res://Scripts/Objects/HitBox.cs" id="2_u6paf"]
+[ext_resource type="Script" uid="uid://bl3lpww2swur5" path="res://Scripts/Objects/HitBox.cs" id="2_u6paf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x0bmj"]
 atlas = ExtResource("1_mj72m")
@@ -45,8 +45,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kmo2p"]
 _data = {
-"RESET": SubResource("Animation_pcq75"),
-"anim": SubResource("Animation_q2sp7")
+&"RESET": SubResource("Animation_pcq75"),
+&"anim": SubResource("Animation_q2sp7")
 }
 
 [node name="Control" type="Control" node_paths=PackedStringArray("AnimPlayer", "HitBox", "recoverTimer", "sprite")]

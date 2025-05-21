@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ck8sfr18w21ev"]
 
-[ext_resource type="Script" path="res://Objects/SkillManager.cs" id="1_vkb12"]
+[ext_resource type="Script" uid="uid://b7c0o6why13f6" path="res://Objects/SkillManager.cs" id="1_vkb12"]
 
 [node name="SkillManager" type="Node"]
 script = ExtResource("1_vkb12")

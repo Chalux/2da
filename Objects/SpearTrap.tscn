@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://o34g133pj5us"]
 
-[ext_resource type="Script" path="res://Objects/SpearTrap.cs" id="1_1memc"]
-[ext_resource type="Script" path="res://Scripts/Objects/HitBox.cs" id="2_1pmr2"]
+[ext_resource type="Script" uid="uid://dpt2bcw5ki2fp" path="res://Objects/SpearTrap.cs" id="1_1memc"]
+[ext_resource type="Script" uid="uid://bl3lpww2swur5" path="res://Scripts/Objects/HitBox.cs" id="2_1pmr2"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lwxin"]
 resource_local_to_scene = true
@@ -94,8 +94,8 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u0qu5"]
 _data = {
-"RESET": SubResource("Animation_enhv3"),
-"loop": SubResource("Animation_6dfrp")
+&"RESET": SubResource("Animation_enhv3"),
+&"loop": SubResource("Animation_6dfrp")
 }
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("delay", "animationPlayer", "HitBox")]

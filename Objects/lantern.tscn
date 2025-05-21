@@ -44,8 +44,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7qlvh"]
 _data = {
-"RESET": SubResource("Animation_hlp3j"),
-"idle": SubResource("Animation_h57eo")
+&"RESET": SubResource("Animation_hlp3j"),
+&"idle": SubResource("Animation_h57eo")
 }
 
 [node name="Lantern" type="Control"]

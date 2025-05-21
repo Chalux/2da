@@ -1,17 +1,17 @@
 [gd_scene load_steps=64 format=3 uid="uid://nfovkta3ihjc"]
 
 [ext_resource type="Texture2D" uid="uid://ds1ag1dyvrytk" path="res://Resources/Assets/Charactor_blue/char_blue_1.png" id="1_850ap"]
-[ext_resource type="Script" path="res://Objects/Player.cs" id="1_wac6e"]
+[ext_resource type="Script" uid="uid://1sfttmojvq5w" path="res://Objects/Player.cs" id="1_wac6e"]
 [ext_resource type="PackedScene" uid="uid://c2ubgynxhdkjn" path="res://Objects/GhostNode.tscn" id="2_xijd7"]
 [ext_resource type="Texture2D" uid="uid://bwbrxietkx0e8" path="res://Resources/Assets/Charactor_blue/char_blue_2.png" id="3_h60p7"]
-[ext_resource type="Script" path="res://Scripts/Objects/PlayerScript/PlayerStateMachine.cs" id="4_d188b"]
-[ext_resource type="Script" path="res://Scripts/Objects/HitBox.cs" id="6_bvb0r"]
-[ext_resource type="Script" path="res://Scripts/Status.cs" id="6_iknsp"]
-[ext_resource type="Script" path="res://Scripts/Objects/HurtBox.cs" id="7_kjpxj"]
-[ext_resource type="Shader" path="res://Resources/Shaders/ScanLine.gdshader" id="8_g1i2m"]
+[ext_resource type="Script" uid="uid://dko33i4girbl7" path="res://Scripts/Objects/PlayerScript/PlayerStateMachine.cs" id="4_d188b"]
+[ext_resource type="Script" uid="uid://bl3lpww2swur5" path="res://Scripts/Objects/HitBox.cs" id="6_bvb0r"]
+[ext_resource type="Script" uid="uid://b088j6m7csd6v" path="res://Scripts/Status.cs" id="6_iknsp"]
+[ext_resource type="Script" uid="uid://ljutaxq6thj5" path="res://Scripts/Objects/HurtBox.cs" id="7_kjpxj"]
+[ext_resource type="Shader" uid="uid://dytjbyqynyw7r" path="res://Resources/Shaders/ScanLine.gdshader" id="8_g1i2m"]
 [ext_resource type="Texture2D" uid="uid://l52nnasoabyo" path="res://Resources/Assets/Pixel UI pack 3/00.png" id="10_ao01t"]
 [ext_resource type="PackedScene" uid="uid://duf5w53whi0ek" path="res://Scenes/PauseScene.tscn" id="11_gb2cv"]
-[ext_resource type="Script" path="res://Objects/PlayerCamera.cs" id="12_n4hr1"]
+[ext_resource type="Script" uid="uid://ccrdhjwbouwxr" path="res://Objects/PlayerCamera.cs" id="12_n4hr1"]
 [ext_resource type="PackedScene" uid="uid://c7c4krb75is17" path="res://Objects/Chain.tscn" id="13_n6f15"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b1nvo"]
@@ -2302,24 +2302,24 @@ tracks/9/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6pky5"]
 _data = {
-"RESET": SubResource("Animation_pmsbi"),
-"attack_1": SubResource("Animation_oepst"),
-"attack_2": SubResource("Animation_2i6pj"),
-"attack_3": SubResource("Animation_v0op6"),
-"climb_ladder": SubResource("Animation_mhkt2"),
-"death": SubResource("Animation_gn5ci"),
-"fall": SubResource("Animation_klldw"),
-"hurt": SubResource("Animation_o8ptg"),
-"idle": SubResource("Animation_jd334"),
-"jump": SubResource("Animation_5hhk8"),
-"landing": SubResource("Animation_3mprx"),
-"running": SubResource("Animation_vx7wg"),
-"skill": SubResource("Animation_0t5ie"),
-"slide": SubResource("Animation_v5g24"),
-"sliding": SubResource("Animation_5eemh"),
-"squat": SubResource("Animation_vmifn"),
-"squat_idle": SubResource("Animation_3ii13"),
-"wall_sliding": SubResource("Animation_asyer")
+&"RESET": SubResource("Animation_pmsbi"),
+&"attack_1": SubResource("Animation_oepst"),
+&"attack_2": SubResource("Animation_2i6pj"),
+&"attack_3": SubResource("Animation_v0op6"),
+&"climb_ladder": SubResource("Animation_mhkt2"),
+&"death": SubResource("Animation_gn5ci"),
+&"fall": SubResource("Animation_klldw"),
+&"hurt": SubResource("Animation_o8ptg"),
+&"idle": SubResource("Animation_jd334"),
+&"jump": SubResource("Animation_5hhk8"),
+&"landing": SubResource("Animation_3mprx"),
+&"running": SubResource("Animation_vx7wg"),
+&"skill": SubResource("Animation_0t5ie"),
+&"slide": SubResource("Animation_v5g24"),
+&"sliding": SubResource("Animation_5eemh"),
+&"squat": SubResource("Animation_vmifn"),
+&"squat_idle": SubResource("Animation_3ii13"),
+&"wall_sliding": SubResource("Animation_asyer")
 }
 
 [sub_resource type="Gradient" id="Gradient_35jsj"]

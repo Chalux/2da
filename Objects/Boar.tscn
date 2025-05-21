@@ -1,8 +1,8 @@
 [gd_scene load_steps=19 format=3 uid="uid://xoa7hip3yntg"]
 
 [ext_resource type="PackedScene" uid="uid://c2ts5x2bc2og5" path="res://Objects/Enemy.tscn" id="1_7uket"]
-[ext_resource type="Shader" path="res://Resources/Shaders/Blink.gdshader" id="2_1hdjb"]
-[ext_resource type="Script" path="res://Objects/Boar.cs" id="2_sfa1c"]
+[ext_resource type="Shader" uid="uid://do364y6g5mc5w" path="res://Resources/Shaders/Blink.gdshader" id="2_1hdjb"]
+[ext_resource type="Script" uid="uid://ckhdt48eux10p" path="res://Objects/Boar.cs" id="2_sfa1c"]
 [ext_resource type="Texture2D" uid="uid://qbtaywmnyu2s" path="res://Resources/Assets/Legacy-Fantasy - High Forest 2.3/Mob/Boar/Idle/Idle-Sheet.png" id="3_sw888"]
 [ext_resource type="Texture2D" uid="uid://bebqvlrr2sf4k" path="res://Resources/Assets/Legacy-Fantasy - High Forest 2.3/Mob/Boar/Walk/Walk-Base-Sheet.png" id="5_h75vy"]
 [ext_resource type="Texture2D" uid="uid://cwabkh2b871p5" path="res://Resources/Assets/Legacy-Fantasy - High Forest 2.3/Mob/Boar/Run/Run-Sheet.png" id="6_l6swb"]
@@ -343,12 +343,12 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fcbf6"]
 _data = {
-"RESET": SubResource("Animation_fwjrb"),
-"die": SubResource("Animation_upvvd"),
-"hurt": SubResource("Animation_lysic"),
-"idle": SubResource("Animation_7mbui"),
-"move": SubResource("Animation_avnpk"),
-"ram": SubResource("Animation_4wehd")
+&"RESET": SubResource("Animation_fwjrb"),
+&"die": SubResource("Animation_upvvd"),
+&"hurt": SubResource("Animation_lysic"),
+&"idle": SubResource("Animation_7mbui"),
+&"move": SubResource("Animation_avnpk"),
+&"ram": SubResource("Animation_4wehd")
 }
 
 [node name="Enemy" node_paths=PackedStringArray("FloorRay", "PlayerRay", "WallRay", "IdleTimer", "CalmDownTimer") instance=ExtResource("1_7uket")]

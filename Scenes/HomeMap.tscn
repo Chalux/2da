@@ -1,6 +1,6 @@
 [gd_scene load_steps=97 format=4 uid="uid://dhondkbh33q3x"]
 
-[ext_resource type="Script" path="res://Objects/HomeMap.cs" id="1_q0ftn"]
+[ext_resource type="Script" uid="uid://cvprwp5yvcw01" path="res://Objects/HomeMap.cs" id="1_q0ftn"]
 [ext_resource type="Texture2D" uid="uid://dtvqh8rbpj450" path="res://Resources/Assets/Pixel Art Platformer - Village Props v2.3.0/TX Village Props.png" id="2_bshb0"]
 [ext_resource type="AudioStream" uid="uid://d3racpdxale7q" path="res://Resources/Music/Clement Panchout _ Fluttering in the Sun _ (The GodMOTHer).wav" id="2_l2u4k"]
 [ext_resource type="Texture2D" uid="uid://vf221s0alvnf" path="res://Resources/Assets/Legacy-Fantasy - High Forest 2.3/Background/Background.png" id="3_nnjiw"]
@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://bq7f3k070tdk7" path="res://Resources/Assets/Trees Pack1/2 - 2.png" id="7_0dhtt"]
 [ext_resource type="Texture2D" uid="uid://cav6q4613avih" path="res://Resources/Assets/Dungeon Tile Set.png" id="7_m44am"]
 [ext_resource type="Texture2D" uid="uid://dxvmhjwqo1dmr" path="res://Resources/Assets/GandalfHardcore FREE Platformer Assets/GandalfHardcore Platformer Assets.png" id="8_vh86k"]
-[ext_resource type="Shader" path="res://Resources/Shaders/Water2.gdshader" id="9_fylt5"]
+[ext_resource type="Shader" uid="uid://byf0dmi8tcfgv" path="res://Resources/Shaders/Water2.gdshader" id="9_fylt5"]
 [ext_resource type="PackedScene" uid="uid://dgfaor37ptwpc" path="res://Objects/Door.tscn" id="9_lhwpm"]
 [ext_resource type="TileSet" uid="uid://rreheametmjy" path="res://Resources/TileSets/GeoBg.tres" id="10_cyhj7"]
 [ext_resource type="PackedScene" uid="uid://cwstny207lw8e" path="res://Objects/lantern.tscn" id="11_0g5wd"]
@@ -24,21 +24,21 @@
 [ext_resource type="PackedScene" uid="uid://dd566y6cvgsb" path="res://Objects/Campfire.tscn" id="15_h4ycj"]
 [ext_resource type="PackedScene" uid="uid://daqomhn6i78eh" path="res://Objects/Crate.tscn" id="15_ie80t"]
 [ext_resource type="AudioStream" uid="uid://c7s6laatd1ajs" path="res://Resources/SFX/Minifantasy_Forgotten_Plains_SFX/14_Wind_loop.wav" id="16_5up4i"]
-[ext_resource type="Shader" path="res://Resources/Shaders/Water.gdshader" id="18_hprwq"]
+[ext_resource type="Shader" uid="uid://ds6pibloq5r2c" path="res://Resources/Shaders/Water.gdshader" id="18_hprwq"]
 [ext_resource type="Texture2D" uid="uid://bsc7mtnb0r2m4" path="res://Resources/Assets/Legacy-Fantasy - High Forest 2.3/Assets/Tiles.png" id="20_iqaww"]
 [ext_resource type="PackedScene" uid="uid://byryu3ue3pm2n" path="res://Objects/Snail.tscn" id="23_b42ri"]
-[ext_resource type="Script" path="res://Objects/SpeakPoint.cs" id="24_07ubr"]
-[ext_resource type="Script" path="res://Scripts/Objects/Items/HomePotion1.cs" id="27_0kqht"]
-[ext_resource type="Script" path="res://Objects/BreakableWall.cs" id="27_tsy55"]
-[ext_resource type="Script" path="res://Scripts/Objects/HurtBox.cs" id="28_jlyk2"]
+[ext_resource type="Script" uid="uid://dywn4e8s4o4ko" path="res://Objects/SpeakPoint.cs" id="24_07ubr"]
+[ext_resource type="Script" uid="uid://bqlaix4pmeupk" path="res://Scripts/Objects/Items/HomePotion1.cs" id="27_0kqht"]
+[ext_resource type="Script" uid="uid://c3mmftoo6txhu" path="res://Objects/BreakableWall.cs" id="27_tsy55"]
+[ext_resource type="Script" uid="uid://ljutaxq6thj5" path="res://Scripts/Objects/HurtBox.cs" id="28_jlyk2"]
 [ext_resource type="PackedScene" uid="uid://xoa7hip3yntg" path="res://Objects/Boar.tscn" id="31_e8bob"]
-[ext_resource type="Script" path="res://Scripts/Objects/Items/RedKey.cs" id="31_kwgq1"]
+[ext_resource type="Script" uid="uid://pjqs7j2qymw8" path="res://Scripts/Objects/Items/RedKey.cs" id="31_kwgq1"]
 [ext_resource type="PackedScene" uid="uid://cdtdarfqsiqs3" path="res://Objects/ColorDoor.tscn" id="32_rqs0p"]
 [ext_resource type="PackedScene" uid="uid://dqbc2vh1yxs0j" path="res://Objects/Bee.tscn" id="32_wrdl6"]
 [ext_resource type="Texture2D" uid="uid://pb5w3a021a0x" path="res://Resources/Assets/Pixel Art Platformer - Village Props v2.3.0/TX Chest Animation.png" id="33_isoa8"]
-[ext_resource type="Script" path="res://Scripts/Objects/Teleporter.cs" id="36_hky7o"]
+[ext_resource type="Script" uid="uid://7qh3m2l25ghf" path="res://Scripts/Objects/Teleporter.cs" id="36_hky7o"]
 [ext_resource type="PackedScene" uid="uid://ckynmnjvmk41r" path="res://Objects/Teleposition.tscn" id="36_mspbc"]
-[ext_resource type="Shader" path="res://Resources/Shaders/VertexShader.gdshader" id="37_8h31t"]
+[ext_resource type="Shader" uid="uid://breqfcvf4ycky" path="res://Resources/Shaders/VertexShader.gdshader" id="37_8h31t"]
 [ext_resource type="Texture2D" uid="uid://caeapjrc4b1te" path="res://Resources/Assets/Sprites/sprite01.png" id="39_hpa2v"]
 
 [sub_resource type="Gradient" id="Gradient_4jmm0"]
@@ -49,8 +49,7 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0)
 gradient = SubResource("Gradient_4jmm0")
 
 [sub_resource type="Curve" id="Curve_152t2"]
-min_value = -50.0
-max_value = 50.0
+_limits = [-50.0, 50.0, 0.0, 1.0]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.247, 30), 0.0, 0.0, 0, 0, Vector2(0.513, -30), 0.0, 0.0, 0, 0, Vector2(0.753, 30), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 5
 
@@ -362,9 +361,9 @@ noise = SubResource("FastNoiseLite_plsqw")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ogsme"]
 shader = ExtResource("9_fylt5")
 shader_parameter/water_color = Color(0.0173173, 0.23492, 0.931045, 1)
+shader_parameter/fast_noise = SubResource("NoiseTexture2D_lv3lf")
 shader_parameter/speed = Vector2(0.03, 0.07)
 shader_parameter/wave_strength = 2.0
-shader_parameter/fast_noise = SubResource("NoiseTexture2D_lv3lf")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l60nv"]
 size = Vector2(51, 104)
@@ -4764,19 +4763,19 @@ texture = ExtResource("4_h5uj1")
 4:0/0 = 0
 5:0/0 = 0
 5:0/0/terrain_set = 0
-5:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_wmj7h")
+5:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_wmj7h")
 5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 5:0/0/terrains_peering_bit/bottom_right_corner = 0
 5:0/0/custom_data_0 = true
 6:0/0 = 0
 6:0/0/terrain_set = 0
-6:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_wmj7h")
+6:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_wmj7h")
 6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 6:0/0/terrains_peering_bit/bottom_right_corner = 0
 6:0/0/terrains_peering_bit/bottom_left_corner = 0
 7:0/0 = 0
 7:0/0/terrain_set = 0
-7:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_cxwe5")
+7:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_cxwe5")
 7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 7:0/0/terrains_peering_bit/bottom_left_corner = 0
 7:0/0/custom_data_0 = true
@@ -4804,14 +4803,14 @@ texture = ExtResource("4_h5uj1")
 4:1/0 = 0
 5:1/0 = 0
 5:1/0/terrain_set = 0
-5:1/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_sjhk4")
+5:1/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_sjhk4")
 5:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 5:1/0/terrains_peering_bit/bottom_right_corner = 0
 5:1/0/terrains_peering_bit/top_right_corner = 0
 5:1/0/custom_data_0 = true
 7:1/0 = 0
 7:1/0/terrain_set = 0
-7:1/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_x55ki")
+7:1/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_x55ki")
 7:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 7:1/0/terrains_peering_bit/bottom_left_corner = 0
 7:1/0/terrains_peering_bit/top_left_corner = 0
@@ -4844,13 +4843,13 @@ texture = ExtResource("4_h5uj1")
 4:2/0 = 0
 5:2/0 = 0
 5:2/0/terrain_set = 0
-5:2/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_28jpv")
+5:2/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_28jpv")
 5:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 5:2/0/terrains_peering_bit/top_right_corner = 0
 5:2/0/custom_data_0 = true
 7:2/0 = 0
 7:2/0/terrain_set = 0
-7:2/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_6mo2l")
+7:2/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_6mo2l")
 7:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 7:2/0/terrains_peering_bit/top_left_corner = 0
 7:2/0/custom_data_0 = true
@@ -4926,17 +4925,17 @@ texture = ExtResource("4_h5uj1")
 24:4/0 = 0
 0:5/0 = 0
 0:5/0/terrain_set = 0
-0:5/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_vdgbl")
+0:5/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_vdgbl")
 0:5/0/terrains_peering_bit/bottom_right_corner = 1
 0:5/0/terrains_peering_bit/bottom_left_corner = 1
 1:5/0 = 0
 1:5/0/terrain_set = 0
-1:5/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_t02rb")
+1:5/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_t02rb")
 1:5/0/terrains_peering_bit/bottom_right_corner = 1
 1:5/0/terrains_peering_bit/bottom_left_corner = 1
 2:5/0 = 0
 2:5/0/terrain_set = 0
-2:5/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_loh27")
+2:5/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_loh27")
 2:5/0/terrains_peering_bit/bottom_right_corner = 1
 2:5/0/terrains_peering_bit/bottom_left_corner = 1
 5:5/0 = 0
@@ -4960,19 +4959,19 @@ texture = ExtResource("4_h5uj1")
 23:5/0 = 0
 0:6/0 = 0
 0:6/0/terrain_set = 0
-0:6/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_scyc7")
+0:6/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_scyc7")
 0:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 0:6/0/terrains_peering_bit/top_left_corner = 1
 0:6/0/terrains_peering_bit/top_right_corner = 1
 1:6/0 = 0
 1:6/0/terrain_set = 0
-1:6/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_ivxfl")
+1:6/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_ivxfl")
 1:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:6/0/terrains_peering_bit/top_left_corner = 1
 1:6/0/terrains_peering_bit/top_right_corner = 1
 2:6/0 = 0
 2:6/0/terrain_set = 0
-2:6/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_psa55")
+2:6/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_psa55")
 2:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 2:6/0/terrains_peering_bit/top_left_corner = 1
 2:6/0/terrains_peering_bit/top_right_corner = 1
@@ -5204,7 +5203,7 @@ texture = ExtResource("4_h5uj1")
 6:1/0 = 0
 6:1/0/texture_origin = Vector2i(0, 8)
 6:1/0/terrain_set = 0
-6:1/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_300us")
+6:1/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_300us")
 6:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 6:1/0/terrains_peering_bit/top_left_corner = 0
 6:1/0/terrains_peering_bit/top_right_corner = 0
@@ -6613,7 +6612,7 @@ noise = SubResource("FastNoiseLite_dv6ut")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_m5mof"]
 shader = ExtResource("18_hprwq")
-shader_parameter/water_color = null
+shader_parameter/water_color = Color(0, 0, 0, 1)
 shader_parameter/wave_noise = SubResource("NoiseTexture2D_765ab")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wofw8"]

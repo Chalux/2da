@@ -1,8 +1,6 @@
 using da.Scripts;
 using da.Scripts.Objects;
 using Godot;
-using Godot.Collections;
-using System.Collections.Generic;
 
 public partial class MiniMapScript : TextureRect
 {

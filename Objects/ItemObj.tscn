@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dxsyg48x3grt0"]
 
 [ext_resource type="Theme" uid="uid://cxlvaqyy7s7ke" path="res://Resources/Theme/MainTheme.tres" id="1_tet6f"]
-[ext_resource type="Script" path="res://Objects/ItemObj.cs" id="1_v6jhv"]
+[ext_resource type="Script" uid="uid://dsq8bo01qdps7" path="res://Objects/ItemObj.cs" id="1_v6jhv"]
 [ext_resource type="Texture2D" uid="uid://32vsigl6otpk" path="res://Resources/Assets/skillicons/potion-ball.png" id="2_n4lrp"]
 
 [node name="ItemObj" type="Button" node_paths=PackedStringArray("ItemIcon", "PopupMenu", "StackCountLabel")]

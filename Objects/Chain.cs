@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class Chain : Node2D
 {
@@ -24,7 +23,7 @@ public partial class Chain : Node2D
         Hook.RotationDegrees = Mathf.RadToDeg(Position.AngleToPoint(position)) + 90;
         ChainSprite.RotationDegrees = Mathf.RadToDeg(Vector2.Zero.AngleToPoint(position)) - 90;
         //ChainSprite.Position = position;
-        ChainSprite.RegionRect = new(0, 0, 10, position.Length());
+        ChainSprite.RegionRect = new Rect2(0, 0, 10, position.Length());
     }
 
     public void Release()
@@ -39,6 +38,6 @@ public partial class Chain : Node2D
         isFlying = false;
         isHooked = true;
         var t = (Arrow - Hook.GlobalPosition).Normalized();
-        Direction = new(t.X > 0 ? 1 : -1, t.Y > 0 ? 1 : -1);
+        Direction = new Vector2(t.X > 0 ? 1 : -1, t.Y > 0 ? 1 : -1);
     }
 }

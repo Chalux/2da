@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dunyo8hxgc3in"]
 
-[ext_resource type="Script" path="res://Objects/StaticRopePoint.cs" id="1_5cwq4"]
+[ext_resource type="Script" uid="uid://buag24wnkp11l" path="res://Objects/StaticRopePoint.cs" id="1_5cwq4"]
 [ext_resource type="Texture2D" uid="uid://c00ca0gwe0x27" path="res://Resources/Assets/Sprites/icon01.png" id="1_ny15v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_61uet"]

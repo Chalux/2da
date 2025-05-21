@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bsvr8l0vks1gh"]
 
-[ext_resource type="Script" path="res://Scenes/GameOver.cs" id="1_e6xdd"]
+[ext_resource type="Script" uid="uid://bovm60baracsk" path="res://Scenes/GameOver.cs" id="1_e6xdd"]
 [ext_resource type="Theme" uid="uid://cxlvaqyy7s7ke" path="res://Resources/Theme/MainTheme.tres" id="1_j44vg"]
 
 [node name="GameOver" type="Control" node_paths=PackedStringArray("TitleBtn", "LoadBtn")]

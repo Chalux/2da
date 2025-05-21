@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://yrjtdwa2k846"]
 
 [ext_resource type="Theme" uid="uid://cxlvaqyy7s7ke" path="res://Resources/Theme/MainTheme.tres" id="1_12dxw"]
-[ext_resource type="Script" path="res://Objects/VolumeSlider.cs" id="2_oqf1t"]
+[ext_resource type="Script" uid="uid://db5vdypbfiprf" path="res://Objects/VolumeSlider.cs" id="2_oqf1t"]
 
 [node name="VolumeSlider" type="HSlider"]
 offset_right = 192.0

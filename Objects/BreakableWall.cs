@@ -1,13 +1,11 @@
-using da.Scripts.Interfaces;
 using da.Scripts.Objects;
 using Godot;
-using System;
 using System.Collections.Generic;
 
 public partial class BreakableWall : StaticBody2D
 {
-    [Export] Area2D Area2D;
-    [Export] GpuParticles2D gpuParticles;
+    [Export] private Area2D Area2D;
+    [Export] private GpuParticles2D gpuParticles;
     private int _HitCount = 0;
     public int HitCount
     {
@@ -38,9 +36,9 @@ public partial class BreakableWall : StaticBody2D
         if (map != null)
         {
             var savedata = GameGlobal.Instance.save.MapSaveData;
-            if (savedata.ContainsKey(map.Name))
+            if (savedata.TryGetValue(map.Name, out var value))
             {
-                if (savedata[map.Name].ContainsKey(Name))
+                if (value.ContainsKey(Name))
                 {
                     QueueFree();
                     return;

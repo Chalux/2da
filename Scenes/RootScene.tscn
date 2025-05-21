@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dbp0f4vf1hlut"]
 
-[ext_resource type="Script" path="res://Scenes/RootScene.cs" id="1_xndt3"]
+[ext_resource type="Script" uid="uid://clehiw233ixro" path="res://Scenes/RootScene.cs" id="1_xndt3"]
 [ext_resource type="PackedScene" uid="uid://cduq43s43kxtr" path="res://Scenes/TitleScene.tscn" id="2_np0r6"]
 
 [node name="RootScene" type="Node2D" node_paths=PackedStringArray("WorldControl")]

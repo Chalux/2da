@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b32jrqufv4iu8"]
 
 [ext_resource type="Theme" uid="uid://cxlvaqyy7s7ke" path="res://Resources/Theme/MainTheme.tres" id="1_fx1du"]
-[ext_resource type="Script" path="res://Scenes/DebugScene.cs" id="2_3qkpb"]
+[ext_resource type="Script" uid="uid://bgnk5oyooyc4t" path="res://Scenes/DebugScene.cs" id="2_3qkpb"]
 [ext_resource type="Texture2D" uid="uid://78hvqpw527e7" path="res://Resources/Assets/Legacy-Fantasy - High Forest 2.3/HUD/Base-01.png" id="2_8i36x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c5e1c"]

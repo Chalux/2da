@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://cxlvaqyy7s7ke" path="res://Resources/Theme/MainTheme.tres" id="1_5x6aa"]
 [ext_resource type="FontFile" uid="uid://deqlmaurjyiqs" path="res://Resources/Fonts/OPPOSans-Medium.ttf" id="1_rkvkd"]
-[ext_resource type="Script" path="res://Scenes/TitleScene.cs" id="2_4an14"]
+[ext_resource type="Script" uid="uid://7dimgtt62opq" path="res://Scenes/TitleScene.cs" id="2_4an14"]
 [ext_resource type="Texture2D" uid="uid://vf221s0alvnf" path="res://Resources/Assets/Legacy-Fantasy - High Forest 2.3/Background/Background.png" id="3_u343w"]
 [ext_resource type="Texture2D" uid="uid://2xcecpv1l5wc" path="res://Resources/Assets/Legacy-Fantasy - High Forest 2.3/Trees/Background.png" id="4_bj1jk"]
 [ext_resource type="Texture2D" uid="uid://kd7iysfxvtm3" path="res://Resources/Assets/Legacy-Fantasy - High Forest 2.3/Assets/Buildings.png" id="5_wpkb1"]

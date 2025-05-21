@@ -18,7 +18,7 @@ warnings/check_angle_interpolation_type_conflicting=false
 config/name="plat adv demo"
 config/version="0.1.1"
 run/main_scene="res://Scenes/RootScene.tscn"
-config/features=PackedStringArray("4.3", "C#", "Mobile")
+config/features=PackedStringArray("4.4", "C#", "Mobile")
 run/max_fps=60
 config/icon="res://icon.svg"
 

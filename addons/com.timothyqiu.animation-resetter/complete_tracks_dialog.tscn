@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b3rfo2ikmhgb4"]
 
-[ext_resource type="Script" path="res://addons/com.timothyqiu.animation-resetter/complete_tracks_dialog.gd" id="1_lj8eq"]
+[ext_resource type="Script" uid="uid://db2y64wk50fsy" path="res://addons/com.timothyqiu.animation-resetter/complete_tracks_dialog.gd" id="1_lj8eq"]
 
 [node name="CompleteTracksDialog" type="ConfirmationDialog"]
 size = Vector2i(272, 313)

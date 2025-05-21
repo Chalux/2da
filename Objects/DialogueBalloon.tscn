@@ -1,10 +1,16 @@
 [gd_scene load_steps=10 format=3 uid="uid://msdmp1i2hr3v"]
 
-[ext_resource type="Script" path="res://Objects/DialogueBalloon.cs" id="1_bkwfv"]
 [ext_resource type="Texture2D" uid="uid://78hvqpw527e7" path="res://Resources/Assets/Legacy-Fantasy - High Forest 2.3/HUD/Base-01.png" id="1_mx25e"]
-[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_label.gd" id="2_5lsqj"]
 [ext_resource type="Texture2D" uid="uid://l52nnasoabyo" path="res://Resources/Assets/Pixel UI pack 3/00.png" id="3_eqcoj"]
-[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_reponses_menu.gd" id="4_7w2ug"]
+
+[sub_resource type="Resource" id="Resource_0dflb"]
+metadata/__load_path__ = "res://Objects/DialogueBalloon.cs"
+
+[sub_resource type="Resource" id="Resource_ns7ab"]
+metadata/__load_path__ = "res://addons/dialogue_manager/dialogue_label.gd"
+
+[sub_resource type="Resource" id="Resource_g06cg"]
+metadata/__load_path__ = "res://addons/dialogue_manager/dialogue_reponses_menu.gd"
 
 [sub_resource type="Animation" id="Animation_kuspy"]
 resource_name = "FadeIn"
@@ -20,21 +26,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_yq6d8"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Balloon:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_6dq6h"]
@@ -53,17 +44,32 @@ tracks/0/keys = {
 "values": [Vector2(1, 1), Vector2(1.00136e-05, 1.00136e-05)]
 }
 
+[sub_resource type="Animation" id="Animation_yq6d8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Balloon:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_payya"]
 _data = {
-"FadeIn": SubResource("Animation_kuspy"),
-"FadeOut": SubResource("Animation_6dq6h"),
-"RESET": SubResource("Animation_yq6d8")
+&"FadeIn": SubResource("Animation_kuspy"),
+&"FadeOut": SubResource("Animation_6dq6h"),
+&"RESET": SubResource("Animation_yq6d8")
 }
 
 [node name="DialogueBalloon" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_bkwfv")
+script = SubResource("Resource_0dflb")
 
 [node name="Balloon" type="Control" parent="."]
 anchors_preset = 0
@@ -102,7 +108,7 @@ bbcode_enabled = true
 text = "Dialogue"
 fit_content = true
 scroll_active = false
-script = ExtResource("2_5lsqj")
+script = SubResource("Resource_ns7ab")
 skip_pause_at_abbreviations = PackedStringArray("Mr", "Mrs", "Ms", "Dr", "etc", "eg", "ex")
 
 [node name="ResponsesMenu" type="Container" parent="Balloon"]
@@ -111,7 +117,7 @@ offset_left = 40.0
 offset_top = -8.0
 offset_right = 88.0
 offset_bottom = -8.0
-script = ExtResource("4_7w2ug")
+script = SubResource("Resource_g06cg")
 
 [node name="Pointer" type="Node2D" parent="."]
 

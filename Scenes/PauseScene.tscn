@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://duf5w53whi0ek"]
 
 [ext_resource type="Theme" uid="uid://cxlvaqyy7s7ke" path="res://Resources/Theme/MainTheme.tres" id="1_bmrqj"]
-[ext_resource type="Script" path="res://Scenes/PauseScene.cs" id="2_1xa3l"]
+[ext_resource type="Script" uid="uid://b5l53g5ff276q" path="res://Scenes/PauseScene.cs" id="2_1xa3l"]
 [ext_resource type="PackedScene" uid="uid://yrjtdwa2k846" path="res://Objects/VolumeSlider.tscn" id="2_3metc"]
 
 [node name="PauseScene" type="Control" node_paths=PackedStringArray("ResumeBtn", "TitleBtn", "SkillTabbar", "SkillList", "BagGrid")]

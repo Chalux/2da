@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://cdtdarfqsiqs3"]
 
 [ext_resource type="Texture2D" uid="uid://cav6q4613avih" path="res://Resources/Assets/Dungeon Tile Set.png" id="1_nv06u"]
-[ext_resource type="Script" path="res://Objects/ColorDoor.cs" id="2_sdiqi"]
-[ext_resource type="Script" path="res://Objects/ColorDoorInteract.cs" id="3_4rbjk"]
+[ext_resource type="Script" uid="uid://br8hd1idxpul2" path="res://Objects/ColorDoor.cs" id="2_sdiqi"]
+[ext_resource type="Script" uid="uid://bm8k7cknp6o1u" path="res://Objects/ColorDoorInteract.cs" id="3_4rbjk"]
 [ext_resource type="AudioStream" uid="uid://cyxupdvliac21" path="res://Resources/SFX/05_door_open_2.mp3" id="3_vqd2f"]
 [ext_resource type="AudioStream" uid="uid://c0gbwf4dbjh2n" path="res://Resources/SFX/06_door_close_1.mp3" id="4_osi1v"]
 

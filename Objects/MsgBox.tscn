@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://sx2dtilxnj8r"]
 
 [ext_resource type="Theme" uid="uid://cxlvaqyy7s7ke" path="res://Resources/Theme/MainTheme.tres" id="1_bnf8k"]
-[ext_resource type="Script" path="res://Objects/MsgBox.cs" id="1_xaxp2"]
+[ext_resource type="Script" uid="uid://c1b6ywuwnl64a" path="res://Objects/MsgBox.cs" id="1_xaxp2"]
 
 [node name="Msg" type="RichTextLabel" node_paths=PackedStringArray("timer")]
 custom_minimum_size = Vector2(128, 16)

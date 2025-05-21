@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://b30i2d7i853k5"]
 
 [ext_resource type="Texture2D" uid="uid://78hvqpw527e7" path="res://Resources/Assets/Legacy-Fantasy - High Forest 2.3/HUD/Base-01.png" id="1_nrogx"]
-[ext_resource type="Script" path="res://Objects/TouchScreenButton.cs" id="2_eqc5d"]
+[ext_resource type="Script" uid="uid://dvnqwgtktxlfp" path="res://Objects/TouchScreenButton.cs" id="2_eqc5d"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p5gnl"]
 atlas = ExtResource("1_nrogx")

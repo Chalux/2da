@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://tukkastawovp"]
 
-[ext_resource type="Script" path="res://Objects/IceBullet.cs" id="1_fhamn"]
+[ext_resource type="Script" uid="uid://cw70uj1kv4si3" path="res://Objects/IceBullet.cs" id="1_fhamn"]
 [ext_resource type="Texture2D" uid="uid://dhu7w71vcdrbe" path="res://Resources/Assets/Ice VFX/Ice VFX 1 192x192.png" id="1_qps5k"]
-[ext_resource type="Script" path="res://Scripts/Objects/HitBox.cs" id="3_e6uiw"]
+[ext_resource type="Script" uid="uid://bl3lpww2swur5" path="res://Scripts/Objects/HitBox.cs" id="3_e6uiw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6rk6g"]
 size = Vector2(0, 0)
@@ -358,10 +358,10 @@ tracks/5/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f4epw"]
 _data = {
-"RESET": SubResource("Animation_wnxfp"),
-"create": SubResource("Animation_mcwul"),
-"disappear": SubResource("Animation_mnras"),
-"flying": SubResource("Animation_a1a5h")
+&"RESET": SubResource("Animation_wnxfp"),
+&"create": SubResource("Animation_mcwul"),
+&"disappear": SubResource("Animation_mnras"),
+&"flying": SubResource("Animation_a1a5h")
 }
 
 [node name="IceBullet" type="Control" node_paths=PackedStringArray("AnimPlayer", "HitBox", "sprite")]

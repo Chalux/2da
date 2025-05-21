@@ -2,7 +2,6 @@ using da.Scripts.Interfaces;
 using da.Scripts.Objects;
 using da.Scripts;
 using Godot;
-using System;
 
 public partial class SpikeTrap : Node2D, IAttackable
 {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace da.Scripts.Interfaces
+﻿namespace da.Scripts.Interfaces
 {
     internal interface IOpenable
     {

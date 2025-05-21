@@ -1,7 +1,6 @@
 using da.Objects;
 using da.Scripts;
 using Godot;
-using System;
 
 public partial class StaticRopePoint : Area2D
 {

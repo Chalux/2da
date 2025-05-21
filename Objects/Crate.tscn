@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://daqomhn6i78eh"]
 
-[ext_resource type="Script" path="res://Scripts/Objects/Crate.cs" id="1_gjaqv"]
+[ext_resource type="Script" uid="uid://6qa0aphs66p2" path="res://Scripts/Objects/Crate.cs" id="1_gjaqv"]
 [ext_resource type="AudioStream" uid="uid://bxgj88qpkyrhy" path="res://Resources/SFX/05_door_open_1.mp3" id="2_i4ysb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x053v"]

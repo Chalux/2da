@@ -1,21 +1,21 @@
 [gd_scene load_steps=172 format=4 uid="uid://dgk0gymfjkjan"]
 
-[ext_resource type="Script" path="res://Scenes/HomeMineMap.cs" id="1_dranl"]
+[ext_resource type="Script" uid="uid://bf0p7ant2i3a3" path="res://Scenes/HomeMineMap.cs" id="1_dranl"]
 [ext_resource type="Texture2D" uid="uid://bgq3acugalwpp" path="res://Resources/Assets/ForestAndMines/Tiles/Assets/Assets.png" id="1_onw6d"]
 [ext_resource type="AudioStream" uid="uid://b3hq8iyei0bbn" path="res://Resources/Music/177958__sclolex__water-dripping-in-cave.wav" id="2_arx80"]
 [ext_resource type="TileSet" uid="uid://rreheametmjy" path="res://Resources/TileSets/GeoBg.tres" id="2_ltqrh"]
 [ext_resource type="PackedScene" uid="uid://dgfaor37ptwpc" path="res://Objects/Door.tscn" id="3_513gn"]
 [ext_resource type="PackedScene" uid="uid://ckynmnjvmk41r" path="res://Objects/Teleposition.tscn" id="4_7whr5"]
-[ext_resource type="Shader" path="res://Resources/Shaders/VertexShader.gdshader" id="5_seigh"]
-[ext_resource type="Script" path="res://Scripts/Objects/Teleporter.cs" id="6_fw6rm"]
+[ext_resource type="Shader" uid="uid://breqfcvf4ycky" path="res://Resources/Shaders/VertexShader.gdshader" id="5_seigh"]
+[ext_resource type="Script" uid="uid://7qh3m2l25ghf" path="res://Scripts/Objects/Teleporter.cs" id="6_fw6rm"]
 [ext_resource type="PackedScene" uid="uid://nfovkta3ihjc" path="res://Objects/Player.tscn" id="8_0cjbo"]
 [ext_resource type="Texture2D" uid="uid://caeapjrc4b1te" path="res://Resources/Assets/Sprites/sprite01.png" id="9_ix4hs"]
-[ext_resource type="Script" path="res://Objects/SpeakPoint.cs" id="10_kav01"]
+[ext_resource type="Script" uid="uid://dywn4e8s4o4ko" path="res://Objects/SpeakPoint.cs" id="10_kav01"]
 [ext_resource type="PackedScene" uid="uid://cdtdarfqsiqs3" path="res://Objects/ColorDoor.tscn" id="10_sy6cp"]
-[ext_resource type="Script" path="res://Scripts/Objects/OnetimeBtn.cs" id="11_o6y7a"]
+[ext_resource type="Script" uid="uid://cjpr2o7fxmf4n" path="res://Scripts/Objects/OnetimeBtn.cs" id="11_o6y7a"]
 [ext_resource type="Texture2D" uid="uid://cosnq2quqivb5" path="res://Resources/Assets/Sprites/redbtn01.png" id="12_0hd5d"]
 [ext_resource type="Texture2D" uid="uid://dgeklcdh2hb1l" path="res://Resources/Assets/Sprites/redbtn02.png" id="13_50k4i"]
-[ext_resource type="Script" path="res://Scripts/Objects/Others/Oprated.cs" id="14_wb33c"]
+[ext_resource type="Script" uid="uid://cv6t5ywhbafd8" path="res://Scripts/Objects/Others/Oprated.cs" id="14_wb33c"]
 [ext_resource type="Texture2D" uid="uid://byrg62dwvvgnp" path="res://Resources/Assets/Sprites/dirt01.png" id="15_r5dhh"]
 [ext_resource type="AudioStream" uid="uid://bwwixrptqom7a" path="res://Resources/SFX/25847__freqman__concrete-blocks-moving3.wav" id="17_3jblq"]
 [ext_resource type="Texture2D" uid="uid://ccjytfg26m0kk" path="res://Resources/Assets/Pixel Art Platformer - Village Props v2.3.0/TX FX Torch Flame.png" id="17_vf68x"]
@@ -26,16 +26,16 @@
 [ext_resource type="PackedScene" uid="uid://dunyo8hxgc3in" path="res://Objects/StaticRopePoint.tscn" id="23_dwlxr"]
 [ext_resource type="PackedScene" uid="uid://o34g133pj5us" path="res://Objects/SpearTrap.tscn" id="25_jcbib"]
 [ext_resource type="PackedScene" uid="uid://clmuoj0brv3vl" path="res://Objects/SavePoint.tscn" id="25_u7j3c"]
-[ext_resource type="Shader" path="res://Resources/Shaders/Water2.gdshader" id="26_gug4u"]
+[ext_resource type="Shader" uid="uid://byf0dmi8tcfgv" path="res://Resources/Shaders/Water2.gdshader" id="26_gug4u"]
 [ext_resource type="Texture2D" uid="uid://deyops26q7mma" path="res://Resources/Assets/Trap/Moving Platfrom_C.png" id="27_yooim"]
 [ext_resource type="PackedScene" uid="uid://daqomhn6i78eh" path="res://Objects/Crate.tscn" id="28_6req5"]
 [ext_resource type="AudioStream" uid="uid://cyxupdvliac21" path="res://Resources/SFX/05_door_open_2.mp3" id="29_fxfh8"]
 [ext_resource type="Texture2D" uid="uid://dvrlfcji3cowa" path="res://Resources/Assets/Sprites/closed_crate01.png" id="30_5yir7"]
 [ext_resource type="Texture2D" uid="uid://bjepb3yw4i7tg" path="res://Resources/Assets/Sprites/opened_crate01.png" id="31_4rqtf"]
-[ext_resource type="Script" path="res://Objects/BreakableWall.cs" id="32_gkmwh"]
+[ext_resource type="Script" uid="uid://c3mmftoo6txhu" path="res://Objects/BreakableWall.cs" id="32_gkmwh"]
 [ext_resource type="Texture2D" uid="uid://cat5m3wycbh8g" path="res://Resources/Assets/Sprites/PurpleKey.png" id="32_yrebh"]
 [ext_resource type="Texture2D" uid="uid://dxvmhjwqo1dmr" path="res://Resources/Assets/GandalfHardcore FREE Platformer Assets/GandalfHardcore Platformer Assets.png" id="33_cy27y"]
-[ext_resource type="Script" path="res://Scripts/Objects/HurtBox.cs" id="34_3lpdl"]
+[ext_resource type="Script" uid="uid://ljutaxq6thj5" path="res://Scripts/Objects/HurtBox.cs" id="34_3lpdl"]
 [ext_resource type="PackedScene" uid="uid://byryu3ue3pm2n" path="res://Objects/Snail.tscn" id="36_c4i60"]
 [ext_resource type="PackedScene" uid="uid://d3ox7n0w70b5t" path="res://Objects/Slime.tscn" id="36_wg8a6"]
 [ext_resource type="PackedScene" uid="uid://d1x54rbqf2lqu" path="res://Objects/spike_trap.tscn" id="37_uq1ml"]
@@ -45,7 +45,7 @@
 [ext_resource type="PackedScene" uid="uid://dqbc2vh1yxs0j" path="res://Objects/Bee.tscn" id="42_2wqe1"]
 [ext_resource type="PackedScene" uid="uid://bsaybeposboir" path="res://Objects/UnstableRock.tscn" id="43_yigf5"]
 [ext_resource type="Texture2D" uid="uid://bym38syvpujjh" path="res://Resources/Assets/Slime-Sheet/slime-Sheet.png" id="44_7uaaq"]
-[ext_resource type="Script" path="res://Scripts/Objects/Others/DialogNpc.cs" id="45_axfbv"]
+[ext_resource type="Script" uid="uid://cuarate6pbs1u" path="res://Scripts/Objects/Others/DialogNpc.cs" id="45_axfbv"]
 
 [sub_resource type="Environment" id="Environment_smiv7"]
 background_mode = 3
@@ -460,9 +460,9 @@ noise = SubResource("FastNoiseLite_3bmyl")
 resource_local_to_scene = true
 shader = SubResource("Shader_6lrdw")
 shader_parameter/water_color = Color(0.0802132, 0.94, 0.0188, 1)
+shader_parameter/fast_noise = SubResource("NoiseTexture2D_xajgd")
 shader_parameter/speed = Vector2(0.01, 0.01)
 shader_parameter/wave_strength = 1.0
-shader_parameter/fast_noise = SubResource("NoiseTexture2D_xajgd")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ljbu8"]
 size = Vector2(80, 87)
@@ -481,9 +481,9 @@ noise = SubResource("FastNoiseLite_sfnu8")
 resource_local_to_scene = true
 shader = ExtResource("26_gug4u")
 shader_parameter/water_color = Color(0.0802132, 0.94, 0.0188, 1)
+shader_parameter/fast_noise = SubResource("NoiseTexture2D_gvxjy")
 shader_parameter/speed = Vector2(0.01, 0.01)
 shader_parameter/wave_strength = 1.0
-shader_parameter/fast_noise = SubResource("NoiseTexture2D_gvxjy")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_shae3"]
 size = Vector2(80, 48)
@@ -517,9 +517,9 @@ noise = SubResource("FastNoiseLite_18kpd")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g0yq2"]
 shader = SubResource("Shader_lc824")
 shader_parameter/water_color = Color(0.0802132, 0.94, 0.0188, 1)
+shader_parameter/fast_noise = SubResource("NoiseTexture2D_xnrbi")
 shader_parameter/speed = Vector2(0.01, 0.01)
 shader_parameter/wave_strength = 0.5
-shader_parameter/fast_noise = SubResource("NoiseTexture2D_xnrbi")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8upow"]
 size = Vector2(480, 128)
@@ -536,9 +536,9 @@ noise = SubResource("FastNoiseLite_0vbrn")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0x6x4"]
 shader = SubResource("Shader_lc824")
 shader_parameter/water_color = Color(0.0802132, 0.94, 0.0188, 1)
+shader_parameter/fast_noise = SubResource("NoiseTexture2D_l3mwn")
 shader_parameter/speed = Vector2(0.01, 0.01)
 shader_parameter/wave_strength = 0.5
-shader_parameter/fast_noise = SubResource("NoiseTexture2D_l3mwn")
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tv3d7"]
 load_path = "res://.godot/imported/white_block.png-423ce44ff560c352fb66dd4f921391ef.ctex"
@@ -598,8 +598,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t2wpi"]
 _data = {
-"RESET": SubResource("Animation_f56gt"),
-"anim": SubResource("Animation_4ugpn")
+&"RESET": SubResource("Animation_f56gt"),
+&"anim": SubResource("Animation_4ugpn")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r3j38"]
@@ -1117,11 +1117,11 @@ tracks/7/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fho1a"]
 _data = {
-"RESET": SubResource("Animation_8nb5h"),
-"close": SubResource("Animation_ilxia"),
-"open": SubResource("Animation_pl6up"),
-"set_to_close": SubResource("Animation_7ycft"),
-"set_to_open": SubResource("Animation_jg32f")
+&"RESET": SubResource("Animation_8nb5h"),
+&"close": SubResource("Animation_ilxia"),
+&"open": SubResource("Animation_pl6up"),
+&"set_to_close": SubResource("Animation_7ycft"),
+&"set_to_open": SubResource("Animation_jg32f")
 }
 
 [sub_resource type="Animation" id="Animation_cx2o2"]
@@ -1485,11 +1485,11 @@ tracks/4/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hpfux"]
 _data = {
-"RESET": SubResource("Animation_cx2o2"),
-"close": SubResource("Animation_pc3dm"),
-"open": SubResource("Animation_f7dun"),
-"set_to_close": SubResource("Animation_khrgs"),
-"set_to_open": SubResource("Animation_fm5va")
+&"RESET": SubResource("Animation_cx2o2"),
+&"close": SubResource("Animation_pc3dm"),
+&"open": SubResource("Animation_f7dun"),
+&"set_to_close": SubResource("Animation_khrgs"),
+&"set_to_open": SubResource("Animation_fm5va")
 }
 
 [sub_resource type="Gradient" id="Gradient_p7b8p"]
@@ -1969,11 +1969,11 @@ tracks/5/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8t145"]
 _data = {
-"RESET": SubResource("Animation_rto7p"),
-"close": SubResource("Animation_uotas"),
-"open": SubResource("Animation_3thu1"),
-"set_to_close": SubResource("Animation_gxt3h"),
-"set_to_open": SubResource("Animation_kvs01")
+&"RESET": SubResource("Animation_rto7p"),
+&"close": SubResource("Animation_uotas"),
+&"open": SubResource("Animation_3thu1"),
+&"set_to_close": SubResource("Animation_gxt3h"),
+&"set_to_open": SubResource("Animation_kvs01")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_smdkw"]
@@ -2394,11 +2394,11 @@ tracks/5/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_udoy2"]
 _data = {
-"RESET": SubResource("Animation_tkjux"),
-"close": SubResource("Animation_bhblp"),
-"open": SubResource("Animation_qryp6"),
-"set_to_close": SubResource("Animation_verjm"),
-"set_to_open": SubResource("Animation_5m25t")
+&"RESET": SubResource("Animation_tkjux"),
+&"close": SubResource("Animation_bhblp"),
+&"open": SubResource("Animation_qryp6"),
+&"set_to_close": SubResource("Animation_verjm"),
+&"set_to_open": SubResource("Animation_5m25t")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vn68t"]
@@ -2485,11 +2485,11 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pcre8"]
 _data = {
-"RESET": SubResource("Animation_5sevj"),
-"close": SubResource("Animation_qlerk"),
-"open": SubResource("Animation_j5yd8"),
-"set_to_close": SubResource("Animation_nllo6"),
-"set_to_open": SubResource("Animation_syh4a")
+&"RESET": SubResource("Animation_5sevj"),
+&"close": SubResource("Animation_qlerk"),
+&"open": SubResource("Animation_j5yd8"),
+&"set_to_close": SubResource("Animation_nllo6"),
+&"set_to_open": SubResource("Animation_syh4a")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wojw8"]
@@ -2530,8 +2530,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cghv5"]
 _data = {
-"RESET": SubResource("Animation_3iegm"),
-"idle": SubResource("Animation_hdqf2")
+&"RESET": SubResource("Animation_3iegm"),
+&"idle": SubResource("Animation_hdqf2")
 }
 
 [sub_resource type="Animation" id="Animation_pnwqo"]
@@ -2569,8 +2569,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lwc1d"]
 _data = {
-"RESET": SubResource("Animation_pnwqo"),
-"idle": SubResource("Animation_xkv62")
+&"RESET": SubResource("Animation_pnwqo"),
+&"idle": SubResource("Animation_xkv62")
 }
 
 [sub_resource type="Animation" id="Animation_sjafk"]
@@ -2608,8 +2608,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_l5k0h"]
 _data = {
-"RESET": SubResource("Animation_sjafk"),
-"idle": SubResource("Animation_jkhnr")
+&"RESET": SubResource("Animation_sjafk"),
+&"idle": SubResource("Animation_jkhnr")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8j634"]
@@ -4907,11 +4907,11 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wjnv6"]
 _data = {
-"RESET": SubResource("Animation_ikkq0"),
-"close": SubResource("Animation_o0yg3"),
-"open": SubResource("Animation_8v53m"),
-"set_to_close": SubResource("Animation_cecqb"),
-"set_to_open": SubResource("Animation_m16og")
+&"RESET": SubResource("Animation_ikkq0"),
+&"close": SubResource("Animation_o0yg3"),
+&"open": SubResource("Animation_8v53m"),
+&"set_to_close": SubResource("Animation_cecqb"),
+&"set_to_open": SubResource("Animation_m16og")
 }
 
 [sub_resource type="Animation" id="Animation_usjvo"]
@@ -5055,11 +5055,11 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gc6cx"]
 _data = {
-"RESET": SubResource("Animation_usjvo"),
-"close": SubResource("Animation_d27s0"),
-"open": SubResource("Animation_jyv6w"),
-"set_to_close": SubResource("Animation_fw1uu"),
-"set_to_open": SubResource("Animation_ui132")
+&"RESET": SubResource("Animation_usjvo"),
+&"close": SubResource("Animation_d27s0"),
+&"open": SubResource("Animation_jyv6w"),
+&"set_to_close": SubResource("Animation_fw1uu"),
+&"set_to_open": SubResource("Animation_ui132")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ph6vx"]

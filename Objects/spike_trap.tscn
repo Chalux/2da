@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://d1x54rbqf2lqu"]
 
 [ext_resource type="Texture2D" uid="uid://pfkpn4a6v64i" path="res://Resources/Assets/Trap/Spike_B.png" id="1_150y6"]
-[ext_resource type="Script" path="res://Objects/SpikeTrap.cs" id="1_g37xu"]
-[ext_resource type="Script" path="res://Scripts/Objects/HitBox.cs" id="2_7soj3"]
+[ext_resource type="Script" uid="uid://caueqsk2o4vcu" path="res://Objects/SpikeTrap.cs" id="1_g37xu"]
+[ext_resource type="Script" uid="uid://bl3lpww2swur5" path="res://Scripts/Objects/HitBox.cs" id="2_7soj3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m7edb"]
 size = Vector2(32, 16)

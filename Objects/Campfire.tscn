@@ -1,8 +1,8 @@
 [gd_scene load_steps=49 format=3 uid="uid://dd566y6cvgsb"]
 
 [ext_resource type="Texture2D" uid="uid://cs2qgqtu8xdik" path="res://Resources/Assets/GandalfHardcore FREE Platformer Assets/Animated Sprites/Campfire sheet.png" id="1_k0ptn"]
-[ext_resource type="Script" path="res://Objects/Campfire.cs" id="1_vd08s"]
-[ext_resource type="Script" path="res://Objects/SavePoint.cs" id="2_1cxbh"]
+[ext_resource type="Script" uid="uid://bes6wpfwiqyyo" path="res://Objects/Campfire.cs" id="1_vd08s"]
+[ext_resource type="Script" uid="uid://dp6vsv1mmdi61" path="res://Objects/SavePoint.cs" id="2_1cxbh"]
 [ext_resource type="AudioStream" uid="uid://ce3i1rypta4te" path="res://Resources/SFX/campfire.mp3" id="3_168nn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kvsjg"]

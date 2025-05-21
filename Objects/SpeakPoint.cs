@@ -1,7 +1,6 @@
 ﻿using da.Scripts.Objects;
 using DialogicRuntime;
 using Godot;
-using System;
 using System.Collections.Generic;
 
 public partial class SpeakPoint : Area2D

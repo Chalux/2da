@@ -1,8 +1,8 @@
 [gd_scene load_steps=18 format=3 uid="uid://dqbc2vh1yxs0j"]
 
 [ext_resource type="PackedScene" uid="uid://c2ts5x2bc2og5" path="res://Objects/Enemy.tscn" id="1_lnlb3"]
-[ext_resource type="Shader" path="res://Resources/Shaders/Blink.gdshader" id="2_8bevx"]
-[ext_resource type="Script" path="res://Objects/Bee.cs" id="2_e3apn"]
+[ext_resource type="Shader" uid="uid://do364y6g5mc5w" path="res://Resources/Shaders/Blink.gdshader" id="2_8bevx"]
+[ext_resource type="Script" uid="uid://crkb6aapl07m2" path="res://Objects/Bee.cs" id="2_e3apn"]
 [ext_resource type="Texture2D" uid="uid://dmkl1b5ogxgfx" path="res://Resources/Assets/Legacy-Fantasy - High Forest 2.3/Mob/Small Bee/Fly/Fly-Sheet.png" id="3_idcx7"]
 [ext_resource type="Texture2D" uid="uid://dw6i0i0j0uret" path="res://Resources/Assets/Legacy-Fantasy - High Forest 2.3/Mob/Small Bee/Attack/Attack-Sheet.png" id="4_mb6qh"]
 [ext_resource type="Texture2D" uid="uid://bdvmkd0uwcsjo" path="res://Resources/Assets/Legacy-Fantasy - High Forest 2.3/Mob/Small Bee/Hit/Hit-Sheet.png" id="5_36ycl"]
@@ -289,11 +289,11 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pdv66"]
 _data = {
-"RESET": SubResource("Animation_lcseq"),
-"attack": SubResource("Animation_isqwl"),
-"die": SubResource("Animation_gxtvu"),
-"hurt": SubResource("Animation_tw5kt"),
-"idle": SubResource("Animation_141gx")
+&"RESET": SubResource("Animation_lcseq"),
+&"attack": SubResource("Animation_isqwl"),
+&"die": SubResource("Animation_gxtvu"),
+&"hurt": SubResource("Animation_tw5kt"),
+&"idle": SubResource("Animation_141gx")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fs0hy"]

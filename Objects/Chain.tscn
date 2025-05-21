@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://c7c4krb75is17"]
 
-[ext_resource type="Script" path="res://Objects/Chain.cs" id="1_o3hp2"]
+[ext_resource type="Script" uid="uid://c3apq8ipvxjx3" path="res://Objects/Chain.cs" id="1_o3hp2"]
 [ext_resource type="Texture2D" uid="uid://dw0ix1i03yvl1" path="res://Resources/Assets/Sprites/arrow01.png" id="1_vldjq"]
 [ext_resource type="Texture2D" uid="uid://cvjhxr02dw4lv" path="res://Resources/Assets/Sprites/prog01.png" id="1_y63oa"]
 

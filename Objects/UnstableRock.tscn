@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bsaybeposboir"]
 
-[ext_resource type="Script" path="res://Objects/UnstableRock.cs" id="1_mrihg"]
+[ext_resource type="Script" uid="uid://mf8iyr7at83n" path="res://Objects/UnstableRock.cs" id="1_mrihg"]
 [ext_resource type="Texture2D" uid="uid://sunxeeq2ydhs" path="res://Resources/Assets/Trap/FallingRock.png" id="1_y8htd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4cp21"]
@@ -102,8 +102,8 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yit3w"]
 _data = {
-"RESET": SubResource("Animation_lr707"),
-"fall": SubResource("Animation_42uyh")
+&"RESET": SubResource("Animation_lr707"),
+&"fall": SubResource("Animation_42uyh")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uvg8c"]

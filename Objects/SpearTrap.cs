@@ -2,7 +2,6 @@ using da.Scripts;
 using da.Scripts.Interfaces;
 using da.Scripts.Objects;
 using Godot;
-using System;
 
 public partial class SpearTrap : Node2D, IAttackable
 {

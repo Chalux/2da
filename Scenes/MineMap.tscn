@@ -1,9 +1,9 @@
 [gd_scene load_steps=15 format=4 uid="uid://0f7wxavuxlfl"]
 
-[ext_resource type="Script" path="res://Scripts/Map.cs" id="1_d7yuc"]
+[ext_resource type="Script" uid="uid://difchfei01x02" path="res://Scripts/Map.cs" id="1_d7yuc"]
 [ext_resource type="Texture2D" uid="uid://bgq3acugalwpp" path="res://Resources/Assets/ForestAndMines/Tiles/Assets/Assets.png" id="1_wei7f"]
 [ext_resource type="AudioStream" uid="uid://dfqtwvswv1pd" path="res://Resources/Music/Goblins_Dance_(Battle).wav" id="2_ijfm2"]
-[ext_resource type="Script" path="res://Scripts/Objects/Teleporter.cs" id="3_4issu"]
+[ext_resource type="Script" uid="uid://7qh3m2l25ghf" path="res://Scripts/Objects/Teleporter.cs" id="3_4issu"]
 [ext_resource type="PackedScene" uid="uid://nfovkta3ihjc" path="res://Objects/Player.tscn" id="5_xfipk"]
 [ext_resource type="Texture2D" uid="uid://kd7iysfxvtm3" path="res://Resources/Assets/Legacy-Fantasy - High Forest 2.3/Assets/Buildings.png" id="6_jajhg"]
 [ext_resource type="PackedScene" uid="uid://clmuoj0brv3vl" path="res://Objects/SavePoint.tscn" id="7_yvj3m"]

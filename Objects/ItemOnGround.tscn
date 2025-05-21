@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://doyksj54mbdje"]
 
-[ext_resource type="Script" path="res://Objects/ItemOnGround.cs" id="1_0k472"]
+[ext_resource type="Script" uid="uid://0cg3vgphcgri" path="res://Objects/ItemOnGround.cs" id="1_0k472"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u33hr"]
 

@@ -33,7 +33,13 @@ namespace da.Objects
             CalmDownTimer.Timeout += OnCalmDownTimerTimeout;
             Gravity = 0;
 
-            try { TreeExited += OnTreeExited; } catch { }
+            try
+            {
+                TreeExited += OnTreeExited;
+            }
+            catch
+            {
+            }
         }
 
         public void OnTreeExited()
@@ -44,7 +50,7 @@ namespace da.Objects
         private void BeeHurt(Damage damage)
         {
             status.Health -= damage.value;
-            Direction = (damage.source.Owner as Player).Position.X > Position.X ? 1 : -1;
+            Direction = (damage.source.Owner as Player)?.Position.X > Position.X ? 1 : -1;
             if (status.Health <= 0)
             {
                 SetCollisionMaskValue(1, true);

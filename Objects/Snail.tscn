@@ -1,8 +1,8 @@
 [gd_scene load_steps=19 format=3 uid="uid://byryu3ue3pm2n"]
 
 [ext_resource type="PackedScene" uid="uid://c2ts5x2bc2og5" path="res://Objects/Enemy.tscn" id="1_dblnx"]
-[ext_resource type="Script" path="res://Objects/Snail.cs" id="2_03fl2"]
-[ext_resource type="Shader" path="res://Resources/Shaders/Blink.gdshader" id="2_ktxjr"]
+[ext_resource type="Script" uid="uid://seumd6p5k570" path="res://Objects/Snail.cs" id="2_03fl2"]
+[ext_resource type="Shader" uid="uid://do364y6g5mc5w" path="res://Resources/Shaders/Blink.gdshader" id="2_ktxjr"]
 [ext_resource type="Texture2D" uid="uid://biubhlma4tsgh" path="res://Resources/Assets/Legacy-Fantasy - High Forest 2.3/Mob/Snail/all.png" id="3_03r54"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mjm2l"]
@@ -1470,15 +1470,15 @@ tracks/12/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_137vv"]
 _data = {
-"RESET": SubResource("Animation_e0p2w"),
-"appear": SubResource("Animation_i8m4s"),
-"attack": SubResource("Animation_qn5w8"),
-"die": SubResource("Animation_l0hd7"),
-"hidding": SubResource("Animation_fwfn4"),
-"hide": SubResource("Animation_r7hvf"),
-"hurt": SubResource("Animation_47s2h"),
-"idle": SubResource("Animation_d1w2w"),
-"walk": SubResource("Animation_2o7cm")
+&"RESET": SubResource("Animation_e0p2w"),
+&"appear": SubResource("Animation_i8m4s"),
+&"attack": SubResource("Animation_qn5w8"),
+&"die": SubResource("Animation_l0hd7"),
+&"hidding": SubResource("Animation_fwfn4"),
+&"hide": SubResource("Animation_r7hvf"),
+&"hurt": SubResource("Animation_47s2h"),
+&"idle": SubResource("Animation_d1w2w"),
+&"walk": SubResource("Animation_2o7cm")
 }
 
 [node name="Enemy" node_paths=PackedStringArray("FloorRay", "PlayerRay", "WallRay", "IdleTimer", "CalmDownTimer") instance=ExtResource("1_dblnx")]

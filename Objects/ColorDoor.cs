@@ -3,7 +3,6 @@ using da.Scripts.Interfaces;
 using da.Scripts.Objects;
 using Godot;
 using Godot.Collections;
-using System;
 
 public partial class ColorDoor : Control, IOpenable
 {

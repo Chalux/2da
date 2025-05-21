@@ -1,9 +1,9 @@
 [gd_scene load_steps=15 format=3 uid="uid://d3ox7n0w70b5t"]
 
 [ext_resource type="PackedScene" uid="uid://c2ts5x2bc2og5" path="res://Objects/Enemy.tscn" id="1_lfs0e"]
-[ext_resource type="Script" path="res://Objects/Slime.cs" id="2_um4hb"]
+[ext_resource type="Script" uid="uid://dgjsf8ysemill" path="res://Objects/Slime.cs" id="2_um4hb"]
 [ext_resource type="Texture2D" uid="uid://bym38syvpujjh" path="res://Resources/Assets/Slime-Sheet/slime-Sheet.png" id="2_v8fs1"]
-[ext_resource type="Shader" path="res://Resources/Shaders/Blink.gdshader" id="3_7el6d"]
+[ext_resource type="Shader" uid="uid://do364y6g5mc5w" path="res://Resources/Shaders/Blink.gdshader" id="3_7el6d"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qvamd"]
 resource_local_to_scene = true
@@ -621,12 +621,12 @@ tracks/7/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_85kis"]
 _data = {
-"RESET": SubResource("Animation_5ofd7"),
-"attack": SubResource("Animation_benur"),
-"die": SubResource("Animation_iv2ql"),
-"hurt": SubResource("Animation_kbw0s"),
-"idle": SubResource("Animation_x8iqq"),
-"move": SubResource("Animation_7n8pf")
+&"RESET": SubResource("Animation_5ofd7"),
+&"attack": SubResource("Animation_benur"),
+&"die": SubResource("Animation_iv2ql"),
+&"hurt": SubResource("Animation_kbw0s"),
+&"idle": SubResource("Animation_x8iqq"),
+&"move": SubResource("Animation_7n8pf")
 }
 
 [node name="Enemy" node_paths=PackedStringArray("FloorRay", "PlayerRay", "WallRay", "IdleTimer", "CalmDownTimer") instance=ExtResource("1_lfs0e")]

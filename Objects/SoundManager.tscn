@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://cp8fh608lmpsd"]
 
-[ext_resource type="Script" path="res://Objects/SoundManager.cs" id="1_nqxfv"]
+[ext_resource type="Script" uid="uid://f4h5pvm5w8wm" path="res://Objects/SoundManager.cs" id="1_nqxfv"]
 [ext_resource type="AudioStream" uid="uid://ckr5dhgntjsfo" path="res://Resources/SFX/07_human_atk_sword_1.wav" id="2_60p66"]
 [ext_resource type="AudioStream" uid="uid://dv5x20wiqubo1" path="res://Resources/SFX/07_human_atk_sword_2.wav" id="3_smnhy"]
 [ext_resource type="AudioStream" uid="uid://jqbdsokw66dd" path="res://Resources/SFX/07_human_atk_sword_3.wav" id="4_6xrgg"]

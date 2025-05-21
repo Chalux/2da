@@ -1,5 +1,4 @@
 using da.Scripts;
-using da.Scripts.Objects;
 using da.Scripts.Objects.EnemyScript;
 using da.Scripts.Objects.EnemyScript.BoarScript;
 using Godot;
@@ -34,15 +33,8 @@ namespace da.Objects
         private void BoarHurt(Damage damage)
         {
             status.Health -= damage.value;
-            Direction = (damage.source.Owner as Player).Position.X > Position.X ? 1 : -1;
-            if (status.Health <= 0)
-            {
-                StateMachine.ChangeState("death");
-            }
-            else
-            {
-                StateMachine.ChangeState("hurt");
-            }
+            Direction = (damage.source.Owner as Player)?.Position.X > Position.X ? 1 : -1;
+            StateMachine.ChangeState(status.Health <= 0 ? "death" : "hurt");
         }
     }
 }

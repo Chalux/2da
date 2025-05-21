@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://37b57r4s1d6l"]
 
-[ext_resource type="Script" path="res://Scripts/Objects/GameGlobal.cs" id="1_7170a"]
-[ext_resource type="Script" path="res://Scenes/UIControl.cs" id="2_tkeyv"]
+[ext_resource type="Script" uid="uid://8ydptec6dt7q" path="res://Scripts/Objects/GameGlobal.cs" id="1_7170a"]
+[ext_resource type="Script" uid="uid://cvptxwgotfuv3" path="res://Scenes/UIControl.cs" id="2_tkeyv"]
 [ext_resource type="Texture2D" uid="uid://ds1ag1dyvrytk" path="res://Resources/Assets/Charactor_blue/char_blue_1.png" id="3_7yswp"]
 [ext_resource type="Texture2D" uid="uid://ctuqduaondlps" path="res://Resources/Assets/Pixel UI pack 3/02.png" id="4_hwlfq"]
 [ext_resource type="Texture2D" uid="uid://dgpxclmviwt4o" path="res://Resources/Assets/Pixel UI pack 3/06.png" id="5_g867i"]
