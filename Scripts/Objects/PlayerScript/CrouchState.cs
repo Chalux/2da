@@ -15,7 +15,7 @@ namespace da.Scripts.Objects.PlayerScript
             player.CharactorAnimPlayer.Play("squat");
             player.Collision.Shape = new RectangleShape2D() { Size = new(20, 20) };
             player.Collision.Position = new Vector2(0, -10);
-            player.ResetDashCount();
+            // player.ResetDashCount();
             player.ResetJumpCount();
             player.IsQuickDowned = false;
             player.HasWallJumped = false;

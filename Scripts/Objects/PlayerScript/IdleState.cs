@@ -13,7 +13,7 @@ namespace da.Scripts.Objects.PlayerScript
         {
             owner.CharactorAnimPlayer.Play("idle");
             owner.Velocity = Vector2.Zero;
-            owner.ResetDashCount();
+            // owner.ResetDashCount();
             owner.ResetJumpCount();
             owner.IsQuickDowned = false;
             owner.HasWallJumped = false;

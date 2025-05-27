@@ -27,14 +27,17 @@ namespace da.Scripts.Objects.PlayerScript
         InWater,
         Skill,
     }
+
     public partial class PlayerStateMachine : Node
     {
         public BaseState currState;
         public PlayerState oldStateEnum;
+
         [Signal]
         public delegate void OnStateChangeEventHandler(PlayerState oldState, PlayerState newState);
 
-        public Dictionary<PlayerState, BaseState> stateDict = new() {
+        public Dictionary<PlayerState, BaseState> stateDict = new()
+        {
             { PlayerState.Idle, new IdleState() },
             { PlayerState.Jump, new JumpState() },
             { PlayerState.Dash, new DashState() },
@@ -59,6 +62,11 @@ namespace da.Scripts.Objects.PlayerScript
 
         public void ChangeState(PlayerState newState)
         {
+            CallDeferred("ChangeStateCore", (int)newState);
+        }
+
+        public void ChangeStateCore(PlayerState newState)
+        {
             if (stateDict.ContainsKey(newState) == false) return;
             if (currState != null && currState.State == newState) return;
             oldStateEnum = currState?.State ?? PlayerState.Idle;
@@ -67,10 +75,12 @@ namespace da.Scripts.Objects.PlayerScript
             (Owner as Player).CharactorAnimPlayer.Advance(0);
             currState?.Enter(Owner as Player);
             GD.Print($"Change State from {oldStateEnum} to {newState}");
-            if ((oldStateEnum != PlayerState.Jump && oldStateEnum != PlayerState.WallJump) && newState == PlayerState.Fall)
+            if ((oldStateEnum != PlayerState.Jump && oldStateEnum != PlayerState.WallJump) &&
+                newState == PlayerState.Fall)
             {
                 (Owner as Player).JumpCount -= 1;
             }
+
             EmitSignal(SignalName.OnStateChange, Variant.From((int)oldStateEnum), Variant.From((int)newState));
         }
 

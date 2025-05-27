@@ -1253,9 +1253,10 @@ tile_set = SubResource("TileSet_sl3lf")
 [node name="mine_save_point_1" parent="." instance=ExtResource("7_yvj3m")]
 position = Vector2(280, 112)
 
-[node name="mine_slime_1" parent="." instance=ExtResource("11_bw1tm")]
+[node name="mine_slime_1" parent="." node_paths=PackedStringArray("linkedObj") instance=ExtResource("11_bw1tm")]
 position = Vector2(361, 161)
 CantRevive = true
+linkedObj = []
 
 [node name="Player" parent="." instance=ExtResource("5_xfipk")]
 position = Vector2(72, 160)

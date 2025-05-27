@@ -2502,7 +2502,7 @@ shape = SubResource("RectangleShape2D_b1nvo")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_6pky5")
+&"": SubResource("AnimationLibrary_6pky5")
 }
 
 [node name="GhostTimer" type="Timer" parent="."]
@@ -2628,7 +2628,7 @@ position = Vector2(0, -16)
 enabled = false
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_ofkrp")
-texture_scale = 2.0
+texture_scale = 3.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 126

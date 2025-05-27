@@ -1,5 +1,6 @@
 ﻿using Godot;
 using System;
+using System.Collections.Generic;
 
 namespace da.Scripts
 {
@@ -7,11 +8,15 @@ namespace da.Scripts
     {
         [Signal]
         public delegate void OnHealthChangedEventHandler(double newhealth, double oldhealth);
+
         public double _maxHealth;
+
         [Signal]
         public delegate void OnMaxHealthChangedEventHandler(double maxhealth);
+
         [Signal]
         public delegate void OnDeathEventHandler();
+
         public double MaxHealth
         {
             get => _maxHealth;
@@ -21,7 +26,9 @@ namespace da.Scripts
                 EmitSignal(SignalName.OnMaxHealthChanged, value);
             }
         }
+
         public double _health;
+
         public double Health
         {
             get => _health;
@@ -33,12 +40,21 @@ namespace da.Scripts
                 {
                     EmitSignal(SignalName.OnHealthChanged, value, oldvalue);
                 }
+
                 if (Owner is Enemy && _health <= 0)
                 {
                     EmitSignal(SignalName.OnDeath);
                     EventMgr.DispatchEvent("EnemyDied", Owner);
                 }
             }
+        }
+
+        private double _dashCoolDown = 15;
+
+        public double DashCoolDown
+        {
+            get => _dashCoolDown;
+            set => _dashCoolDown = value;
         }
 
         public override void _Ready()
@@ -52,14 +68,16 @@ namespace da.Scripts
             return new Godot.Collections.Dictionary<string, Variant>()
             {
                 { "maxhealth", MaxHealth },
-                { "health", Health }
+                { "health", Health },
+                { "dashcool", DashCoolDown },
             };
         }
 
         public void FromDict(Godot.Collections.Dictionary<string, Variant> dict)
         {
-            MaxHealth = dict["maxhealth"].AsDouble();
-            Health = dict["health"].AsDouble();
+            MaxHealth = dict.TryGetValue("maxhealth", out Variant value) ? value.AsDouble() : 0;
+            Health = dict.TryGetValue("health", out Variant hvalue) ? hvalue.AsDouble() : 0;
+            DashCoolDown = dict.TryGetValue("dashcool", out Variant dvalue) ? dvalue.AsDouble() : 15;
         }
     }
 }

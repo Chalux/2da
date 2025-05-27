@@ -1,5 +1,6 @@
 using da.Scripts;
 using da.Scripts.Objects;
+using da.Scripts.Objects.PlayerScript;
 using Godot;
 
 namespace da.Scenes
@@ -25,6 +26,7 @@ namespace da.Scenes
             var player = GameGlobal.Instance.player;
             player.GlobalPosition = position;
             player.Direction = Direction;
+            player.StateMachine.ChangeState(PlayerState.Idle);
             camera.ResetSmoothing();
             camera.ForceUpdateScroll();
         }

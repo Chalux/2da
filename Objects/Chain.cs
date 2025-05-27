@@ -38,6 +38,7 @@ public partial class Chain : Node2D
         isFlying = false;
         isHooked = true;
         var t = (Arrow - Hook.GlobalPosition).Normalized();
+        // var t = Arrow - Hook.GlobalPosition;
         Direction = new Vector2(t.X > 0 ? 1 : -1, t.Y > 0 ? 1 : -1);
     }
 }

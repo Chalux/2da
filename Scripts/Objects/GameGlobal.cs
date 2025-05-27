@@ -1,11 +1,11 @@
-﻿using da.Objects;
-using da.Scenes;
-using Godot;
-using Godot.Collections;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using da.Objects;
+using da.Scenes;
+using Godot;
+using Godot.Collections;
 
 namespace da.Scripts.Objects
 {
@@ -27,8 +27,8 @@ namespace da.Scripts.Objects
         public Camera2D camera;
         public SaveData save = new();
         public RootScene root;
-        public bool isRunning = false;
-        public bool IsChangingScene = false;
+        public bool isRunning;
+        public bool IsChangingScene;
         [Export] public Timer richHintTimer;
         [Export] public RichTextLabel richHint;
         [Export] public ColorRect richHintBg;
@@ -63,7 +63,7 @@ namespace da.Scripts.Objects
             BlackMask.MouseFilter = Control.MouseFilterEnum.Stop;
             Tween tween = CreateTween();
             tween.SetPauseMode(Tween.TweenPauseMode.Process);
-            tween.TweenProperty(BlackMask, "modulate", new Color(BlackMask.Modulate, 1), 1f);
+            tween.TweenProperty(BlackMask, "modulate", new Color(BlackMask.Modulate), 1f);
             await ToSignal(tween, Tween.SignalName.Finished);
             var currMap = root.WorldControl.GetChild(0) as Control;
             if (currMap != null) SaveMapData(currMap);
@@ -142,7 +142,7 @@ namespace da.Scripts.Objects
         public void PlayerHealthChanged(double newhealth, double oldhealth)
         {
             healthBar.Value = newhealth;
-            HealthLab.Text = newhealth.ToString() + "/" + (player?.status.MaxHealth.ToString() ?? "0");
+            HealthLab.Text = newhealth + "/" + (player?.status.MaxHealth.ToString() ?? "0");
         }
 
         public void PlayerMaxHealthChanged(double newhealth)
@@ -194,7 +194,7 @@ namespace da.Scripts.Objects
                 }
                 if (!save.MapSaveData[map.Name].ContainsKey("enemies_died"))
                 {
-                    save.MapSaveData[map.Name].Add("enemies_died", new Godot.Collections.Array<string>());
+                    save.MapSaveData[map.Name].Add("enemies_died", new Array<string>());
                 }
                 Array<string> enemies_died = save.MapSaveData[map.Name]["enemies_died"].AsGodotArray<string>();
                 enemies_died.Add(EnemyName);
@@ -202,7 +202,7 @@ namespace da.Scripts.Objects
                 {
                     if (!save.MapSaveData[map.Name].ContainsKey("enemies_cantrevive"))
                     {
-                        save.MapSaveData[map.Name].Add("enemies_cantrevive", new Godot.Collections.Array<string>());
+                        save.MapSaveData[map.Name].Add("enemies_cantrevive", new Array<string>());
                     }
                     Array<string> enemies_cantrevive = save.MapSaveData[map.Name]["enemies_cantrevive"].AsGodotArray<string>();
                     enemies_cantrevive.Add(EnemyName);
@@ -341,7 +341,7 @@ namespace da.Scripts.Objects
             BlackMask.MouseFilter = Control.MouseFilterEnum.Stop;
             Tween tween = CreateTween();
             tween.SetPauseMode(Tween.TweenPauseMode.Process);
-            tween.TweenProperty(BlackMask, "modulate", new Color(BlackMask.Modulate, 1), 1f);
+            tween.TweenProperty(BlackMask, "modulate", new Color(BlackMask.Modulate), 1f);
             await ToSignal(tween, Tween.SignalName.Finished);
             if (root.WorldControl.GetChild(0) != null)
             {
@@ -442,7 +442,7 @@ namespace da.Scripts.Objects
 
         public override void _Process(double delta)
         {
-            if (richHintBg.Visible == true)
+            if (richHintBg.Visible)
             {
                 float PositionX = GetViewport().GetMousePosition().X + 5;
                 float PositionY = GetViewport().GetMousePosition().Y + 5;
@@ -455,7 +455,7 @@ namespace da.Scripts.Objects
         public void ShowRichHint(string hint)
         {
             richHintAction?.Invoke();
-            richHintAction = new Action(() =>
+            richHintAction = () =>
             {
                 if (hint.Length > 50)
                 {
@@ -467,7 +467,7 @@ namespace da.Scripts.Objects
                 }
                 richHint.Text = hint;
                 richHintBg.Visible = true;
-            });
+            };
             richHintTimer.Timeout += richHintAction;
             richHintTimer.WaitTime = 0.1f;
             richHintTimer.OneShot = true;

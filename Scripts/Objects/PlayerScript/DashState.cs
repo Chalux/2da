@@ -7,10 +7,12 @@ namespace da.Scripts.Objects.PlayerScript
     {
         public float oldVelocityY;
         private Vector2 Angle = Vector2.Zero;
+
         public DashState()
         {
             State = PlayerState.Dash;
         }
+
         public override void Enter(Player owner)
         {
             if (!owner.DashTimer.IsStopped() || !owner.TryDash())
@@ -19,6 +21,7 @@ namespace da.Scripts.Objects.PlayerScript
             }
             else
             {
+                owner.Dash();
                 if (owner.StateMachine.oldStateEnum == PlayerState.WallSliding)
                 {
                     owner.CharactorAnimPlayer.Play("fall");
@@ -35,12 +38,14 @@ namespace da.Scripts.Objects.PlayerScript
                     {
                         owner.Direction = 1;
                     }
-                    Angle = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down").Normalized();
+
+                    Angle = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
                     if (Angle == Vector2.Zero)
                     {
                         Angle = new Vector2(owner.Direction, 0);
                     }
                 }
+
                 //oldVelocityY = owner.Velocity.Y;
                 oldVelocityY = 0;
                 owner.JumpRequestTimer.Stop();

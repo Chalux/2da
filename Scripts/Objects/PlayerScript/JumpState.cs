@@ -15,11 +15,7 @@ namespace da.Scripts.Objects.PlayerScript
         {
             _owner = owner;
             owner.CharactorAnimPlayer.Play("jump");
-            if (owner.JumpCount == owner.CanJumpCount) owner.Velocity = new Vector2(owner.Velocity.X, Player.JumpVelocity);
-            else
-            {
-                owner.Velocity = new Vector2(owner.Velocity.X, Player.JumpVelocity * 0.75f);
-            }
+            owner.Velocity = new Vector2(owner.Velocity.X, Player.JumpVelocity);
             owner.JumpCount -= 1;
             //owner.MoveAndSlide();
             owner.CharactorAnimPlayer.AnimationFinished += ChangeToFall;

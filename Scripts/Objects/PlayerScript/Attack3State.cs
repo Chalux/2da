@@ -11,11 +11,11 @@ namespace da.Scripts.Objects.PlayerScript
             State = PlayerState.Attack3;
             CancelLevel = 3;
         }
-        private Player _onwer;
+        private Player _owner;
 
         public override void Enter(Player player)
         {
-            _onwer = player;
+            _owner = player;
             player.CharactorAnimPlayer.Play("attack_3");
             player.Velocity = Vector2.Zero;
             player.CharactorAnimPlayer.AnimationFinished += ChangeToIdle;
@@ -37,14 +37,14 @@ namespace da.Scripts.Objects.PlayerScript
 
         private void ChangeToIdle(StringName animName)
         {
-            _onwer.StateMachine.ChangeState(PlayerState.Idle);
+            _owner.StateMachine.ChangeState(PlayerState.Idle);
         }
 
         public override void Exit(Player owner)
         {
-            _onwer.CharactorAnimPlayer.AnimationFinished -= ChangeToIdle;
+            _owner.CharactorAnimPlayer.AnimationFinished -= ChangeToIdle;
             //owner.CharactorAnimPlayer.CallDeferred("stop");
-            owner.AttackCollision.Polygon = Array.Empty<Vector2>();
+            owner.AttackCollision.Polygon = [];
             owner.NextAttackState = null;
         }
     }

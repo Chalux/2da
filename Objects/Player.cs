@@ -1,3 +1,4 @@
+using System;
 using da.Scripts;
 using da.Scripts.Interfaces;
 using da.Scripts.Objects;
@@ -49,13 +50,13 @@ namespace da.Objects
         public const float JumpVelocity = -400;
         public const float FloorAcceleration = Speed / 0.2f;
         public const float AirAcceleration = Speed / 0.1f;
-        public const float GrappleForce = 30;
+        public const float GrappleForce = 20;
         private Vector2 tempGrappleVelocity = Vector2.Zero;
         public Vector2 WallJumpVelocity = new(360, JumpVelocity);
         [Export] public bool CanCancelAttack = false;
         [Export] public bool CanHurtMove = false;
-        public int CanDashCount = 1;
-        public int DashCount = 0;
+        public int CanDashCount = 3;
+        public int DashCount = 3;
         public int CanJumpCount = 2;
         private int _jumpcount = 0;
         public Skill currSkill;
@@ -64,6 +65,7 @@ namespace da.Objects
         public Array<Item> Bag = new();
         private BagCompare _bagCompare = new();
         public float poisonCount = 0f;
+
         public int JumpCount
         {
             get => _jumpcount;
@@ -73,19 +75,23 @@ namespace da.Objects
                 //GD.Print($"JumpCount : {_jumpcount}");
             }
         }
+
         public float DashSpeed = 500f;
         private int _direction = 1;
         public bool HasWallJumped = false;
         [Export] public Status status;
+
         public int Direction
         {
-            get => _direction; set
+            get => _direction;
+            set
             {
                 _direction = value;
                 Graphics.Scale = new(value < 0 ? -1 : 1, 1);
                 //AttackCollision.Scale = new Vector2(value > 0 ? 1 : -1, 1);
             }
         }
+
         public bool IsQuickDowned = false;
         public bool HasReleasedJumpKey = true;
         public bool HasReleasedCrouchKey = true;
@@ -114,14 +120,11 @@ namespace da.Objects
 
             base._PhysicsProcess(delta);
 
-            foreach (var skill in SkillList.Values)
+            foreach (var skill in SkillList.Values.Where(skill => skill.CurrentCooldown > 0))
             {
-                if (skill.CurrentCooldown > 0)
-                {
-                    skill.CurrentCooldown -= (float)delta;
-                    skill.CurrentCooldown = Mathf.Max(skill.CurrentCooldown, 0);
-                }
-            };
+                skill.CurrentCooldown -= (float)delta;
+                skill.CurrentCooldown = Mathf.Max(skill.CurrentCooldown, 0);
+            }
 
             StateMachine.PhysicsProcess(delta);
 
@@ -170,10 +173,16 @@ namespace da.Objects
             StateMachine.ChangeState(PlayerState.Idle);
             GhostTimer.Timeout += AddGhost;
             DashTimer.Timeout += EndDash;
-            //DashCoolDownTimer.Timeout += () =>
-            //{
-            //    GD.Print("Dash is already cooldown");
-            //};
+            DashCoolDownTimer.WaitTime = status.DashCoolDown;
+            DashCoolDownTimer.Timeout += () =>
+            {
+                // GD.Print("Dash is already cooldown");
+                DashCount++;
+                if (DashCount < CanDashCount)
+                {
+                    DashCoolDownTimer.Start();
+                }
+            };
             CoyoteTimer.Timeout += () =>
             {
                 if (!IsOnFloor()) StateMachine.ChangeState(PlayerState.Fall);
@@ -181,55 +190,50 @@ namespace da.Objects
             HurtBox.onHurt += (Damage damage) =>
             {
                 status.Health -= damage.value;
-                Direction = (damage.source.Owner as Node2D).Position.X >= Position.X ? 1 : -1;
-                if (status.Health > 0)
-                {
-                    StateMachine.ChangeState(PlayerState.Hurt);
-                }
-                else
-                {
-                    StateMachine.ChangeState(PlayerState.Death);
-                }
+                Direction = (damage.source.Owner as Node2D)?.Position.X >= Position.X ? 1 : -1;
+                StateMachine.ChangeState(status.Health > 0 ? PlayerState.Hurt : PlayerState.Death);
             };
             WhosYourDaddy.Timeout += InvincibleTimeout;
             EventMgr.RegisterEvent(this);
             EventMgr.DispatchEvent("PlayerReady", this);
-            Dialogic.TimelineStarted += () =>
-            {
-                SkipInput = true;
-            };
-            Dialogic.TimelineEnded += () =>
-            {
-                SkipInput = false;
-            };
+            Dialogic.TimelineStarted += () => { SkipInput = true; };
+            Dialogic.TimelineEnded += () => { SkipInput = false; };
             GrappleRay.Enabled = Utils.CheckGlobalData("IsRopeUnlock");
         }
 
-        public bool CheckCanDash => (DashCount > 0 || StateMachine.currState.State == PlayerState.WallSliding || (StateMachine.currState.State == PlayerState.Dash && StateMachine.oldStateEnum == PlayerState.WallSliding)) && DashTimer.IsStopped() && DashCoolDownTimer.IsStopped();
+        public bool CheckCanDash =>
+            DashCount > 0 || StateMachine.currState.State == PlayerState.Dash && DashTimer.IsStopped();
+
         public bool TryDash()
         {
             if (!CheckCanDash)
             {
+                GD.Print($"无法冲刺");
                 return false;
             }
+
             if (StateMachine.currState.State == PlayerState.Attack1)
             {
                 StateMachine.ChangeState(PlayerState.Idle);
             }
-            if (StateMachine.oldStateEnum != PlayerState.WallSliding) DashCount--;
-            Dash();
+
+            // if (StateMachine.oldStateEnum != PlayerState.WallSliding) DashCount--;
+            StateMachine.ChangeState(PlayerState.Dash);
             return true;
         }
 
         public void Dash()
         {
+            DashCount--;
             DashTimer.Start();
             GhostTimer.Start();
             DashParticles.Emitting = true;
             chain.Release();
+            if (DashCoolDownTimer.IsStopped()) DashCoolDownTimer.Start();
         }
 
         public bool CheckCanJump => JumpCount > 0 && JumpTimer.IsStopped();
+
         public void TryJump()
         {
             if (!CheckCanJump)
@@ -237,6 +241,7 @@ namespace da.Objects
                 //GD.Print("Can't jump");
                 return;
             }
+
             StateMachine.ChangeState(PlayerState.Jump);
         }
 
@@ -245,19 +250,16 @@ namespace da.Objects
             GhostTimer.Stop();
             DashTimer.Stop();
             //GD.Print("DashTimer stop");
-            if (DashCount > 0) DashCoolDownTimer.WaitTime = 0.2f;
-            else DashCoolDownTimer.WaitTime = 1f;
-            DashCoolDownTimer.Start();
             DashParticles.Emitting = false;
             if (StateMachine.currState is DashState ds)
             {
                 Velocity = new(Velocity.X, ds.oldVelocityY);
             }
+
             Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
             if (IsOnFloor())
             {
-                if (direction.Y > 0.5) StateMachine.ChangeState(PlayerState.Crouch);
-                else StateMachine.ChangeState(PlayerState.Idle);
+                StateMachine.ChangeState(direction.Y > 0.5 ? PlayerState.Crouch : PlayerState.Idle);
             }
             else if (IsOnWall())
             {
@@ -278,10 +280,12 @@ namespace da.Objects
                 JumpRequestTimer.Start();
                 if (IsOnFloor()) HasReleasedJumpKey = false;
             }
+
             if (@event.IsActionPressed("attack"))
             {
                 AttackRequestTimer.Start();
             }
+
             if (@event.IsActionReleased("jump"))
             {
                 HasReleasedJumpKey = true;
@@ -290,22 +294,27 @@ namespace da.Objects
                     Velocity = new(Velocity.X, JumpVelocity / 2);
                 }
             }
+
             if (@event.IsActionReleased("ui_down"))
             {
                 HasReleasedCrouchKey = true;
             }
+
             if (CheckCanDash && Input.IsActionJustPressed("dash"))
             {
-                StateMachine.ChangeState(PlayerState.Dash);
+                TryDash();
             }
+
             if (Input.IsActionJustPressed("interact"))
             {
                 if (NowInteraction.Count > 0) NowInteraction[0]?.Interact();
             }
+
             if (Input.IsActionJustPressed("pause"))
             {
                 PauseScene.ShowPause();
             }
+
             if (@event.IsActionPressed("skill1"))
             {
                 GameGlobal.Instance.skillBtn1.OnPressed();
@@ -322,11 +331,13 @@ namespace da.Objects
             {
                 GameGlobal.Instance.skillBtn4.OnPressed();
             }
+
             Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
             if (direction != Vector2.Zero)
             {
                 AutoMoveTarget = null;
             }
+
             StateMachine.UnhandledInput(@event);
             if (OS.IsDebugBuild())
             {
@@ -337,17 +348,44 @@ namespace da.Objects
                 else if (Input.IsKeyPressed(Key.O) && Input.IsKeyPressed(Key.Alt))
                 {
                     Utils.SaveToGlobalData("IsRopeUnlock", true);
-                    foreach (StaticRopePoint node in GameGlobal.Instance.GetTree().GetNodesInGroup("static_rope_point").Cast<StaticRopePoint>())
+                    foreach (StaticRopePoint node in GameGlobal.Instance.GetTree().GetNodesInGroup("static_rope_point")
+                                 .Cast<StaticRopePoint>())
                     {
                         node.Visible = true;
                         node.SetDeferred("monitoring", true);
                         node.SetDeferred("monitorable", true);
                     }
+
                     GrappleRay.Enabled = true;
                 }
                 else if (Input.IsKeyPressed(Key.S) && Input.IsKeyPressed(Key.Alt))
                 {
                     GameGlobal.Instance.SaveGame();
+                }
+                else if (Input.IsKeyPressed(Key.D) && Input.IsKeyPressed(Key.Alt))
+                {
+                    DebugScene debugScene = GameGlobal.Instance.UIControl.FindChild("debugScene") as DebugScene;
+                    if (debugScene == null)
+                    {
+                        var res = ResourceLoader.Load<PackedScene>("res://Scenes/DebugScene.tscn");
+                        if (res != null)
+                        {
+                            debugScene = res.Instantiate<DebugScene>();
+                            debugScene.Name = "debugScene";
+                            GameGlobal.Instance.UIControl.AddChild(debugScene);
+                        }
+                    }
+
+                    if (debugScene == null || debugScene.Visible)
+                    {
+                        return;
+                    }
+
+                    debugScene.Visible = true;
+                }
+                else if (Input.IsKeyPressed(Key.B) && Input.IsKeyPressed(Key.Alt))
+                {
+                    GetTree().Paused = true;
                 }
             }
         }
@@ -371,6 +409,7 @@ namespace da.Objects
             {
                 (Sprite.Material as ShaderMaterial).SetShaderParameter("enable", true);
             }
+
             CollisionLayer = 0;
             SetCollisionLayerValue(2, true);
             HitBox.SetDeferred("monitoring", true);
@@ -387,6 +426,7 @@ namespace da.Objects
                     bagdict.Add(item.id, item.StackCount);
                 }
             }
+
             var result = new Godot.Collections.Dictionary<string, Variant>()
             {
                 { "direction", Direction },
@@ -399,6 +439,7 @@ namespace da.Objects
                 result.Add("positionX", GlobalPosition.X);
                 result.Add("positionY", GlobalPosition.Y);
             }
+
             return result;
         }
 
@@ -409,22 +450,26 @@ namespace da.Objects
             {
                 status.FromDict(dict["status"].AsGodotDictionary<string, Variant>());
             }
+
             if (dict.ContainsKey("positionX") && dict.ContainsKey("positionY") && !ignorePosition)
             {
                 GlobalPosition = new Vector2((float)dict["positionX"], (float)dict["positionY"]);
             }
+
             if (dict.ContainsKey("learned_skill"))
             {
                 LearnedSkill = dict["learned_skill"].AsGodotArray<string>();
                 SkillList = new();
                 foreach (var skill in LearnedSkill)
                 {
-                    if (SkillManager.Instance.SkillDict.ContainsKey(skill) && SkillManager.Instance.SkillDict[skill] != null && !SkillList.ContainsKey(skill))
+                    if (SkillManager.Instance.SkillDict.ContainsKey(skill) &&
+                        SkillManager.Instance.SkillDict[skill] != null && !SkillList.ContainsKey(skill))
                     {
                         SkillList.Add(skill, SkillManager.Instance.SkillDict[skill]);
                     }
                 }
             }
+
             if (dict.ContainsKey("bag"))
             {
                 Bag = new();
@@ -434,6 +479,7 @@ namespace da.Objects
                     //Bag.Add(new Item(data.Key) { StackCount = data.Value });
                     AddItem(data.Key, data.Value);
                 }
+
                 if (Bag.Count < 30)
                 {
                     Bag.Resize(30);
@@ -454,6 +500,7 @@ namespace da.Objects
                     AttackStunPower = 0.01f;
                     break;
             }
+
             Damage result = new()
             {
                 value = 1,
@@ -510,6 +557,7 @@ namespace da.Objects
                 {
                     break;
                 }
+
                 if (item.id == id)
                 {
                     if (count < 0 && item.StackCount < count) return false;
@@ -520,12 +568,14 @@ namespace da.Objects
                         {
                             Bag.RemoveAt(i);
                         }
+
                         _ = Bag.OrderBy(i => i, _bagCompare);
                         EventMgr.DispatchEvent("BagUpdate");
                         return true;
                     }
                 }
             }
+
             if (count > 0 && Datas.Items.ContainsKey(id))
             {
                 Item item = new(id)
@@ -539,12 +589,14 @@ namespace da.Objects
                         Bag.Add(null);
                     }
                 }
+
                 if (Bag[i] == null) Bag[i] = item;
                 else Bag.Add(item);
                 _ = Bag.OrderBy(i => i, _bagCompare);
                 EventMgr.DispatchEvent("BagUpdate");
                 return true;
             }
+
             return false;
         }
 
@@ -555,6 +607,7 @@ namespace da.Objects
             {
                 if (i != null && i.id == itemId) return i.StackCount >= count;
             }
+
             return false;
         }
 
@@ -565,20 +618,53 @@ namespace da.Objects
             {
                 if (GrappleRay.IsColliding() && GrappleRay.GetCollider() is StaticRopePoint staticRopePoint)
                 {
-                    chain.HookSomething(staticRopePoint);
+                    if (staticRopePoint.OverlapsBody(Collision))
+                    {
+                        GrappleRay.AddException(staticRopePoint);
+                        GrappleRay.ForceRaycastUpdate();
+                        if (GrappleRay.GetCollider() is StaticRopePoint secondPoint)
+                        {
+                            chain.HookSomething(secondPoint);
+                        }
+                        else
+                        {
+                            chain.HookSomething(staticRopePoint);
+                        }
+
+                        GrappleRay.RemoveException(staticRopePoint);
+                    }
+                    else
+                    {
+                        chain.HookSomething(staticRopePoint);
+                    }
                 }
             }
+
             if (chain.isHooked && Input.IsActionJustReleased("rope_key"))
             {
                 Velocity = new(Velocity.X * 0.8f, Velocity.Y * 0.5f);
             }
-            if (!Input.IsActionPressed("rope_key"))
+
+            if (!Input.IsActionPressed("rope_key") || Input.IsActionJustPressed("jump"))
             {
                 chain.Release();
             }
+
             if (chain.isHooked)
             {
-                tempGrappleVelocity = ToLocal(chain.Arrow).Normalized() * GrappleForce;
+                // GD.Print($"{Velocity.Y}\t{gravity}\t{Math.Abs(Velocity.Y - gravity)}");
+                if (chain.ToLocal(chain.Arrow).Length() < 50)
+                {
+                    // Velocity = Math.Abs(Velocity.Y - gravity) < 980 ? Vector2.Zero : new(0, Velocity.Y);
+
+                    // Velocity = new(Velocity.X, Velocity.Y * .3f);
+                    Velocity *= 0.3f;
+                    return;
+                }
+
+                tempGrappleVelocity = chain.ToLocal(chain.Arrow).Normalized() * GrappleForce;
+                // tempGrappleVelocity = ToLocal(chain.Arrow) * GrappleForce;
+                // tempGrappleVelocity = chain.Arrow.Normalized() * GrappleForce;
                 //if (tempGrappleVelocity.Y > 0)
                 //{
                 //    tempGrappleVelocity *= 0.3f;
@@ -587,15 +673,16 @@ namespace da.Objects
                 //{
                 //    tempGrappleVelocity *= 1.6f;
                 //}
-                if (GlobalPosition.Y < chain.Arrow.Y)
-                {
-                    Velocity = new(Velocity.X * 0.8f, Velocity.Y * 0.5f);
-                }
+                // if (GlobalPosition.Y < chain.Arrow.Y)
+                // {
+                //     Velocity = new(Velocity.X * 0.8f, Velocity.Y * 0.5f);
+                // }
             }
             else
             {
                 tempGrappleVelocity = Vector2.Zero;
             }
+
             Velocity += tempGrappleVelocity;
         }
 
@@ -617,6 +704,7 @@ namespace da.Objects
                                 break;
                             }
                         }
+
                         if (node != null)
                         {
                             if (TestMove(Transform, node.GlobalPosition))
@@ -625,6 +713,7 @@ namespace da.Objects
                             }
                         }
                     }
+
                     break;
             }
         }

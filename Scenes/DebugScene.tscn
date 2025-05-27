@@ -8,15 +8,24 @@
 atlas = ExtResource("2_8i36x")
 region = Rect2(20, 149, 7, 7)
 
-[node name="DebugScene" type="Control"]
+[node name="DebugScene" type="Control" node_paths=PackedStringArray("ExitBtn", "AddItemBtn", "ItemIdInput", "ItemCountInput", "PauseBtn", "ResumeBtn", "TimeScaleLab", "TimeScaleSlider")]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.9
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_fx1du")
 script = ExtResource("2_3qkpb")
+ExitBtn = NodePath("ExitBtn")
+AddItemBtn = NodePath("Actions/ScrollContainer/VBoxContainer/HBoxContainer2/AddItemBtn")
+ItemIdInput = NodePath("Actions/ScrollContainer/VBoxContainer/HBoxContainer2/ItemEdit")
+ItemCountInput = NodePath("Actions/ScrollContainer/VBoxContainer/HBoxContainer2/ItemEdit2")
+PauseBtn = NodePath("Actions/ScrollContainer/VBoxContainer/HBoxContainer/PauseBtn")
+ResumeBtn = NodePath("Actions/ScrollContainer/VBoxContainer/HBoxContainer/ResumeBtn")
+TimeScaleLab = NodePath("Actions/ScrollContainer/VBoxContainer/HBoxContainer/Label")
+TimeScaleSlider = NodePath("Actions/ScrollContainer/VBoxContainer/HBoxContainer/HSlider")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -40,32 +49,55 @@ layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Actions/ScrollContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="AddItemBtn" type="Button" parent="Actions/ScrollContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Actions/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AddItemBtn" type="Button" parent="Actions/ScrollContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 text = "添加道具"
 
-[node name="ItemEdit" type="TextEdit" parent="Actions/ScrollContainer/VBoxContainer/AddItemBtn"]
-layout_mode = 0
-offset_left = 64.0
-offset_right = 176.0
-offset_bottom = 24.0
+[node name="ItemEdit" type="TextEdit" parent="Actions/ScrollContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
 placeholder_text = "道具id"
 scroll_fit_content_height = true
 
-[node name="ItemEdit2" type="TextEdit" parent="Actions/ScrollContainer/VBoxContainer/AddItemBtn"]
-layout_mode = 0
-offset_left = 184.0
-offset_right = 296.0
-offset_bottom = 24.0
+[node name="ItemEdit2" type="TextEdit" parent="Actions/ScrollContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
 placeholder_text = "道具数量"
 scroll_fit_content_height = true
 
+[node name="HBoxContainer" type="HBoxContainer" parent="Actions/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PauseBtn" type="Button" parent="Actions/ScrollContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "暂停游戏"
+
+[node name="ResumeBtn" type="Button" parent="Actions/ScrollContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "结束暂停"
+
+[node name="Label" type="Label" parent="Actions/ScrollContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "当前游戏速度：0x"
+
+[node name="HSlider" type="HSlider" parent="Actions/ScrollContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 2.0
+step = 0.05
+value = 1.0
+
 [node name="ExitBtn" type="Button" parent="."]
-layout_mode = 0
-offset_left = 356.0
-offset_top = 4.0
-offset_right = 380.0
-offset_bottom = 28.0
+layout_mode = 1
+offset_left = 292.6
+offset_top = -10.6
+offset_right = 316.6
+offset_bottom = 13.4
 icon = SubResource("AtlasTexture_c5e1c")
 expand_icon = true

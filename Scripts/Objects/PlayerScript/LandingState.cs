@@ -16,7 +16,7 @@ namespace da.Scripts.Objects.PlayerScript
             player = owner;
             owner.CharactorAnimPlayer.Play("landing");
             owner.CharactorAnimPlayer.AnimationFinished += ChangeToIdle;
-            owner.ResetDashCount();
+            // owner.ResetDashCount();
             owner.ResetJumpCount();
             owner.IsQuickDowned = false;
             owner.HasWallJumped = false;

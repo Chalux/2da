@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://37b57r4s1d6l"]
+[gd_scene load_steps=15 format=3 uid="uid://37b57r4s1d6l"]
 
 [ext_resource type="Script" uid="uid://8ydptec6dt7q" path="res://Scripts/Objects/GameGlobal.cs" id="1_7170a"]
 [ext_resource type="Script" uid="uid://cvptxwgotfuv3" path="res://Scenes/UIControl.cs" id="2_tkeyv"]
@@ -8,6 +8,7 @@
 [ext_resource type="Theme" uid="uid://cxlvaqyy7s7ke" path="res://Resources/Theme/MainTheme.tres" id="6_57i5d"]
 [ext_resource type="PackedScene" uid="uid://bn063ja8xutue" path="res://Objects/SkillBtn.tscn" id="6_83mka"]
 [ext_resource type="PackedScene" uid="uid://b30i2d7i853k5" path="res://Objects/VirtualJoypad.tscn" id="6_eyhwx"]
+[ext_resource type="PackedScene" uid="uid://cjtbyjlnovq54" path="res://Objects/DashCountObj.tscn" id="7_c8txf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_404n3"]
 atlas = ExtResource("3_7yswp")
@@ -28,7 +29,7 @@ atlas = SubResource("AtlasTexture_ysh0d")
 atlas = ExtResource("5_g867i")
 region = Rect2(3, 21, 42, 7)
 
-[node name="GameGlobal" type="Node" node_paths=PackedStringArray("UIControl", "LeftUpperBox", "healthBar", "BlackMask", "SkillSlotContainer", "richHintTimer", "richHint", "richHintBg", "skillBtn1", "skillBtn2", "skillBtn3", "skillBtn4", "HealthLab", "MiniMap")]
+[node name="GameGlobal" type="Node" node_paths=PackedStringArray("UIControl", "LeftUpperBox", "healthBar", "BlackMask", "SkillSlotContainer", "richHintTimer", "richHint", "richHintBg", "skillBtn1", "skillBtn2", "skillBtn3", "skillBtn4", "HealthLab")]
 process_mode = 2
 script = ExtResource("1_7170a")
 UIControl = NodePath("UIControl")
@@ -44,7 +45,6 @@ skillBtn2 = NodePath("UIControl/DownBox/SkillSlotContainer/Slot2")
 skillBtn3 = NodePath("UIControl/DownBox/SkillSlotContainer/Slot3")
 skillBtn4 = NodePath("UIControl/DownBox/SkillSlotContainer/Slot4")
 HealthLab = NodePath("UIControl/LeftUpperBox/HealthLab")
-MiniMap = NodePath("")
 
 [node name="UIControl" type="CanvasLayer" parent="." node_paths=PackedStringArray("HeadControl", "HealthBar", "MsgContainer")]
 layer = 99
@@ -117,6 +117,12 @@ offset_right = 120.0
 offset_bottom = 24.0
 theme = ExtResource("6_57i5d")
 text = "0/0"
+
+[node name="DashCountObj" parent="UIControl/LeftUpperBox" instance=ExtResource("7_c8txf")]
+layout_mode = 1
+offset_left = 115.0
+offset_right = 53.0
+offset_bottom = -57.0
 
 [node name="DownBox" type="Control" parent="UIControl"]
 light_mask = 0

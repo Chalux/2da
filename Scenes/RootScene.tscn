@@ -17,3 +17,5 @@ mouse_filter = 2
 
 [node name="TitleScene" parent="RootControl" instance=ExtResource("2_np0r6")]
 layout_mode = 1
+
+[node name="UILayer" type="CanvasLayer" parent="."]

@@ -13,7 +13,7 @@ namespace da.Scripts.Objects.PlayerScript
         public override void Enter(Player owner)
         {
             owner.CharactorAnimPlayer.Play("running");
-            owner.ResetDashCount();
+            // owner.ResetDashCount();
             owner.ResetJumpCount();
             owner.IsQuickDowned = false;
             owner.HasWallJumped = false;
